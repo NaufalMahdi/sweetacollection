@@ -1,15 +1,16 @@
-import { getDocs, collection } from "firebase/firestore";
-import { db } from "../../../firebase/auth";
+import { db } from "../../../prisma";
+import md5 from "md5";
 const handler = async (req, res) => {
+  const { method } = req.body;
   try {
-    const query = await getDocs(collection(db, "users"));
-    let data = [];
-    query.docs.map((val) => {
-      data.push(val.data());
+    const data = await db.accounts.findFirst({
+      where: {
+        id: "6253d8054701b33115becda3",
+      },
     });
-    res.status(200).json({ users: data });
+    res.status(200).json({ accounts: data });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ error: err });
   }
 };
 

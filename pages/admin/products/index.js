@@ -3,10 +3,11 @@ import { initializeApp } from "firebase/app";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
-
-export default function Test() {
-  const [name, setName] = useState();
+import Admin from "layouts/Admin";
+export default function index() {
+  const [name, setName] = useState([]);
   const [loading, setLoading] = useState(true);
+  let view;
   const fetchData = async () => {
     try {
       await axios.get("/api/admin/getUsers").then((res) => {
@@ -25,11 +26,12 @@ export default function Test() {
     } finally {
       setLoading(false);
     }
-  }, [fetchData]);
+  }, []);
+
   if (loading) {
-    return <>Please Wait</>;
+    view = <>Please Wait</>;
   } else {
-    return (
+    view = (
       <>
         {name.map((val, key) => {
           return (
@@ -42,4 +44,8 @@ export default function Test() {
       </>
     );
   }
+
+  return view;
 }
+
+index.layout = Admin;
