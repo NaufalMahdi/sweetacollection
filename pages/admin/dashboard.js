@@ -14,7 +14,10 @@ import Admin from "layouts/Admin.js";
 export default function Dashboard() {
   return (
     <>
-      <div className="flex flex-wrap">
+      <div className="bg-blueGray-800 text-white h-screen">
+        <div className="px-4 md:px-10 mx-auto w-full">a</div>
+      </div>
+      {/* <div className="flex flex-wrap">
         <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
           <CardLineChart />
         </div>
@@ -29,7 +32,7 @@ export default function Dashboard() {
         <div className="w-full xl:w-4/12 px-4">
           <CardSocialTraffic />
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
