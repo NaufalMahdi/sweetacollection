@@ -8,6 +8,7 @@ import { SessionProvider } from "next-auth/react";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "styles/tailwind.css";
+import "styles/globals.css";
 
 // Router.events.on("routeChangeStart", (url) => {
 //   console.log(`Loading: ${url}`);

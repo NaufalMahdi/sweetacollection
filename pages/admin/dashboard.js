@@ -14,7 +14,7 @@ import Admin from "layouts/Admin.js";
 export default function Dashboard() {
   return (
     <>
-      <div className="bg-blueGray-800 text-white h-screen">
+      <div className="text-white h-screen">
         <div className="px-4 md:px-10 mx-auto w-full">a</div>
       </div>
       {/* <div className="flex flex-wrap">

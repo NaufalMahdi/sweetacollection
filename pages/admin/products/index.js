@@ -5,34 +5,34 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import Admin from "layouts/Admin";
-import HeaderStats from "components/Headers/HeaderStats";
+import CardProduct from "components/Cards/CardProduct";
 
-export default function index() {
+const products = ({ data }) => {
   const [name, setName] = useState([]);
   const [loading, setLoading] = useState(false);
   let view;
-
+  let title = "aaaa";
   if (loading) {
     view = <>Please Wait</>;
   } else {
     view = (
       <>
-        {/* {name.map((val, key) => {
-          return (
-            <div>
-              <h1 key={key + "1"}>{val.first_name}</h1>
-              <h1 key={key + "2"}>{val.last_name}</h1>
+        <div className="relative bg-transparent pt-20">
+          <div className="px-6 mt-10 h-screen">
+            <div className="flex">
+              <CardProduct item={title} />
+              <CardProduct item={title} />
+              <CardProduct item={title} />
             </div>
-          );
-        })} */}
-        <HeaderStats />
-
-        <p className="text-white">Test 123</p>
+          </div>
+        </div>
       </>
     );
   }
 
   return view;
-}
+};
 
-index.layout = Admin;
+products.layout = Admin;
+
+export default products;

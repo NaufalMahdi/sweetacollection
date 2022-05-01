@@ -125,7 +125,7 @@ export default function Sidebar() {
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
-                <Link href="/admin/dashboard">
+                <Link href="/admin/products">
                   <a
                     href="#pablo"
                     className={
@@ -160,12 +160,12 @@ export default function Sidebar() {
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
-                <Link href="/admin/dashboard">
+                <Link href="/admin/rentals">
                   <a
                     href="#pablo"
                     className={
                       "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/products") !== -1
+                      (router.pathname.indexOf("/admin/rentals") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")
                     }
@@ -173,7 +173,7 @@ export default function Sidebar() {
                     <i
                       className={
                         "fa-solid fa-coins mr-2 text-sm " +
-                        (router.pathname.indexOf("/admin/products") !== -1
+                        (router.pathname.indexOf("/admin/rentals") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }
@@ -189,18 +189,18 @@ export default function Sidebar() {
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Penyewaan
+              Riwayat
             </h6>
             {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
-                <Link href="/admin/dashboard">
+                <Link href="/admin/histories">
                   <a
                     href="#pablo"
                     className={
                       "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/products") !== -1
+                      (router.pathname.indexOf("/admin/histories") !== -1
                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                         : "text-blueGray-700 hover:text-blueGray-500")
                     }
@@ -208,7 +208,7 @@ export default function Sidebar() {
                     <i
                       className={
                         "fas fa-clock-rotate-left mr-2 text-sm " +
-                        (router.pathname.indexOf("/admin/products") !== -1
+                        (router.pathname.indexOf("/admin/histories") !== -1
                           ? "opacity-75"
                           : "text-blueGray-300")
                       }

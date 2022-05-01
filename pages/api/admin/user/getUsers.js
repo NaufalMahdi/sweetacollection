@@ -1,4 +1,4 @@
-import { db } from "../../../prisma";
+import { db } from "../../../../prisma";
 import md5 from "md5";
 const handler = async (req, res) => {
   const { method } = req.body;
@@ -11,7 +11,7 @@ const handler = async (req, res) => {
     });
     res.status(200).json({ accounts: data });
   } catch (err) {
-    res.status(500).json({ error: err });
+    res.status(500).json({ msg: err });
   }
 };
 
