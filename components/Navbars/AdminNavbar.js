@@ -24,7 +24,15 @@ export default function Navbar() {
             href="#pablo"
             onClick={(e) => e.preventDefault()}
           >
-            {router.pathname.split("/")[router.pathname.split("/").length - 1]}
+            {router.pathname.split("/")[
+              router.pathname.split("/").length - 1
+            ][0] == "["
+              ? router.pathname.split("/")[
+                  router.pathname.split("/").length - 2
+                ]
+              : router.pathname.split("/")[
+                  router.pathname.split("/").length - 1
+                ]}
           </a>
           {/* Form */}
           <form className="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">

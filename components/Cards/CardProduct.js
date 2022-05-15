@@ -1,5 +1,5 @@
 import React from "react";
-
+import Link from "next/link";
 const CardProduct = ({ data }) => {
   return (
     <>
@@ -16,12 +16,12 @@ const CardProduct = ({ data }) => {
           <div className="p-8 h-full overflow-hidden col-span-2">
             <div className="flex flex-col h-full">
               <div className="basis-1/2">
-                <a
-                  href="#"
+                <Link
+                  href={`/admin/products/detail/${data.id}`}
                   className="mt-1 text-lg leading-tight font-medium text-black hover:underline"
                 >
                   {data.product_name}
-                </a>
+                </Link>
                 <p className="mt-2 w-full h-full text-slate-500 truncate">
                   {data.description}
                 </p>
@@ -29,7 +29,7 @@ const CardProduct = ({ data }) => {
               <div className="relative basis-1/2">
                 <div className="absolute bottom-0 right-0">
                   <button className="text-red-500 active:text-red-600  outline-none focus:outline-none ease-linear transition-all duration-150">
-                    <i class="fa-solid fa-trash-can"></i>
+                    <i className="fa-solid fa-trash-can"></i>
                   </button>
                 </div>
               </div>
