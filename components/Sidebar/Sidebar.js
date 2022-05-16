@@ -127,7 +127,6 @@ export default function Sidebar() {
               <li className="items-center">
                 <Link href="/admin/categories">
                   <a
-                    href="#pablo"
                     className={
                       "text-xs uppercase py-3 font-bold block " +
                       (router.pathname.indexOf("/admin/categories") !== -1
@@ -150,7 +149,6 @@ export default function Sidebar() {
               <li className="items-center">
                 <Link href="/admin/products">
                   <a
-                    href="#pablo"
                     className={
                       "text-xs uppercase py-3 font-bold block " +
                       (router.pathname.indexOf("/admin/products") !== -1

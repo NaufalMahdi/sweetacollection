@@ -1,23 +1,44 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import Link from "next/link";
 // components
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 import ModalEditCategory from "components/Modals/ModalEditCategory";
 import ModalDeleteCategory from "components/Modals//ModalDeleteCategory";
+import ModalCreateCategory from "components/Modals/ModalCreateCategory";
 export default function CardCategories({ color }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const setParentEditModal = (state) => {
     setShowEditModal(state);
   };
   const setParentDeleteModal = (state) => {
     setShowDeleteModal(state);
   };
-
+  const setParentCreateModal = (state) => {
+    setShowCreateModal(state);
+  };
   return (
     <>
+      <div className="w-full flex flex-row-reverse mb-3">
+        <button
+          className="bg-blueGray-500 text-white active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+          type="button"
+          onClick={() => {
+            setShowCreateModal(true);
+          }}
+        >
+          <div className="flex flex-nowrap justify-between">
+            <div className="mx-auto my-auto">
+              <i className="fa-solid fa-circle-plus"></i>
+              <span> Buat</span>
+            </div>
+          </div>
+        </button>
+      </div>
       <div
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
@@ -123,7 +144,7 @@ export default function CardCategories({ color }) {
                         setParentDeleteModal(true);
                       }}
                     >
-                      <i class="fa-solid fa-trash-can text-red-600"></i>
+                      <i className="fa-solid fa-trash-can text-red-600"></i>
                     </button>
                   </div>
                 </td>
@@ -137,6 +158,9 @@ export default function CardCategories({ color }) {
       ) : null}
       {showDeleteModal ? (
         <ModalDeleteCategory setParentDeleteModal={setParentDeleteModal} />
+      ) : null}
+      {showCreateModal ? (
+        <ModalCreateCategory setParentCreateModal={setParentCreateModal} />
       ) : null}
     </>
   );

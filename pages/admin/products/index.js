@@ -6,8 +6,13 @@ import { useEffect } from "react";
 import axios from "axios";
 import Admin from "layouts/Admin";
 import CardProduct from "components/Cards/CardProduct";
+import ModalCreateProduct from "components/Modals/ModalCreateProduct";
 import Link from "next/link";
 const products = ({ data }) => {
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const setParentCreateModal = (state) => {
+    setShowCreateModal(false);
+  };
   let view;
   try {
     if (data) {
@@ -20,14 +25,15 @@ const products = ({ data }) => {
                   <button
                     className="bg-blueGray-500 text-white active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
                     type="button"
+                    onClick={() => {
+                      setShowCreateModal(true);
+                    }}
                   >
                     <div className="flex flex-nowrap justify-between">
-                      <Link href={"/admin/products/add"}>
-                        <div className="mx-auto my-auto">
-                          <i className="fa-solid fa-circle-plus"></i>
-                          <span> Buat</span>
-                        </div>
-                      </Link>
+                      <div className="mx-auto my-auto">
+                        <i className="fa-solid fa-circle-plus"></i>
+                        <span> Buat</span>
+                      </div>
                     </div>
                   </button>
                 </div>
@@ -44,6 +50,9 @@ const products = ({ data }) => {
               </div>
             </div>
           </div>
+          {showCreateModal ? (
+            <ModalCreateProduct setParentCreateModal={setParentCreateModal} />
+          ) : null}
         </>
       );
     } else {
