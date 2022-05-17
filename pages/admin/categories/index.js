@@ -8,17 +8,18 @@ import Admin from "layouts/Admin";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import CardCategories from "components/Cards/CardCategories";
-const products = ({ data }) => {
+const products = ({ categories }) => {
   let view;
   let router = new useRouter();
   try {
-    if (data) {
+    console.log(categories);
+    if (categories) {
       view = (
         <>
           <div className="relative bg-transparent pt-20 mx-5">
             <div className="mt-10 h-screen">
               <div className="w-full mb-12 px-4">
-                <CardCategories />
+                <CardCategories data={categories} />
               </div>
             </div>
           </div>
@@ -30,41 +31,37 @@ const products = ({ data }) => {
   } catch (err) {
     view = <>Gagal memuat data</>;
   }
-  // useEffect(() => {
-  //   try {
-  //     if (loading) {
-  //       view = <>Please Wait</>;
-  //     } else {
-  //       view = (
-  //         <>
-  //           <div className="relative bg-transparent pt-20">
-  //             <div className="px-6 mt-10 h-screen">
-  //               <div className="flex">{data}</div>
-  //             </div>
-  //           </div>
-  //         </>
-  //       );
-  //     }
-  //   } catch (err) {
-  //     view = <>ERROR {err}</>;
-  //   } finally {
-  //     loading = false;
-  //   }
-  // });
 
   return view;
 };
 
 const getStaticProps = async () => {
   let data;
+  // Get all categories
+  let a;
   await axios
-    .get("http://localhost:3000/api/admin/product/getAllProducts", {})
+    .get("http://localhost:3000/api/admin/product/getAllCategories", {})
     .then((res) => {
-      data = res.data.data;
+      data = res.data.categories;
     });
+
+  // Get products count each categories
+  for (let i = 0; i < data.length; i++) {
+    await axios
+      .get(
+        "http://localhost:3000/api/admin/product/getProductCountByCategory",
+        {
+          category_id: data[0].id,
+        }
+      )
+      .then((res) => {
+        data[i].count = res.data.data;
+        // data[i].aaa = res.data.a;
+      });
+  }
   return {
     props: {
-      data: data,
+      categories: data,
     },
   };
 };

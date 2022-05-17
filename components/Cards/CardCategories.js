@@ -8,7 +8,7 @@ import TableDropdown from "components/Dropdowns/TableDropdown.js";
 import ModalEditCategory from "components/Modals/ModalEditCategory";
 import ModalDeleteCategory from "components/Modals//ModalDeleteCategory";
 import ModalCreateCategory from "components/Modals/ModalCreateCategory";
-export default function CardCategories({ color }) {
+export default function CardCategories({ color, data }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -106,49 +106,46 @@ export default function CardCategories({ color }) {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                  <span
-                    className={
-                      "font-bold " +
-                      +(color === "light" ? "text-blueGray-600" : "text-white")
-                    }
-                  >
-                    Argon Design System
-                  </span>
-                </th>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  0
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
-                  <div className="flex flex-row flex-nowrap  gap-4">
-                    <button
-                      onClick={() => {
-                        setShowEditModal(true);
-                      }}
+              {data.map((val) => (
+                <tr key={val.id}>
+                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                    <span
+                      className={
+                        "font-bold " +
+                        +(color === "light"
+                          ? "text-blueGray-600"
+                          : "text-white")
+                      }
                     >
-                      <i class="fa-solid fa-pen-to-square text-blueGray-600"></i>
-                    </button>
-                    <button
-                      onClick={() => {
-                        setParentDeleteModal(true);
-                      }}
-                    >
-                      <i className="fa-solid fa-trash-can text-red-600"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
+                      {val.category_name}
+                    </span>
+                  </th>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                    {val.description}
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {val.count}
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
+                    <div className="flex flex-row flex-nowrap  gap-4">
+                      <button
+                        onClick={() => {
+                          setShowEditModal(true);
+                        }}
+                      >
+                        <i className="fa-solid fa-pen-to-square text-blueGray-600"></i>
+                      </button>
+                      <button
+                        onClick={() => {
+                          setParentDeleteModal(true);
+                        }}
+                      >
+                        <i className="fa-solid fa-trash-can text-red-600"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
