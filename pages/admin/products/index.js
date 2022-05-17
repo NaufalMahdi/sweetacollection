@@ -7,11 +7,20 @@ import axios from "axios";
 import Admin from "layouts/Admin";
 import CardProduct from "components/Cards/CardProduct";
 import ModalCreateProduct from "components/Modals/ModalCreateProduct";
-import Link from "next/link";
+import ModalEditProduct from "components/Modals/ModalEditProduct";
 const products = ({ data }) => {
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editModalData, setEditModalData] = useState({});
   const setParentCreateModal = (state) => {
-    setShowCreateModal(false);
+    setShowCreateModal(state);
+  };
+  const setParentEditModal = (state) => {
+    setShowEditModal(state);
+  };
+  const sendDataToParent = (data) => {
+    setEditModalData(data);
+    setParentEditModal(true);
   };
   let view;
   try {
@@ -42,8 +51,11 @@ const products = ({ data }) => {
               <div className="flex flex-wrap justify-start mt-5">
                 {data.length > 0
                   ? data.map((val) => (
-                      <div className="mx-2">
-                        <CardProduct data={val} />
+                      <div className="mx-2" key={val.id}>
+                        <CardProduct
+                          data={val}
+                          sendDataToParent={sendDataToParent}
+                        />
                       </div>
                     ))
                   : "a"}
@@ -53,6 +65,13 @@ const products = ({ data }) => {
           {showCreateModal ? (
             <ModalCreateProduct setParentCreateModal={setParentCreateModal} />
           ) : null}
+          {showEditModal ? (
+            <ModalEditProduct
+              setParentEditModal={setParentEditModal}
+              data={editModalData}
+            />
+          ) : null}
+          a
         </>
       );
     } else {

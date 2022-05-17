@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-const CardProduct = ({ data }) => {
+const CardProduct = ({ data, sendDataToParent }) => {
   return (
     <>
       {/* <div className="h-24 w-24 mx-auto my-auto bg-white"></div> */}
@@ -16,12 +16,12 @@ const CardProduct = ({ data }) => {
           <div className="p-8 h-full overflow-hidden col-span-2">
             <div className="flex flex-col h-full">
               <div className="basis-1/2">
-                <Link
-                  href={`/admin/products/detail/${data.id}`}
+                <button
                   className="mt-1 text-lg leading-tight font-medium text-black hover:underline"
+                  onClick={() => sendDataToParent(data)}
                 >
                   {data.product_name}
-                </Link>
+                </button>
                 <p className="mt-2 w-full h-full text-slate-500 truncate">
                   {data.description}
                 </p>
