@@ -14,11 +14,7 @@ export default function Index() {
           <div className="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
             <div className="pt-32 sm:pt-0">
               <h2 className="font-semibold text-4xl text-blueGray-600">
-<<<<<<< Updated upstream
-                - A beautiful extension for Tailwind CSS.
-=======
-                 Sweeta Collection
->>>>>>> Stashed changes
+                Sweeta Collection
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
               Sweeta Collection adalah usaha yang berkecimpung di bidang tata rias, wisuda, tari, karnaval dan tempat persewaan kostum.{" "}
@@ -422,13 +418,10 @@ export default function Index() {
                   <i className="fas fa-file-alt text-xl"></i>
                 </div>
                 <h3 className="text-3xl font-semibold">
-                  Complex Documentation
+                  Profile Owner
                 </h3>
                 <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
-                  This extension comes a lot of fully coded examples that help
-                  you get started faster. You can adjust the colors and also the
-                  programming language. You can change the text and images and
-                  you're good to go.
+                  
                 </p>
                 <ul className="list-none mt-6">
                   <li className="py-2">
@@ -493,7 +486,7 @@ export default function Index() {
 
         <div className="justify-center text-center flex flex-wrap mt-24">
           <div className="w-full md:w-6/12 px-12 md:px-4">
-            <h2 className="font-semibold text-4xl">Beautiful Example Pages</h2>
+            <h2 className="font-semibold text-4xl">Tentang Kami</h2>
             <p className="text-lg leading-relaxed mt-4 mb-4 text-blueGray-500">
               Notus NextJS is a completly new product built using our past
               experience in web templates. Take the examples we made for you and
