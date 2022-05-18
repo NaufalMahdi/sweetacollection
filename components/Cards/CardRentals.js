@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 import ModalDetailHistories from "components/Modals/ModalDetailHistories";
+import Pagination from "components/Pagination/pagination";
 export default function CardHistories({ color }) {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -272,6 +273,7 @@ export default function CardHistories({ color }) {
               </tr>
             </tbody>
           </table>
+          <Pagination/>
         </div>
       </div>
       {showDetailModal ? (

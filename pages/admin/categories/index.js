@@ -8,6 +8,7 @@ import Admin from "layouts/Admin";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import CardCategories from "components/Cards/CardCategories";
+import Pagination from "components/Pagination/pagination";
 const products = ({ categories }) => {
   let view;
   let router = new useRouter();
@@ -21,6 +22,7 @@ const products = ({ categories }) => {
               <div className="w-full mb-12 px-4">
                 <CardCategories data={categories} />
               </div>
+              <Pagination/>
             </div>
           </div>
         </>

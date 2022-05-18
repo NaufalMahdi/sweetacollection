@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Pagination from "components/Pagination/pagination";
 const CardProduct = ({ data, sendDataToParent }) => {
   return (
     <>
