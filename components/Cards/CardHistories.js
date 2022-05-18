@@ -6,6 +6,7 @@ import { useState } from "react";
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 import ModalDetailHistories from "components/Modals/ModalDetailHistories";
 import ModalDeleteHistories from "components/Modals//ModalDeleteHistories";
+import Pagination from "components/Pagination/pagination";
 export default function CardHistories({ color }) {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -81,16 +82,6 @@ export default function CardHistories({ color }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Catatan
-                </th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
-                  }
-                >
                   Total Harga
                 </th>
                 <th
@@ -135,16 +126,6 @@ export default function CardHistories({ color }) {
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   0869420
                 </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
-                </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   Rp.1.000.000
                 </td>
@@ -162,14 +143,7 @@ export default function CardHistories({ color }) {
                         setShowDetailModal(true);
                       }}
                     >
-                      <i class="fa-solid fa-pen-to-square text-blueGray-600"></i>
-                    </button>
-                    <button
-                      onClick={() => {
-                        setParentDeleteModal(true);
-                      }}
-                    >
-                      <i class="fa-solid fa-trash-can text-red-600"></i>
+                      <i class="fa-solid fa-circle-info fa-md"></i>
                     </button>
                   </div>
                 </td>
@@ -184,16 +158,6 @@ export default function CardHistories({ color }) {
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   0869420
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   Rp.1.000.000
@@ -211,14 +175,7 @@ export default function CardHistories({ color }) {
                         setShowDetailModal(true);
                       }}
                     >
-                      <i class="fa-solid fa-pen-to-square text-blueGray-600"></i>
-                    </button>
-                    <button
-                      onClick={() => {
-                        setParentDeleteModal(true);
-                      }}
-                    >
-                      <i class="fa-solid fa-trash-can text-red-600"></i>
+                      <i class="fa-solid fa-circle-info fa-md"></i>
                     </button>
                   </div>
                 </td>
@@ -233,16 +190,6 @@ export default function CardHistories({ color }) {
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   0869420
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   Rp.1.000.000
@@ -261,20 +208,14 @@ export default function CardHistories({ color }) {
                         setShowDetailModal(true);
                       }}
                     >
-                      <i class="fa-solid fa-pen-to-square text-blueGray-600"></i>
-                    </button>
-                    <button
-                      onClick={() => {
-                        setParentDeleteModal(true);
-                      }}
-                    >
-                      <i class="fa-solid fa-trash-can text-red-600"></i>
+                      <i class="fa-solid fa-circle-info fa-md"></i>
                     </button>
                   </div>
                 </td>
               </tr>
             </tbody>
           </table>
+          <Pagination />
         </div>
       </div>
       {showDetailModal ? (

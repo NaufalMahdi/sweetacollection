@@ -3,8 +3,8 @@ import React from "react";
 const ModalDetailHistories = ({ setParentDetailModal, sendDataToParent }) => {
   return (
     <>
-      <div className="justify-center items-center flex overflow-x-hidden fixed inset-0 z-50 outline-none focus:outline-none">
-        <div className="relative w-full my-6 mx-auto max-w-5xl ">
+      <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none">
+        <div className="relative w-full my-6 mx-auto max-w-5xl max-h-[42rem] overflow-y-scroll">
           {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none ">
             {/*header*/}
@@ -48,7 +48,7 @@ const ModalDetailHistories = ({ setParentDetailModal, sendDataToParent }) => {
               <div className="rounded-t mb-0 px-4 py-3 border-0  ">
                 <div className="flex flex-wrap items-center">
                   <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                    <table className="items-center w-full bg-transparent border-collapse">
+                    <table className="items-center w-full bg-transparent border-separate">
                       <tr>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border">
                           Nama Pemesan
@@ -170,6 +170,87 @@ const ModalDetailHistories = ({ setParentDetailModal, sendDataToParent }) => {
                     </tr>
                   </thead>
                   <tbody>
+                    <tr>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                        1
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        Baju Renang
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                        Pink
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        S
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        2
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        Rp.500.000
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        <img
+                          src="https://i.ibb.co/QMdWfzX/component-image-one.png"
+                          className="h-20 w-20 bg-white rounded-full border object-none object-scale-down"
+                          alt="..."
+                        ></img>{" "}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                        1
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        Baju Renang
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                        Pink
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        S
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        2
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        Rp.500.000
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        <img
+                          src="https://i.ibb.co/QMdWfzX/component-image-one.png"
+                          className="h-20 w-20 bg-white rounded-full border object-none object-scale-down"
+                          alt="..."
+                        ></img>{" "}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                        1
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        Baju Renang
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                        Pink
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        S
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        2
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        Rp.500.000
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        <img
+                          src="https://i.ibb.co/QMdWfzX/component-image-one.png"
+                          className="h-20 w-20 bg-white rounded-full border object-none object-scale-down"
+                          alt="..."
+                        ></img>{" "}
+                      </td>
+                    </tr>
                     <tr>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
                         1
