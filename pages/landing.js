@@ -29,12 +29,11 @@ export default function Landing() {
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-5xl">
-                    Your story starts with us.
+                    Sweeta Collection
                   </h1>
                   <p className="mt-4 text-lg text-blueGray-200">
-                    This is a simple example of a Landing Page you can build
-                    using Notus NextJS. It features multiple CSS components
-                    based on the Tailwind CSS design system.
+                  Sweeta Collection adalah usaha yang berkecimpung 
+                  di bidang tata rias, wisuda, tari, karnaval dan tempat persewaan kostum.
                   </p>
                 </div>
               </div>
@@ -70,7 +69,7 @@ export default function Landing() {
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
                       <i className="fas fa-award"></i>
                     </div>
-                    <h6 className="text-xl font-semibold">Awarded Agency</h6>
+                    <h6 className="text-xl font-semibold">Kualitas </h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
                       Divide details about your product or agency work into
                       parts. A paragraph describing a feature will be enough.
@@ -85,7 +84,7 @@ export default function Landing() {
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-lightBlue-400">
                       <i className="fas fa-retweet"></i>
                     </div>
-                    <h6 className="text-xl font-semibold">Free Revisions</h6>
+                    <h6 className="text-xl font-semibold">Pemesanan Cepat</h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
                       Keep you user engaged by providing meaningful information.
                       Remember that by this time, the user is curious.
@@ -100,7 +99,7 @@ export default function Landing() {
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-emerald-400">
                       <i className="fas fa-fingerprint"></i>
                     </div>
-                    <h6 className="text-xl font-semibold">Verified Company</h6>
+                    <h6 className="text-xl font-semibold">Harga Terjangkau</h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
                       Write a few lines about each one. A paragraph describing a
                       feature will be enough. Keep you user engaged!
@@ -116,7 +115,7 @@ export default function Landing() {
                   <i className="fas fa-user-friends text-xl"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                  Working with us is a pleasure
+                  Tentang Kami
                 </h3>
                 <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
                   Don't let your uses guess by attaching tooltips and popoves to
@@ -205,7 +204,7 @@ export default function Landing() {
                   <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-blueGray-200">
                     <i className="fas fa-rocket text-xl"></i>
                   </div>
-                  <h3 className="text-3xl font-semibold">A growing company</h3>
+                  <h3 className="text-3xl font-semibold">Kenapa Memilih Sweeta Collection?</h3>
                   <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
                     The extension comes with three pre-built pages to help you
                     get started faster. You can change the text and images and

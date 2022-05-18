@@ -37,13 +37,11 @@ export default function Index() {
                 >
                   {/* Pesan Sekarang */}
                 </a>
-                <a
-                  href="https://github.com/creativetimofficial/notus-nextjs?ref=nnjs-index"
-                  className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg"
-                  target="_blank"
+              <Link href="http://localhost:3000/landing">                
+              <a className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg"
                 >
                   Pesan Sekarang
-                </a>
+                </a></Link>
               </div>
             </div>
           </div>
@@ -488,9 +486,8 @@ export default function Index() {
           <div className="w-full md:w-6/12 px-12 md:px-4">
             <h2 className="font-semibold text-4xl">Tentang Kami</h2>
             <p className="text-lg leading-relaxed mt-4 mb-4 text-blueGray-500">
-              Notus NextJS is a completly new product built using our past
-              experience in web templates. Take the examples we made for you and
-              start playing with them.
+            Sweeta Collection adalah usaha yang berkecimpung di bidang 
+            tata rias, wisuda, tari, karnaval dan tempat persewaan kostum.
             </p>
           </div>
         </div>
