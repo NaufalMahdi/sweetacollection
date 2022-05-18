@@ -1,6 +1,6 @@
 import React from "react";
 
-const ModalDeleteHistories = ({ setParentDeleteModal, sendDataToParent }) => {
+const ModalDeleteRentals = ({ setParentDeleteModal, sendDataToParent }) => {
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -23,7 +23,7 @@ const ModalDeleteHistories = ({ setParentDeleteModal, sendDataToParent }) => {
             <div className="relative p-6 flex-auto">
               <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
                 Anda yakin ingin menghapus{" "}
-                <span className="font-bold">Riwayat Pesanan Ini</span>?
+                <span className="font-bold">Pesanan ini</span>?
               </p>
             </div>
             {/*footer*/}
@@ -50,4 +50,4 @@ const ModalDeleteHistories = ({ setParentDeleteModal, sendDataToParent }) => {
     </>
   );
 };
-export default ModalDeleteHistories;
+export default ModalDeleteRentals;
