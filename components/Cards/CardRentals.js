@@ -5,7 +5,6 @@ import { useState } from "react";
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 import ModalDetailHistories from "components/Modals/ModalDetailHistories";
-import ModalDeleteRentals from "components/Modals//ModalDeleteRentals";
 export default function CardHistories({ color }) {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -111,6 +110,16 @@ export default function CardHistories({ color }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
+                  Tanggal Di Pesan
+                  </th>
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
+                  }
+                >
                   Deadline
                 </th>
                 <th
@@ -155,6 +164,9 @@ export default function CardHistories({ color }) {
                   Rp.1.000.000
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  11 Mei 2022
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   15 Mei 2022
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -169,13 +181,6 @@ export default function CardHistories({ color }) {
                       }}
                     >
                       <i class="fa-solid fa-pen-to-square text-blueGray-600"></i>
-                    </button>
-                    <button
-                      onClick={() => {
-                        setParentDeleteModal(true);
-                      }}
-                    >
-                      <i class="fa-solid fa-trash-can text-red-600"></i>
                     </button>
                   </div>
                 </td>
@@ -201,6 +206,9 @@ export default function CardHistories({ color }) {
                   Rp.1.000.000
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  11 Mei 2022
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   15 Mei 2022
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -215,13 +223,8 @@ export default function CardHistories({ color }) {
                     >
                       <i class="fa-solid fa-pen-to-square text-blueGray-600"></i>
                     </button>
-                    <button
-                      onClick={() => {
-                        setParentDeleteModal(true);
-                      }}
-                    >
-                      <i class="fa-solid fa-trash-can text-red-600"></i>
-                    </button>
+
+            
                   </div>
                 </td>
               </tr>
@@ -246,6 +249,9 @@ export default function CardHistories({ color }) {
                   Rp.1.000.000
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  11 Mei 2022
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   15 Mei 2022
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -260,13 +266,6 @@ export default function CardHistories({ color }) {
                       }}
                     >
                       <i class="fa-solid fa-pen-to-square text-blueGray-600"></i>
-                    </button>
-                    <button
-                      onClick={() => {
-                        setParentDeleteModal(true);
-                      }}
-                    >
-                      <i class="fa-solid fa-trash-can text-red-600"></i>
                     </button>
                   </div>
                 </td>
