@@ -8,12 +8,11 @@ import Admin from "layouts/Admin";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import CardCategories from "components/Cards/CardCategories";
-import Pagination from "components/Pagination/pagination";
+import Pagination from "components/Pagination/Pagination";
 const products = ({ categories }) => {
   let view;
   let router = new useRouter();
   try {
-    console.log(categories);
     if (categories) {
       view = (
         <>
@@ -22,7 +21,7 @@ const products = ({ categories }) => {
               <div className="w-full mb-12 px-4">
                 <CardCategories data={categories} />
               </div>
-              <Pagination/>
+              <Pagination />
             </div>
           </div>
         </>
@@ -40,7 +39,7 @@ const products = ({ categories }) => {
 const getStaticProps = async () => {
   let data;
   // Get all categories
-  let a;
+  let test;
   await axios
     .get("http://localhost:3000/api/admin/product/getAllCategories", {})
     .then((res) => {
@@ -53,7 +52,7 @@ const getStaticProps = async () => {
       .get(
         "http://localhost:3000/api/admin/product/getProductCountByCategory",
         {
-          category_id: data[0].id,
+          category_id: data[i].id,
         }
       )
       .then((res) => {

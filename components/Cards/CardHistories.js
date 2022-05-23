@@ -6,7 +6,7 @@ import { useState } from "react";
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 import ModalDetailHistories from "components/Modals/ModalDetailHistories";
 import ModalDeleteHistories from "components/Modals//ModalDeleteHistories";
-import Pagination from "components/Pagination/pagination";
+import Pagination from "components/Pagination/Pagination";
 export default function CardHistories({ color }) {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);

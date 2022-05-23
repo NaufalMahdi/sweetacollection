@@ -4,43 +4,49 @@ import Auth from "layouts/Auth.js";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import md5 from "md5";
-
+import { useSession, signIn, signOut } from "next-auth/react";
+import Router from "next/router";
 export default function Login() {
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginBtn, setLoginBtn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alertContent, setAlertContent] = useState();
+  const { data: session } = useSession();
 
+  console.log(session);
+  if (session) {
+    Router.push("/admin/dashboard");
+  }
   // login
-  const login = async () => {
-    try {
-      setLoginBtn(true);
-      setLoginLoading(true);
+  // const login = async () => {
+  //   try {
+  //     setLoginBtn(true);
+  //     setLoginLoading(true);
 
-      // validation
-      if (email != "" && password != "") {
-        await axios
-          .post("/api/auth/login", { email: email, password: md5(password) })
-          .then((res) => {
-            console.log(res.data.msg);
-          });
-      } else {
-        setAlertContent(
-          <Alert
-            type={"danger"}
-            msg_capitalize={"Login Gagal"}
-            msg={"Email dan Password Kosong!"}
-          />
-        );
-      }
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoginBtn(false);
-      setLoginLoading(false);
-    }
-  };
+  //     // validation
+  //     if (email != "" && password != "") {
+  //       await axios
+  //         .post("/api/auth/login", { email: email, password: md5(password) })
+  //         .then((res) => {
+  //           console.log(res.data.msg);
+  //         });
+  //     } else {
+  //       setAlertContent(
+  //         <Alert
+  //           type={"danger"}
+  //           msg_capitalize={"Login Gagal"}
+  //           msg={"Email dan Password Kosong!"}
+  //         />
+  //       );
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   } finally {
+  //     setLoginBtn(false);
+  //     setLoginLoading(false);
+  //   }
+  // };
 
   return (
     <>
@@ -60,7 +66,18 @@ export default function Login() {
                 {alertContent}
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                <form
+                <div className="text-center mt-6">
+                  <button
+                    className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => {
+                      signIn();
+                    }}
+                  >
+                    Sign In with Credentials
+                  </button>
+                </div>
+                {/* <form
                   onSubmit={(e) => {
                     login();
                     e.preventDefault();
@@ -101,18 +118,6 @@ export default function Login() {
                       onFocus={() => setAlertContent("")}
                     />
                   </div>
-                  {/* <div>
-                    <label className="inline-flex items-center cursor-pointer">
-                      <input
-                        id="customCheckLogin"
-                        type="checkbox"
-                        className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                      />
-                      <span className="ml-2 text-sm font-semibold text-blueGray-600">
-                        Remember me
-                      </span>
-                    </label>
-                  </div> */}
 
                   <div className="text-center mt-6">
                     <button
@@ -123,27 +128,9 @@ export default function Login() {
                       {loginLoading ? "Please Wait" : "Sign In"}
                     </button>
                   </div>
-                </form>
+                </form> */}
               </div>
             </div>
-            {/* <div className="flex flex-wrap mt-6 relative">
-              <div className="w-1/2">
-                <a
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  className="text-blueGray-200"
-                >
-                  <small>Forgot password?</small>
-                </a>
-              </div>
-              <div className="w-1/2 text-right">
-                <Link href="/auth/register">
-                  <a href="#pablo" className="text-blueGray-200">
-                    <small>Create new account</small>
-                  </a>
-                </Link>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>

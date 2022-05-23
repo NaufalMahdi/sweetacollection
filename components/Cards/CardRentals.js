@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 import ModalDetailHistories from "components/Modals/ModalDetailHistories";
-import Pagination from "components/Pagination/pagination";
+import Pagination from "components/Pagination/Pagination";
 export default function CardHistories({ color }) {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -80,8 +80,8 @@ export default function CardHistories({ color }) {
                       ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
-                  >
-                  Barang Pesanan  
+                >
+                  Barang Pesanan
                 </th>
                 <th
                   className={
@@ -91,7 +91,7 @@ export default function CardHistories({ color }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Keterangan 
+                  Keterangan
                 </th>
                 <th
                   className={
@@ -112,7 +112,7 @@ export default function CardHistories({ color }) {
                   }
                 >
                   Tanggal Di Pesan
-                  </th>
+                </th>
                 <th
                   className={
                     "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -159,7 +159,7 @@ export default function CardHistories({ color }) {
                   Baju Tari
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                Mahkota , Slendang 
+                  Mahkota , Slendang
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   Rp.1.000.000
@@ -201,7 +201,7 @@ export default function CardHistories({ color }) {
                   Baju Tari
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                Mahkota , Slendang 
+                  Mahkota , Slendang
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   Rp.1.000.000
@@ -224,8 +224,6 @@ export default function CardHistories({ color }) {
                     >
                       <i class="fa-solid fa-pen-to-square text-blueGray-600"></i>
                     </button>
-
-            
                   </div>
                 </td>
               </tr>
@@ -244,7 +242,7 @@ export default function CardHistories({ color }) {
                   Baju Tari
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  Mahkota , Slendang 
+                  Mahkota , Slendang
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   Rp.1.000.000
@@ -273,7 +271,7 @@ export default function CardHistories({ color }) {
               </tr>
             </tbody>
           </table>
-          <Pagination/>
+          <Pagination />
         </div>
       </div>
       {showDetailModal ? (

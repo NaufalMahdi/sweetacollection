@@ -8,7 +8,7 @@ import Admin from "layouts/Admin";
 import CardProduct from "components/Cards/CardProduct";
 import ModalCreateProduct from "components/Modals/ModalCreateProduct";
 import ModalEditProduct from "components/Modals/ModalEditProduct";
-import Pagination from "components/Pagination/pagination";
+import Pagination from "components/Pagination/Pagination";
 const products = ({ data }) => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -50,19 +50,17 @@ const products = ({ data }) => {
               </div>
 
               <div className="flex flex-wrap justify-start mt-5">
-                {data.length > 0
-                  && data.map((val) => (
-                      <div className="mx-2" key={val.id}>
-                        <CardProduct
-                          data={val}
-                          sendDataToParent={sendDataToParent}
-                        />
-                      </div>
-                    ))
-                  }
-          
+                {data.length > 0 &&
+                  data.map((val) => (
+                    <div className="mx-2" key={val.id}>
+                      <CardProduct
+                        data={val}
+                        sendDataToParent={sendDataToParent}
+                      />
+                    </div>
+                  ))}
               </div>
-              <Pagination/>
+              <Pagination />
             </div>
           </div>
           {showCreateModal ? (
