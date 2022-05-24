@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import Link from "next/link";
+import axios from "axios";
 // components
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
@@ -12,14 +13,27 @@ export default function CardCategories({ color, data }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const setParentEditModal = (state) => {
+  const [activeData, setActiveData] = useState([]);
+  const [allData, setAllData] = useState(data);
+  const setParentEditModal = (state, status) => {
     setShowEditModal(state);
+    if (status) {
+      refreshData();
+    }
   };
   const setParentDeleteModal = (state) => {
     setShowDeleteModal(state);
   };
   const setParentCreateModal = (state) => {
     setShowCreateModal(state);
+  };
+
+  const refreshData = async () => {
+    await axios
+      .get("http://localhost:3000/api/admin/product/getAllCategories", {})
+      .then((res) => {
+        setAllData(res.data.categories);
+      });
   };
   return (
     <>
@@ -106,7 +120,7 @@ export default function CardCategories({ color, data }) {
               </tr>
             </thead>
             <tbody>
-              {data.map((val) => (
+              {allData.map((val) => (
                 <tr key={val.id}>
                   <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                     <span
@@ -130,6 +144,7 @@ export default function CardCategories({ color, data }) {
                     <div className="flex flex-row flex-nowrap  gap-4">
                       <button
                         onClick={() => {
+                          setActiveData(val);
                           setShowEditModal(true);
                         }}
                       >
@@ -137,6 +152,7 @@ export default function CardCategories({ color, data }) {
                       </button>
                       <button
                         onClick={() => {
+                          setActiveData(val);
                           setParentDeleteModal(true);
                         }}
                       >
@@ -151,7 +167,10 @@ export default function CardCategories({ color, data }) {
         </div>
       </div>
       {showEditModal ? (
-        <ModalEditCategory setParentEditModal={setParentEditModal} />
+        <ModalEditCategory
+          setParentEditModal={setParentEditModal}
+          data={activeData}
+        />
       ) : null}
       {showDeleteModal ? (
         <ModalDeleteCategory setParentDeleteModal={setParentDeleteModal} />

@@ -14,7 +14,6 @@ export default function Login() {
   const [alertContent, setAlertContent] = useState();
   const { data: session } = useSession();
 
-  console.log(session);
   if (session) {
     Router.push("/admin/dashboard");
   }

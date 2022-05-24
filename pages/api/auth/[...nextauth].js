@@ -34,15 +34,17 @@ export default NextAuth({
         //   .then((res) => {
         //     console.log(res.data);
         //     data = res.data;
+        //     if (res.data) {
+        //       return res.data.data;
+        //     } else {
+        //       return null;
+        //     }
         //   });
-        // console.log(data);
-        // return data;
-        // if (data.msg == "success") {
-        //   return data.data;
-        // } else {
-        //   return null;
-        // }
       },
     }),
   ],
+  secret: process.env.SECRET,
+  jwt: {
+    secret: process.env.JWT_SECRET,
+  },
 });
