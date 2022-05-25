@@ -2,7 +2,7 @@ import React from "react";
 
 const Alert = ({ type, msg_capitalize, msg, setParentShowAlert }) => {
   let color;
-  if (type == "danger") {
+  if (type == "error") {
     color = "red";
   } else if (type == "success") {
     color = "emerald";

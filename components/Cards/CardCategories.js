@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
 // components
@@ -10,28 +10,40 @@ import ModalEditCategory from "components/Modals/ModalEditCategory";
 import ModalDeleteCategory from "components/Modals//ModalDeleteCategory";
 import ModalCreateCategory from "components/Modals/ModalCreateCategory";
 import Alert from "components/Alerts/Alert";
-export default function CardCategories({ color, data }) {
-  const [showAlert, setShowAlert] = useState(true);
-
+export default function CardCategories({ color }) {
+  const [showAlert, setShowAlert] = useState(false);
+  const [alert, setAlert] = useState({
+    type: "success",
+    msg_capitalize: "test",
+    msg: "test",
+  });
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
+
   const [activeData, setActiveData] = useState([]);
-  const [allData, setAllData] = useState(data);
+  const [allData, setAllData] = useState([]);
   const setParentShowAlert = (state) => {
     setShowAlert(state);
   };
-  const setParentEditModal = (state, status) => {
+  const setParentEditModal = (state, status, alert) => {
     setShowEditModal(state);
     if (status) {
       refreshData();
+      setAlert(alert);
+      setShowAlert(true);
+    }
+  };
+  const setParentCreateModal = (state, status, alert) => {
+    setShowCreateModal(state);
+    if (status) {
+      refreshData();
+      setAlert(alert);
+      setShowAlert(true);
     }
   };
   const setParentDeleteModal = (state) => {
     setShowDeleteModal(state);
-  };
-  const setParentCreateModal = (state) => {
-    setShowCreateModal(state);
   };
 
   const refreshData = async () => {
@@ -41,6 +53,9 @@ export default function CardCategories({ color, data }) {
         setAllData(res.data.categories);
       });
   };
+  useEffect(() => {
+    refreshData();
+  }, []);
   return (
     <>
       <div className="w-full flex flex-row-reverse mb-3">
@@ -62,9 +77,9 @@ export default function CardCategories({ color, data }) {
       <div>
         {showAlert && (
           <Alert
-            type={"success"}
-            msg_capitalize="test"
-            msg="test"
+            type={alert.type}
+            msg_capitalize={alert.msg_capitalize}
+            msg={alert.msg}
             setParentShowAlert={setParentShowAlert}
           />
         )}
@@ -136,48 +151,60 @@ export default function CardCategories({ color, data }) {
               </tr>
             </thead>
             <tbody>
-              {allData.map((val) => (
-                <tr key={val.id}>
-                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                    <span
-                      className={
-                        "font-bold " +
-                        +(color === "light"
-                          ? "text-blueGray-600"
-                          : "text-white")
-                      }
-                    >
-                      {val.category_name}
-                    </span>
-                  </th>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                    {val.description}
-                  </td>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {val.count}
-                  </td>
-                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
-                    <div className="flex flex-row flex-nowrap  gap-4">
-                      <button
-                        onClick={() => {
-                          setActiveData(val);
-                          setShowEditModal(true);
-                        }}
+              {allData.length > 0 ? (
+                allData.map((val) => (
+                  <tr key={val.id}>
+                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                      <span
+                        className={
+                          "font-bold " +
+                          +(color === "light"
+                            ? "text-blueGray-600"
+                            : "text-white")
+                        }
                       >
-                        <i className="fa-solid fa-pen-to-square text-blueGray-600"></i>
-                      </button>
-                      <button
-                        onClick={() => {
-                          setActiveData(val);
-                          setParentDeleteModal(true);
-                        }}
-                      >
-                        <i className="fa-solid fa-trash-can text-red-600"></i>
-                      </button>
-                    </div>
+                        {val.category_name}
+                      </span>
+                    </th>
+
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                      {val.description}
+                    </td>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      {val.count}
+                    </td>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
+                      <div className="flex flex-row flex-nowrap  gap-4">
+                        <button
+                          onClick={() => {
+                            setActiveData(val);
+                            setShowEditModal(true);
+                          }}
+                        >
+                          <i className="fa-solid fa-pen-to-square text-blueGray-600"></i>
+                        </button>
+                        <button
+                          onClick={() => {
+                            setActiveData(val);
+                            setParentDeleteModal(true);
+                          }}
+                        >
+                          <i className="fa-solid fa-trash-can text-red-600"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr key={"404"}>
+                  <td colSpan={4} className="w-full py-6 text-center">
+                    Data tidak ditemukan
                   </td>
                 </tr>
-              ))}
+                // <div className="flex items-center justify-center px-3 w-full bg-red-500">
+                //   Data tidak ditemukan
+                // </div>
+              )}
             </tbody>
           </table>
         </div>

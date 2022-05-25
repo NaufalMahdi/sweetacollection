@@ -1,6 +1,33 @@
-import React from "react";
-
+import React, { useState } from "react";
+import axios from "axios";
 const ModalCreateCategory = ({ setParentCreateModal, sendDataToParent }) => {
+  const [categoryName, setCategoryName] = useState("");
+  const [description, setDescription] = useState("");
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const createData = async () => {
+    setSubmitLoading(true);
+    await axios
+      .post("http://localhost:3000/api/admin/product/createCategory", {
+        category_name: categoryName,
+        description: description,
+      })
+      .then((res) => {
+        if (res.status == 200) {
+          setParentCreateModal(false, true, {
+            type: "success",
+            msg_capitalize: "Berhasil!",
+            msg: "Data berhasil ditambahkan.",
+          });
+        } else {
+          setParentCreateModal(false, true, {
+            type: "error",
+            msg_capitalize: "Gagal!",
+            msg: "Data gagal ditambahkan.",
+          });
+        }
+        setSubmitLoading(false);
+      });
+  };
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -26,13 +53,23 @@ const ModalCreateCategory = ({ setParentCreateModal, sendDataToParent }) => {
               <div className="grid grid-cols-1 my-1">
                 <div className="grid grid-cols-1 mb-3">
                   <span>Nama Kategori</span>
-                  <input className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"></input>
+                  <input
+                    className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
+                    onChange={(e) => {
+                      setCategoryName(e.target.value);
+                    }}
+                    defaultValue=""
+                  ></input>
                 </div>
                 <div className="grid grid-cols-1 mb-3">
                   <span>Deskripsi</span>
                   <textarea
                     className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150 focus:ring-0 focus:border-x-transparent focus:border-t-transparent"
                     rows="10"
+                    defaultValue={""}
+                    onChange={(e) => {
+                      setDescription(e.target.value);
+                    }}
                   ></textarea>
                 </div>
               </div>
@@ -42,7 +79,7 @@ const ModalCreateCategory = ({ setParentCreateModal, sendDataToParent }) => {
               <button
                 className="text-blueGray-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 onClick={() => {
-                  setParentCreateModal(false);
+                  setParentCreateModal(false, false, {});
                 }}
               >
                 Close
@@ -50,11 +87,16 @@ const ModalCreateCategory = ({ setParentCreateModal, sendDataToParent }) => {
               <button
                 className="text-white bg-blueGray-500 active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
+                disabled={
+                  (categoryName.trim().length < 1 &&
+                    description.trim().length < 1) ||
+                  submitLoading
+                }
                 onClick={() => {
-                  setParentCreateModal(false);
+                  createData();
                 }}
               >
-                Save Changes
+                {submitLoading ? "Tunggu Sebentar" : "Simpan"}
               </button>
             </div>
           </div>
