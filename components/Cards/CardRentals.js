@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { useRouter } from 'next/router';
 // components
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
@@ -15,9 +16,31 @@ export default function CardHistories({ color }) {
   const setParentDeleteModal = (state) => {
     setShowDeleteModal(state);
   };
+  const router = useRouter();
+
+   
+  
+  
 
   return (
     <>
+   <div className="w-full flex flex-row-reverse mb-3">
+        <button
+          className="bg-blueGray-500 text-white active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+          type="button"
+          onClick={() => {
+            router.push("/admin/rentals/create");
+          }}
+        >
+          <div className="flex flex-nowrap justify-between">
+            <div className="mx-auto my-auto">
+              <i className="fa-solid fa-circle-plus"></i>
+              <span> Buat</span>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div></div>
       <div
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
