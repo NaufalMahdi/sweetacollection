@@ -16,7 +16,7 @@ export default function Landing() {
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
               backgroundImage:
-                "url('https://i0.wp.com/rimbakita.com/wp-content/uploads/2019/09/tari-sampiung.jpg')",
+                "url('https://i0.wp.com/rimbakita.com/wp-content/uploads/2019/09/tari-serimpi.jpg')",
             }}
           >
             <span
@@ -32,8 +32,7 @@ export default function Landing() {
                     Sweeta Collection
                   </h1>
                   <p className="mt-4 text-lg text-blueGray-200">
-                  Sweeta Collection adalah usaha yang berkecimpung 
-                  di bidang tata rias, wisuda, tari, karnaval dan tempat persewaan kostum.
+                 Persewaan Baju Tari
                   </p>
                 </div>
               </div>
@@ -71,8 +70,7 @@ export default function Landing() {
                     </div>
                     <h6 className="text-xl font-semibold">Kualitas </h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
-                      Divide details about your product or agency work into
-                      parts. A paragraph describing a feature will be enough.
+                      Kualitas Produk Tidak Dapat Diragukan Lagi
                     </p>
                   </div>
                 </div>
@@ -86,8 +84,7 @@ export default function Landing() {
                     </div>
                     <h6 className="text-xl font-semibold">Pemesanan Cepat</h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
-                      Keep you user engaged by providing meaningful information.
-                      Remember that by this time, the user is curious.
+                      Dapat Melakukan Pemesanan Dengan Cepat
                     </p>
                   </div>
                 </div>
@@ -101,8 +98,7 @@ export default function Landing() {
                     </div>
                     <h6 className="text-xl font-semibold">Harga Terjangkau</h6>
                     <p className="mt-2 mb-4 text-blueGray-500">
-                      Write a few lines about each one. A paragraph describing a
-                      feature will be enough. Keep you user engaged!
+                      Harga Sangat Terjangkau
                     </p>
                   </div>
                 </div>
@@ -118,19 +114,15 @@ export default function Landing() {
                   Tentang Kami
                 </h3>
                 <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
-                  Don't let your uses guess by attaching tooltips and popoves to
-                  any element. Just make sure you enable them first via
-                  JavaScript.
+                Sweeta Collection adalah usaha yang berkecimpung 
+                  di bidang tata rias, wisuda, tari, karnaval dan tempat persewaan kostum.
                 </p>
                 <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-600">
-                  The kit comes with three pre-built pages to help you get
-                  started faster. You can change the text and images and you're
-                  good to go. Just make sure you enable them first via
-                  JavaScript.
+                  
                 </p>
-                <Link href="/">
+                <Link href="/profile">
                   <a href="#pablo" className="font-bold text-blueGray-700 mt-8">
-                    Check Notus NextJS!
+                    Lebih Lanjut
                   </a>
                 </Link>
               </div>
