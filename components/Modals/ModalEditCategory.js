@@ -16,7 +16,17 @@ const ModalEditCategory = ({ data, setParentEditModal, sendDataToParent }) => {
       })
       .then((res) => {
         if (res.status == 200) {
-          setParentEditModal(false, true);
+          setParentEditModal(false, true, {
+            type: "success",
+            msg_capitalize: "Berhasil!",
+            msg: "Data berhasil diubah.",
+          });
+        } else {
+          setParentEditModal(false, false, {
+            type: "error",
+            msg_capitalize: "Gagal!",
+            msg: "Data gagal diubah.",
+          });
         }
         setSaveLoading(false);
       });
@@ -68,7 +78,7 @@ const ModalEditCategory = ({ data, setParentEditModal, sendDataToParent }) => {
               <button
                 className="text-blueGray-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 onClick={() => {
-                  setParentEditModal(false);
+                  setParentEditModal(false, false, {});
                 }}
               >
                 Close
