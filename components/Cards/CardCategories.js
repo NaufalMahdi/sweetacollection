@@ -9,12 +9,18 @@ import TableDropdown from "components/Dropdowns/TableDropdown.js";
 import ModalEditCategory from "components/Modals/ModalEditCategory";
 import ModalDeleteCategory from "components/Modals//ModalDeleteCategory";
 import ModalCreateCategory from "components/Modals/ModalCreateCategory";
+import Alert from "components/Alerts/Alert";
 export default function CardCategories({ color, data }) {
+  const [showAlert, setShowAlert] = useState(true);
+
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [activeData, setActiveData] = useState([]);
   const [allData, setAllData] = useState(data);
+  const setParentShowAlert = (state) => {
+    setShowAlert(state);
+  };
   const setParentEditModal = (state, status) => {
     setShowEditModal(state);
     if (status) {
@@ -52,6 +58,16 @@ export default function CardCategories({ color, data }) {
             </div>
           </div>
         </button>
+      </div>
+      <div>
+        {showAlert && (
+          <Alert
+            type={"success"}
+            msg_capitalize="test"
+            msg="test"
+            setParentShowAlert={setParentShowAlert}
+          />
+        )}
       </div>
       <div
         className={
