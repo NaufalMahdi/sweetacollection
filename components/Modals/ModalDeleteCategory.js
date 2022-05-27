@@ -1,25 +1,60 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 
-const ModalDeleteCategory = ({ setParentDeleteModal, sendDataToParent }) => {
+const ModalDeleteCategory = ({ setParentDeleteModal, data }) => {
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const deleteCategory = async () => {
+    setDeleteLoading(true);
+    try {
+      await axios
+        .post("http://localhost:3000/api/admin/product/deleteCategory", {
+          id: data.id,
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            if (res.data.msg == "success") {
+              setParentDeleteModal(false, true, {
+                type: "success",
+                msg_capitalize: "Berhasil!",
+                msg: "Data berhasil dihapus.",
+              });
+            } else if (res.data.msg == "not-empty") {
+              setParentDeleteModal(false, true, {
+                type: "error",
+                msg_capitalize: "Gagal!",
+                msg: "Data gagal dihapus. Pastikan tidak ada produk yang menggunakan kategori ini.",
+              });
+            } else {
+              setParentDeleteModal(false, true, {
+                type: "error",
+                msg_capitalize: "Gagal!",
+                msg: "Data gagal dihapus.",
+              });
+            }
+          } else {
+            setParentDeleteModal(false, true, {
+              type: "error",
+              msg_capitalize: "Gagal!",
+              msg: "Data gagal dihapus.",
+            });
+          }
+        });
+    } catch (err) {
+      console.log(err);
+      setParentDeleteModal(false, true, {
+        type: "error",
+        msg_capitalize: "Gagal!",
+        msg: "Data gagal dihapus.",
+      });
+    }
+    setDeleteLoading(false);
+  };
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
         <div className="relative w-auto my-6 mx-auto max-w-sm">
           {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-            {/*header*/}
-            {/* <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-              <h3 className="text-3xl font-semibold">Modal Title</h3>
-              <button
-                className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                onClick={() => setParentDeleteModal(false)}
-              >
-                <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                  ×
-                </span>
-              </button>
-            </div> */}
-            {/*body*/}
             <div className="relative p-6 flex-auto">
               <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
                 Anda yakin ingin menghapus{" "}
@@ -31,16 +66,20 @@ const ModalDeleteCategory = ({ setParentDeleteModal, sendDataToParent }) => {
               <button
                 className="text-blueGray-600 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
+                disabled={deleteLoading}
                 onClick={() => setParentDeleteModal(false)}
               >
                 Batal
               </button>
               <button
-                className="bg-red-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
-                onClick={() => setParentDeleteModal(false)}
+                disabled={deleteLoading}
+                onClick={() => {
+                  deleteCategory();
+                }}
               >
-                Hapus
+                {deleteLoading ? "Tunggu Sebentar" : "Hapus"}
               </button>
             </div>
           </div>

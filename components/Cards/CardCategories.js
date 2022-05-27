@@ -42,8 +42,13 @@ export default function CardCategories({ color }) {
       setShowAlert(true);
     }
   };
-  const setParentDeleteModal = (state) => {
+  const setParentDeleteModal = (state, status, alert) => {
     setShowDeleteModal(state);
+    if (status) {
+      refreshData();
+      setAlert(alert);
+      setShowAlert(alert);
+    }
   };
 
   const refreshData = async () => {
@@ -201,9 +206,6 @@ export default function CardCategories({ color }) {
                     Data tidak ditemukan
                   </td>
                 </tr>
-                // <div className="flex items-center justify-center px-3 w-full bg-red-500">
-                //   Data tidak ditemukan
-                // </div>
               )}
             </tbody>
           </table>
@@ -216,7 +218,10 @@ export default function CardCategories({ color }) {
         />
       ) : null}
       {showDeleteModal ? (
-        <ModalDeleteCategory setParentDeleteModal={setParentDeleteModal} />
+        <ModalDeleteCategory
+          setParentDeleteModal={setParentDeleteModal}
+          data={activeData}
+        />
       ) : null}
       {showCreateModal ? (
         <ModalCreateCategory setParentCreateModal={setParentCreateModal} />
