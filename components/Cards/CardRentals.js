@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 // components
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
-import ModalDetailHistories from "components/Modals/ModalDetailHistories";
+import ModalDetailRentals from "components/Modals/ModalDetailHistories";
 import Pagination from "components/Pagination/Pagination";
 export default function CardHistories({ color }) {
   const [showDetailModal, setShowDetailModal] = useState(false);
@@ -298,7 +298,7 @@ export default function CardHistories({ color }) {
         </div>
       </div>
       {showDetailModal ? (
-        <ModalDetailHistories setParentDetailModal={setParentDetailModal} />
+        <ModalDetailRentals setParentDetailModal={setParentDetailModal} />
       ) : null}
       {showDeleteModal ? (
         <ModalDeleteRentals setParentDeleteModal={setParentDeleteModal} />
