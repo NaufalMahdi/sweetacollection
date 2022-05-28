@@ -58,7 +58,7 @@ const ModalDeleteCategory = ({ setParentDeleteModal, data }) => {
             <div className="relative p-6 flex-auto">
               <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
                 Anda yakin ingin menghapus{" "}
-                <span className="font-bold">Nama Kategori</span>?
+                <span className="font-bold">{data.category_name}</span>?
               </p>
             </div>
             {/*footer*/}

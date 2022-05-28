@@ -1,14 +1,17 @@
 import React from "react";
 import Link from "next/link";
-import Router, { useRouter } from "next/router";
-import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
-import UserDropdown from "components/Dropdowns/UserDropdown.js";
-import { useSession, signIn, signOut } from "next-auth/react";
-import { useEffect } from "react";
+import { useRouter } from "next/router";
+import NotificationDropdown from "components/Dropdowns/NotificationDropdown";
+import UserDropdown from "components/Dropdowns/UserDropdown";
+import { signOut } from "next-auth/react";
+import ModalSignOut from "components/Modals/ModalSignOut";
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
+  const [showSignOutModal, setSignOutModal] = React.useState(false);
   const router = useRouter();
-
+  const setParentSignOutModal = (state) => {
+    setSignOutModal(state);
+  };
   return (
     <>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
@@ -244,7 +247,7 @@ export default function Sidebar() {
           {/* Logout */}
           <div>
             <hr className="my-4 md:min-w-full" />
-            <button type="button" onClick={() => signOut()}>
+            <button type="button" onClick={() => setSignOutModal(true)}>
               <span
                 href="#pablo"
                 className={
@@ -262,12 +265,15 @@ export default function Sidebar() {
                       : "text-red-300")
                   }
                 ></i>{" "}
-                Log Out
+                Sign Out
               </span>
             </button>
           </div>
         </div>
       </nav>
+      {showSignOutModal && (
+        <ModalSignOut setParentSignOutModal={setParentSignOutModal} />
+      )}
     </>
   );
 }
