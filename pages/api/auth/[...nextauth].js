@@ -1,11 +1,12 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import axios from "axios";
+import { db } from "../../../prisma";
+import md5 from "md5";
 export default NextAuth({
   providers: [
     CredentialsProvider({
       id: "adminSignIn",
-      name: "Email",
+      name: "Credential",
       credentials: {
         email: {
           label: "Email",
@@ -18,33 +19,45 @@ export default NextAuth({
         },
       },
       async authorize(credentials, req) {
-        if (
-          credentials.email == "07akhmadnur@gmail.com" &&
-          credentials.password == "123"
-        ) {
-          return credentials;
+        const login = await db.accounts.count({
+          where: {
+            email: credentials.email,
+            password: md5(credentials.password),
+          },
+        });
+        if (login > 0) {
+          let profile = await db.accounts.findFirst({
+            where: {
+              email: credentials.email,
+              password: md5(credentials.password),
+            },
+          });
+
+          return profile;
         } else {
           return null;
         }
-        // let data;
-        // await axios
-        //   .post("http://localhost:3000/api/auth/login", {
-        //     credentials: JSON.stringify(credentials),
-        //   })
-        //   .then((res) => {
-        //     console.log(res.data);
-        //     data = res.data;
-        //     if (res.data) {
-        //       return res.data.data;
-        //     } else {
-        //       return null;
-        //     }
-        //   });
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token = user;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.accessToken = token.id;
+        session.user = token;
+      }
+      return session;
+    },
+  },
   secret: process.env.SECRET,
   jwt: {
     secret: process.env.JWT_SECRET,
+    encryption: true,
   },
 });

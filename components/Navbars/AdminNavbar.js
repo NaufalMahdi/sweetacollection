@@ -9,16 +9,9 @@ export default function Navbar() {
   const { data: session } = useSession();
   useEffect(() => {
     if (session) {
-      setName(session.user.email);
+      setName(session.user.first_name + " " + session.user.last_name);
     }
   }, []);
-  // useEffect(() => {
-  //   if (router.pathname.indexOf("admin/dashboard") !== -1) {
-  //     setTitle("Dashboard");
-  //   } else {
-  //     setTitle("Entah");
-  //   }
-  // }, []);
   return (
     <>
       {/* Navbar */}

@@ -1,13 +1,13 @@
-import db from "../prisma";
+import { db } from "../../../prisma";
 import md5 from "md5";
 const handler = async (req, res) => {
   try {
     // const { email, password } = req.body;
-    const { credentials } = req.body;
-    // const credentials = {
-    //   email: "07akhmadnur@gmail.com",
-    //   password: "12345",
-    // };
+    // const { credentials } = req.body;
+    const credentials = {
+      email: "07akhmadnur@gmail.com",
+      password: "12345",
+    };
     const login = await db.accounts.count({
       where: {
         email: credentials.email,
