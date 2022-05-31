@@ -18,7 +18,7 @@ const products = () => {
           <div className="w-full mb-12 px-4">
             <CardCategories />
           </div>
-          <Pagination />
+          {/* <Pagination /> */}
         </div>
       </div>
     </>

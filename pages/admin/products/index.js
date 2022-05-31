@@ -1,5 +1,3 @@
-// Import the functions you need from the SDKs you need
-// import { initializeApp } from "firebase/app";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -9,10 +7,26 @@ import CardProduct from "components/Cards/CardProduct";
 import ModalCreateProduct from "components/Modals/ModalCreateProduct";
 import ModalEditProduct from "components/Modals/ModalEditProduct";
 import Pagination from "components/Pagination/Pagination";
-const products = ({ data }) => {
+const products = () => {
+  const [data, setData] = useState([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editModalData, setEditModalData] = useState({});
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        await axios
+          .get("http://localhost:3000/api/admin/product/getAllProducts", {})
+          .then((res) => {
+            setData(res.data.data);
+          });
+      } catch (err) {
+        console.log(err);
+        setData([]);
+      }
+    };
+    getData();
+  }, []);
   const setParentCreateModal = (state) => {
     setShowCreateModal(state);
   };
@@ -50,7 +64,7 @@ const products = ({ data }) => {
               </div>
 
               <div className="flex flex-wrap justify-start mt-5">
-                {data.length > 0 &&
+                {data.length > 0 ? (
                   data.map((val) => (
                     <div className="mx-2" key={val.id}>
                       <CardProduct
@@ -58,9 +72,14 @@ const products = ({ data }) => {
                         sendDataToParent={sendDataToParent}
                       />
                     </div>
-                  ))}
+                  ))
+                ) : (
+                  <div className="mt-4 w-full text-center justify-center items-center">
+                    Data tidak ditemukan
+                  </div>
+                )}
               </div>
-              <Pagination />
+              {/* <Pagination /> */}
             </div>
           </div>
           {showCreateModal ? (
@@ -72,7 +91,6 @@ const products = ({ data }) => {
               data={editModalData}
             />
           ) : null}
-          a
         </>
       );
     } else {
@@ -81,46 +99,10 @@ const products = ({ data }) => {
   } catch (err) {
     view = <>Gagal memuat data</>;
   }
-  // useEffect(() => {
-  //   try {
-  //     if (loading) {
-  //       view = <>Please Wait</>;
-  //     } else {
-  //       view = (
-  //         <>
-  //           <div className="relative bg-transparent pt-20">
-  //             <div className="px-6 mt-10 h-screen">
-  //               <div className="flex">{data}</div>
-  //             </div>
-  //           </div>
-  //         </>
-  //       );
-  //     }
-  //   } catch (err) {
-  //     view = <>ERROR {err}</>;
-  //   } finally {
-  //     loading = false;
-  //   }
-  // });
 
   return view;
 };
 
-const getStaticProps = async () => {
-  let data;
-  await axios
-    .get("http://localhost:3000/api/admin/product/getAllProducts", {})
-    .then((res) => {
-      data = res.data.data;
-    });
-  return {
-    props: {
-      data: data,
-    },
-  };
-};
-
 products.layout = Admin;
 
-export { getStaticProps };
 export default products;

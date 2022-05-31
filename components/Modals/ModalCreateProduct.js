@@ -24,46 +24,53 @@ const ModalCreateProduct = ({ setParentCreateModal, sendDataToParent }) => {
             {/*body*/}
             <div className="relative p-6 flex-auto max-h-[42rem] overflow-y-scroll">
               <div className="grid grid-cols-1 my-1">
-                <div className="grid grid-cols-1 mb-3">
-                  <span>Nama Produk</span>
-                  <input className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"></input>
-                </div>
-                <div className="grid grid-cols-1 mb-3">
-                  <span>Kategori Produk</span>
-                  <select className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150 focus:ring-0 focus:border-x-transparent focus:border-t-transparent">
-                    <option value={""}>-- Pilih Salah Satu --</option>
-                    <option value={""}>a</option>
-                    <option value={""}>b</option>
-                  </select>
-                </div>
-                <div className="grid grid-cols-1 mb-3">
-                  <span>Deskripsi</span>
-                  <textarea
-                    className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150 focus:ring-0 focus:border-x-transparent focus:border-t-transparent"
-                    rows="10"
-                  ></textarea>
-                </div>
-                <div className="grid grid-cols-1 mb-3">
-                  <span>Warna</span>
-                  <input className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"></input>
-                </div>
-                <div className="grid grid-cols-1 mb-3">
-                  <span>Ukuran</span>
-                  <input className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"></input>
-                </div>
-                <div className="grid grid-cols-1 mb-3">
-                  <span>Harga</span>
-                  <input className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"></input>
-                </div>
-                <div className="grid grid-cols-1 mb-3">
-                  <span>Total Stok</span>
-                  <input className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"></input>
-                </div>
-                <div className="grid grid-cols-1 mb-3 mt-3">
-                  <span>Gambar Produk</span>
-                  <input type="file" className="mt-2"></input>
-                  {/* <input className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"></input> */}
-                </div>
+                <form
+                  action="/api/admin/updateProduct"
+                  method="post"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                  }}
+                >
+                  <div className="grid grid-cols-1 mb-3">
+                    <span>Nama Produk</span>
+                    <input className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"></input>
+                  </div>
+                  <div className="grid grid-cols-1 mb-3">
+                    <span>Kategori Produk</span>
+                    <select className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150 focus:ring-0 focus:border-x-transparent focus:border-t-transparent">
+                      <option value={""}>-- Pilih Salah Satu --</option>
+                      <option value={""}>a</option>
+                      <option value={""}>b</option>
+                    </select>
+                  </div>
+                  <div className="grid grid-cols-1 mb-3">
+                    <span>Deskripsi</span>
+                    <textarea
+                      className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150 focus:ring-0 focus:border-x-transparent focus:border-t-transparent"
+                      rows="10"
+                    ></textarea>
+                  </div>
+                  <div className="grid grid-cols-1 mb-3">
+                    <span>Warna</span>
+                    <input className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"></input>
+                  </div>
+                  <div className="grid grid-cols-1 mb-3">
+                    <span>Ukuran</span>
+                    <input className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"></input>
+                  </div>
+                  <div className="grid grid-cols-1 mb-3">
+                    <span>Harga</span>
+                    <input className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"></input>
+                  </div>
+                  <div className="grid grid-cols-1 mb-3">
+                    <span>Total Stok</span>
+                    <input className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"></input>
+                  </div>
+                  <div className="grid grid-cols-1 mb-3 mt-3">
+                    <span>Gambar Produk</span>
+                    <input type="file" className="mt-2"></input>
+                  </div>
+                </form>
               </div>
             </div>
             {/*footer*/}
@@ -78,7 +85,7 @@ const ModalCreateProduct = ({ setParentCreateModal, sendDataToParent }) => {
               </button>
               <button
                 className="text-white bg-blueGray-500 active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
+                type="submit"
                 onClick={() => {
                   setParentCreateModal(false);
                 }}
