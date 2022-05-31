@@ -7,33 +7,52 @@ import CardProduct from "components/Cards/CardProduct";
 import ModalCreateProduct from "components/Modals/ModalCreateProduct";
 import ModalEditProduct from "components/Modals/ModalEditProduct";
 import Pagination from "components/Pagination/Pagination";
+import Alert from "components/Alerts/Alert";
+
 const products = () => {
   const [data, setData] = useState([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editModalData, setEditModalData] = useState({});
+
+  // Alert
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertType, setAlertType] = useState("success");
+  const [alertMsgCapitalize, setAlertMsgCapitalize] = useState("Berhasil");
+  const [alertMsg, setAlertMsg] = useState("Data berhasil diupdate");
   useEffect(() => {
-    const getData = async () => {
-      try {
-        await axios
-          .get("http://localhost:3000/api/admin/product/getAllProducts", {})
-          .then((res) => {
-            setData(res.data.data);
-          });
-      } catch (err) {
-        console.log(err);
-        setData([]);
-      }
-    };
     getData();
   }, []);
+  const getData = async () => {
+    try {
+      await axios
+        .get("http://localhost:3000/api/admin/product/getAllProducts", {})
+        .then((res) => {
+          setData(res.data.data);
+        });
+    } catch (err) {
+      console.log(err);
+      setData([]);
+    }
+  };
   const setParentCreateModal = (state) => {
     setShowCreateModal(state);
   };
   const setParentEditModal = (state) => {
     setShowEditModal(state);
   };
-  const sendDataToParent = (data) => {
+  const sendDataToParent = (state, data) => {
+    setAlertType(data.type);
+    setAlertMsgCapitalize(data.msg_capitalize);
+    setAlertMsg(data.msg);
+    setShowAlert(state);
+    getData();
+    console.log("aa");
+  };
+  const setParentShowAlert = (state) => {
+    setShowAlert(state);
+  };
+  const sendEditModalData = (data) => {
     setEditModalData(data);
     setParentEditModal(true);
   };
@@ -45,6 +64,14 @@ const products = () => {
           <div className="relative bg-transparent pt-20 mx-5">
             <div className="mt-10 h-screen">
               <div className="w-full">
+                {showAlert && (
+                  <Alert
+                    type={alertType}
+                    msg_capitalize={alertMsgCapitalize}
+                    msg={alertMsg}
+                    setParentShowAlert={setParentShowAlert}
+                  />
+                )}
                 <div className="flex flex-row-reverse">
                   <button
                     className="bg-blueGray-500 text-white active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
@@ -69,7 +96,7 @@ const products = () => {
                     <div className="mx-2" key={val.id}>
                       <CardProduct
                         data={val}
-                        sendDataToParent={sendDataToParent}
+                        sendEditModalData={sendEditModalData}
                       />
                     </div>
                   ))
@@ -87,6 +114,7 @@ const products = () => {
           ) : null}
           {showEditModal ? (
             <ModalEditProduct
+              sendDataToParent={sendDataToParent}
               setParentEditModal={setParentEditModal}
               data={editModalData}
             />

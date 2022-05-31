@@ -1,6 +1,11 @@
 import React from "react";
 
-const Alert = ({ type, msg_capitalize, msg, setParentShowAlert }) => {
+const Alert = ({
+  type = "test",
+  msg_capitalize = "test",
+  msg = "test",
+  setParentShowAlert = null,
+}) => {
   let color;
   if (type == "error") {
     color = "red";

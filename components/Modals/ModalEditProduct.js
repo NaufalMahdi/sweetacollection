@@ -1,7 +1,6 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useEffect } from "react";
+import Alert from "components/Alerts/Alert";
 const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
   const [editMode, setEditMode] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -14,9 +13,15 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
   const [description, setDescription] = useState(data.description);
   const [color, setColor] = useState(data.color);
   const [size, setSize] = useState(data.size);
-  const [price, setPrice] = useState(data.price);
-  const [totalStock, setTotalStock] = useState(data.total_stock);
+  const [price, setPrice] = useState(data.price.toString());
+  const [totalStock, setTotalStock] = useState(data.total_stock.toString());
+  const [disableBtn, setDisableBtn] = useState(false);
 
+  // Alert
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertType, setAlertType] = useState("success");
+  const [alertMsgCapitalize, setAlertMsgCapitalize] = useState("Berhasil!");
+  const [alertMsg, setAlertMsg] = useState("Data berhasil di update.");
   useEffect(() => {
     const getCategories = async () => {
       await axios(
@@ -33,6 +38,72 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
     };
     getCategories();
   }, []);
+  const setParentShowAlert = (state) => {
+    setShowAlert(state);
+  };
+  const submit = async () => {
+    if (
+      productName.trim() !== "" &&
+      productCategoryId.trim() !== "" &&
+      description.trim() !== "" &&
+      color.trim() !== "" &&
+      size.trim() !== "" &&
+      price.length > 0 &&
+      totalStock.length > 0
+    ) {
+      setDisableBtn(true);
+      try {
+        await axios
+          .post("http://localhost:3000/api/admin/product/updateProduct", {
+            product: {
+              id: data.id,
+              product_name: productName,
+              product_category: productCategoryId,
+              description: description,
+              color: color,
+              size: size,
+              price: parseInt(price),
+              total_stock: parseInt(totalStock),
+            },
+          })
+          .then((res) => {
+            // console.log(res.data);
+            if (res.status === 200) {
+              setParentEditModal(false);
+
+              sendDataToParent(true, {
+                type: "success",
+                msg_capitalize: "Berhasil",
+                msg: "Data berhasil diubah.",
+              });
+            } else {
+              setParentEditModal(false);
+
+              sendDataToParent(true, {
+                type: "error",
+                msg_capitalize: "Gagal",
+                msg: "Data gagal diubah.",
+              });
+            }
+          });
+        console.log("submitted");
+      } catch (err) {
+        setParentEditModal(false);
+        sendDataToParent(true, {
+          type: "error",
+          msg_capitalize: "Gagal",
+          msg: "Data gagal diubah.",
+        });
+      } finally {
+        setDisableBtn(false);
+      }
+    } else {
+      setAlertType("error");
+      setAlertMsgCapitalize("Gagal");
+      setAlertMsg("Pastikan semua data terisi.");
+      setShowAlert(true);
+    }
+  };
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -66,21 +137,32 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
               </div>
             </div>
             <form
-              action="/api/admin/updateProduct"
               method="POST"
               onSubmit={(e) => {
                 e.preventDefault();
+                submit();
               }}
             >
               {editMode ? (
                 <div className="relative p-6 flex-auto max-h-[42rem] overflow-y-scroll">
+                  {showAlert && (
+                    <Alert
+                      setParentShowAlert={setParentShowAlert}
+                      type={alertType}
+                      msg_capitalize={alertMsgCapitalize}
+                      msg={alertMsg}
+                    />
+                  )}
                   <div className="grid grid-cols-1 my-1">
                     <div className="grid grid-cols-1 mb-3">
                       <span className="font-semibold">Nama Produk</span>
                       <input
                         className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
                         defaultValue={productName}
-                        onChange={(e) => setProductName(e.target.value)}
+                        onChange={(e) => {
+                          setProductName(e.target.value);
+                          console.log(productName.trim() !== "");
+                        }}
                       ></input>
                     </div>
                     <div className="grid grid-cols-1 mb-3">
@@ -90,7 +172,6 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
                         defaultValue={productCategoryId}
                         onChange={(e) => {
                           setProductCategoryId(e.target.value);
-                          console.log(productCategoryId);
                         }}
                       >
                         <option value={""}>-- Pilih Salah Satu --</option>
@@ -106,7 +187,9 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
                       <textarea
                         className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150 focus:ring-0 focus:border-x-transparent focus:border-t-transparent"
                         rows="10"
-                        onChange={(e) => setDescription(e.target.value)}
+                        onChange={(e) => {
+                          setDescription(e.target.value);
+                        }}
                         defaultValue={description}
                       ></textarea>
                     </div>
@@ -115,7 +198,9 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
                       <input
                         className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
                         defaultValue={color}
-                        onChange={(e) => setColor(e.target.value)}
+                        onChange={(e) => {
+                          setColor(e.target.value);
+                        }}
                       ></input>
                     </div>
                     <div className="grid grid-cols-1 mb-3">
@@ -123,7 +208,9 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
                       <input
                         className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
                         defaultValue={size}
-                        onChange={(e) => setSize(e.target.value)}
+                        onChange={(e) => {
+                          setSize(e.target.value);
+                        }}
                       ></input>
                     </div>
                     <div className="grid grid-cols-1 mb-3">
@@ -131,7 +218,9 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
                       <input
                         className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
                         defaultValue={price}
-                        onChange={(e) => setPrice(e.target.value)}
+                        onChange={(e) => {
+                          setPrice(e.target.value);
+                        }}
                         type="number"
                       ></input>
                     </div>
@@ -140,6 +229,9 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
                       <input
                         className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
                         defaultValue={totalStock}
+                        onChange={(e) => {
+                          setTotalStock(e.target.value);
+                        }}
                         type="number"
                       ></input>
                     </div>
@@ -220,6 +312,7 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
                     <button
                       className="text-red-500 active:text-red-600 transtition-all active:delay-150"
                       type="button"
+                      disabled={disableBtn}
                       onClick={() => {
                         setEditMode(false);
                       }}
@@ -229,11 +322,9 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
                     <button
                       className="text-white bg-blueGray-500 active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="submit"
-                      onClick={() => {
-                        setParentEditModal(false);
-                      }}
+                      disabled={disableBtn}
                     >
-                      Simpan
+                      {disableBtn ? "Tunggu Sebentar" : "Simpan"}
                     </button>
                   </div>
                 ) : (

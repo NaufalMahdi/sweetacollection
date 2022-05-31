@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-const CardProduct = ({ data, sendDataToParent }) => {
+const CardProduct = ({ data, sendEditModalData }) => {
   return (
     <>
       {/* <div className="h-24 w-24 mx-auto my-auto bg-white"></div> */}
@@ -18,7 +18,7 @@ const CardProduct = ({ data, sendDataToParent }) => {
               <div className="basis-1/2">
                 <button
                   className="mt-1 text-lg leading-tight font-medium text-black hover:underline"
-                  onClick={() => sendDataToParent(data)}
+                  onClick={() => sendEditModalData(data)}
                 >
                   {data.product_name}
                 </button>
