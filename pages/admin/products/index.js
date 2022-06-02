@@ -47,7 +47,6 @@ const products = () => {
     setAlertMsg(data.msg);
     setShowAlert(state);
     getData();
-    console.log("aa");
   };
   const setParentShowAlert = (state) => {
     setShowAlert(state);
@@ -110,7 +109,10 @@ const products = () => {
             </div>
           </div>
           {showCreateModal ? (
-            <ModalCreateProduct setParentCreateModal={setParentCreateModal} />
+            <ModalCreateProduct
+              setParentCreateModal={setParentCreateModal}
+              sendDataToParent={sendDataToParent}
+            />
           ) : null}
           {showEditModal ? (
             <ModalEditProduct

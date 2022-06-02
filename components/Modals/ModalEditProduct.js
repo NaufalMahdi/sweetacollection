@@ -86,7 +86,6 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
               });
             }
           });
-        console.log("submitted");
       } catch (err) {
         setParentEditModal(false);
         sendDataToParent(true, {
@@ -161,7 +160,6 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
                         defaultValue={productName}
                         onChange={(e) => {
                           setProductName(e.target.value);
-                          console.log(productName.trim() !== "");
                         }}
                       ></input>
                     </div>
