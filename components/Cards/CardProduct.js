@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-const CardProduct = ({ data, sendEditModalData }) => {
+const CardProduct = ({ data, sendEditModalData, sendDeleteModalData }) => {
   return (
     <>
       {/* <div className="h-24 w-24 mx-auto my-auto bg-white"></div> */}
@@ -28,7 +28,12 @@ const CardProduct = ({ data, sendEditModalData }) => {
               </div>
               <div className="relative basis-1/2">
                 <div className="absolute bottom-0 right-0">
-                  <button className="text-red-500 active:text-red-600  outline-none focus:outline-none ease-linear transition-all duration-150">
+                  <button
+                    className="text-red-500 active:text-red-600  outline-none focus:outline-none ease-linear transition-all duration-150"
+                    onClick={() => {
+                      sendDeleteModalData(data);
+                    }}
+                  >
                     <i className="fa-solid fa-trash-can"></i>
                   </button>
                 </div>

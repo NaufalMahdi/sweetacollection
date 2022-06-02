@@ -8,13 +8,14 @@ import ModalCreateProduct from "components/Modals/ModalCreateProduct";
 import ModalEditProduct from "components/Modals/ModalEditProduct";
 import Pagination from "components/Pagination/Pagination";
 import Alert from "components/Alerts/Alert";
-
+import ModalDeleteProduct from "components/Modals/ModalDeleteProduct";
 const products = () => {
   const [data, setData] = useState([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editModalData, setEditModalData] = useState({});
-
+  const [deleteModalData, setDeleteModalData] = useState({});
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   // Alert
   const [showAlert, setShowAlert] = useState(false);
   const [alertType, setAlertType] = useState("success");
@@ -41,6 +42,9 @@ const products = () => {
   const setParentEditModal = (state) => {
     setShowEditModal(state);
   };
+  const setParentDeleteModal = (state) => {
+    setShowDeleteModal(state);
+  };
   const sendDataToParent = (state, data) => {
     setAlertType(data.type);
     setAlertMsgCapitalize(data.msg_capitalize);
@@ -54,6 +58,10 @@ const products = () => {
   const sendEditModalData = (data) => {
     setEditModalData(data);
     setParentEditModal(true);
+  };
+  const sendDeleteModalData = (data) => {
+    setDeleteModalData(data);
+    setShowDeleteModal(true);
   };
   let view;
   try {
@@ -96,6 +104,7 @@ const products = () => {
                       <CardProduct
                         data={val}
                         sendEditModalData={sendEditModalData}
+                        sendDeleteModalData={sendDeleteModalData}
                       />
                     </div>
                   ))
@@ -121,6 +130,13 @@ const products = () => {
               data={editModalData}
             />
           ) : null}
+          {showDeleteModal && (
+            <ModalDeleteProduct
+              sendDataToParent={sendDataToParent}
+              setParentDeleteModal={setParentDeleteModal}
+              data={deleteModalData}
+            />
+          )}
         </>
       );
     } else {
