@@ -111,16 +111,14 @@ export default function Landing() {
                   <i className="fas fa-user-friends text-xl"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                  Tentang Kami
+                  PESAN BAJU
                 </h3>
                 <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
-                Sweeta Collection adalah usaha yang berkecimpung 
-                  di bidang tata rias, wisuda, tari, karnaval dan tempat persewaan kostum.
+                Pilihlah Baju Yang Ingin Kalian Pesan, Pesan Baju Sekarang Juga
                 </p>
-                <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-600">
-                  
+                <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-600">   
                 </p>
-                <Link href="/profile">
+                <Link href="/katalog">
                   <a href="#pablo" className="font-bold text-blueGray-700 mt-8">
                     Lebih Lanjut
                   </a>
@@ -198,9 +196,8 @@ export default function Landing() {
                   </div>
                   <h3 className="text-3xl font-semibold">Kenapa Memilih Sweeta Collection?</h3>
                   <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
-                    The extension comes with three pre-built pages to help you
-                    get started faster. You can change the text and images and
-                    you're good to go.
+                  Sweeta Collection adalah usaha yang berkecimpung 
+                  di bidang tata rias, wisuda, tari, karnaval dan tempat persewaan kostum.
                   </p>
                   <ul className="list-none mt-6">
                     <li className="py-2">
@@ -212,7 +209,7 @@ export default function Landing() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Carefully crafted components
+                            Kualitas Produk Tidak Dapat Diragukan Lagi
                           </h4>
                         </div>
                       </div>
@@ -226,7 +223,7 @@ export default function Landing() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Amazing page examples
+                            Pemesanan Cepat
                           </h4>
                         </div>
                       </div>
@@ -240,13 +237,18 @@ export default function Landing() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Dynamic components
+                            Harga Terjangkau
                           </h4>
                         </div>
                       </div>
                     </li>
                   </ul>
                 </div>
+                <Link href="/profile">
+                  <a href="#pablo" className="font-bold text-blueGray-700 mt-8">
+                    Lebih Lanjut
+                  </a>
+                </Link>
               </div>
             </div>
           </div>
