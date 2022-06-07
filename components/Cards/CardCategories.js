@@ -58,9 +58,11 @@ export default function CardCategories({ color }) {
         setAllData(res.data.categories);
       });
   };
+
   useEffect(() => {
     refreshData();
   }, []);
+
   return (
     <>
       <div className="w-full flex flex-row-reverse mb-3">

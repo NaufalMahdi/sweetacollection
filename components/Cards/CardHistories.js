@@ -7,7 +7,8 @@ import TableDropdown from "components/Dropdowns/TableDropdown.js";
 import ModalDetailHistories from "components/Modals/ModalDetailHistories";
 import ModalDeleteHistories from "components/Modals//ModalDeleteHistories";
 import Pagination from "components/Pagination/Pagination";
-export default function CardHistories({ color }) {
+
+const CardHistory = ({ data, color }) => {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const setParentDetailModal = (state) => {
@@ -16,7 +17,6 @@ export default function CardHistories({ color }) {
   const setParentDeleteModal = (state) => {
     setShowDeleteModal(state);
   };
-
   return (
     <>
       <div
@@ -118,23 +118,23 @@ export default function CardHistories({ color }) {
             <tbody>
               <tr>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  1
+                  {data.datetime}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Dayat
+                  {data.total_price}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  0869420
+                  {data.deadline}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Rp.1.000.000
+                  {data.note}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  15 Mei 2022
+                  {data.id_status}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <i className="fas fa-circle text-emerald-500 mr-2"></i>{" "}
-                  SELESAI
+                  {data.nama_pemesan}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
                   <div className="flex flex-row flex-nowrap  gap-4">
@@ -143,72 +143,7 @@ export default function CardHistories({ color }) {
                         setShowDetailModal(true);
                       }}
                     >
-                      <i class="fa-solid fa-circle-info fa-md"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  2
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Dayat
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  0869420
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Rp.1.000.000
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  15 Mei 2022
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i className="fas fa-circle text-red-600 mr-2"></i> DIBATALKAN
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
-                  <div className="flex flex-row flex-nowrap  gap-4">
-                    <button
-                      onClick={() => {
-                        setShowDetailModal(true);
-                      }}
-                    >
-                      <i class="fa-solid fa-circle-info fa-md"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  3
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Dayat
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  0869420
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Rp.1.000.000
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  15 Mei 2022
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i className="fas fa-circle text-blue-400 mr-2"></i> SEDANG
-                  DISEWA
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
-                  <div className="flex flex-row flex-nowrap  gap-4">
-                    <button
-                      onClick={() => {
-                        setShowDetailModal(true);
-                      }}
-                    >
-                      <i class="fa-solid fa-circle-info fa-md"></i>
+                      <i className="fa-solid fa-circle-info fa-md"></i>
                     </button>
                   </div>
                 </td>
@@ -226,12 +161,14 @@ export default function CardHistories({ color }) {
       ) : null}
     </>
   );
-}
+};
 
-CardHistories.defaultProps = {
+CardHistory.defaultProps = {
   color: "light",
 };
 
-CardHistories.propTypes = {
+CardHistory.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };
+
+export default CardHistory;

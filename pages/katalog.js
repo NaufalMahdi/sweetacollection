@@ -1,11 +1,44 @@
 import React from "react";
 import Link from "next/link";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
+import CardProduct from "components/Cards/CardProduct";
 // components
 
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 
 export default function Landing() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      await axios
+        .get("http://localhost:3000/api/admin/product/getAllProducts", {})
+        .then((res) => {
+          setData(res.data.data);
+        });
+    } catch (err) {
+      console.log(err);
+      setData([]);
+    }
+  };
+
+  const sendEditModalData = (data) => {
+    setEditModalData(data);
+    setParentEditModal(true);
+  };
+
+  const sendDeleteModalData = (data) => {
+    setDeleteModalData(data);
+    setShowDeleteModal(true);
+  };
+
   return (
     <>
       <Navbar transparent />
@@ -27,11 +60,9 @@ export default function Landing() {
             <div className="items-center flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
-                  <h1 className="text-white font-semibold text-5xl">
-                    Katalog
-                  </h1>
+                  <h1 className="text-white font-semibold text-5xl">Katalog</h1>
                   <p className="mt-4 text-lg text-blueGray-200">
-                 Persewaan Baju Tari
+                    Persewaan Baju Tari
                   </p>
                 </div>
               </div>
@@ -62,456 +93,143 @@ export default function Landing() {
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap">
               <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                </div>
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg"></div>
               </div>
 
               <div className="w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                </div>
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg"></div>
               </div>
 
               <div className="pt-6 w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                </div>
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg"></div>
               </div>
             </div>
 
             <div className="flex flex-wrap items-center mt-32">
-              
-            <section className="product spad">
-    <div className="container">
-        <div className="row flex justify-between mb-24">
-            <div className="col-lg-4 col-md-4">
-                <div className="section-title">
-                    <h4>Rekomendasi</h4>
-                </div>
-            </div>
-            <div className="col-lg-8 col-md-8">
-                <ul className="filter__controls flex gap-8">
-                    <li className="active" data-filter="*">All</li>
-                    <li data-filter=".women">Women’s</li>
-                    <li data-filter=".men">Men’s</li>
-                    <li data-filter=".kid">Kid’s</li>
-                    <li data-filter=".accessories">Accessories</li>
-                    <li data-filter=".cosmetic">Cosmetics</li>
-                </ul>
-            </div>
-        </div>
-        <div className="row property__gallery grid grid-cols-7 gap-10">
-            <div className="col-lg-3 col-md-4 col-sm-6 mix women">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" style={{backgroundImage:"/img/3.jpg"}} data-setbg="/img/3.jpg">
-                        <div className="label new">New</div>
-                        <ul className="product__hover">
-                            <li><img href="img/3.jpg" className="image-popup"/><span className="arrow_expand"></span></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
+              <section className="product spad">
+                <div className="container">
+                  <div className="row flex justify-between mb-24">
+                    <div className="col-lg-4 col-md-4">
+                      <div className="section-title">
+                        <h4>Rekomendasi</h4>
+                      </div>
                     </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
+                    <div className="col-lg-8 col-md-8">
+                      <ul className="filter__controls flex gap-8">
+                        <li className="active" data-filter="*">
+                          All
+                        </li>
+                        <li data-filter=".women">Women’s</li>
+                        <li data-filter=".men">Men’s</li>
+                        <li data-filter=".kid">Kid’s</li>
+                        <li data-filter=".accessories">Accessories</li>
+                        <li data-filter=".cosmetic">Cosmetics</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap justify-start mt-5">
+                    {data.length > 0 ? (
+                      data.map((val) => (
+                        <div className="mx-2" key={val.id}>
+                          <CardProduct
+                            data={val}
+                            sendEditModalData={sendEditModalData}
+                            sendDeleteModalData={sendDeleteModalData}
+                          />
                         </div>
-                        <div className="product__price">Rp. 170.000</div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix women">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" style={{backgroundImage:"/img/3.jpg"}} data-setbg="/img/3.jpg">
-                        <div className="label new">New</div>
-                        <ul className="product__hover">
-                            <li><img href="img/3.jpg" className="image-popup"/><span className="arrow_expand"></span></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
+                      ))
+                    ) : (
+                      <div className="mt-4 w-full text-center justify-center items-center">
+                        Data tidak ditemukan
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="row property__gallery grid grid-cols-7 gap-10">
+                    <div className="col-lg-3 col-md-4 col-sm-6 mix women">
+                      <div className="product__item">
+                        <div
+                          className="product__item__pic set-bg"
+                          style={{ backgroundImage: "/img/3.jpg" }}
+                          data-setbg="/img/3.jpg"
+                        >
+                          <div className="label new">New</div>
+                          <ul className="product__hover">
+                            <li>
+                              <img href="img/3.jpg" className="image-popup" />
+                              <span className="arrow_expand"></span>
+                            </li>
+                            <li>
+                              <a href="#">
+                                <span className="icon_heart_alt"></span>
+                              </a>
+                            </li>
+                            <li>
+                              <a href="#">
+                                <span className="icon_bag_alt"></span>
+                              </a>
+                            </li>
+                          </ul>
                         </div>
-                        <div className="product__price">Rp. 170.000</div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix women">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" style={{backgroundImage:"/img/3.jpg"}} data-setbg="/img/3.jpg">
-                        <div className="label new">New</div>
-                        <ul className="product__hover">
-                            <li><img href="img/3.jpg" className="image-popup"/><span className="arrow_expand"></span></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
+                        <div className="product__item__text">
+                          <h6>
+                            <a href="#">Baju Tari</a>
+                          </h6>
+                          <div className="rating">
                             <i className="fa fa-star"></i>
                             <i className="fa fa-star"></i>
                             <i className="fa fa-star"></i>
                             <i className="fa fa-star"></i>
                             <i className="fa fa-star"></i>
+                          </div>
+                          <div className="product__price">Rp. 170.000</div>
                         </div>
-                        <div className="product__price">Rp. 170.000</div>
+                      </div>
                     </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix women">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" style={{backgroundImage:"/img/3.jpg"}} data-setbg="/img/3.jpg">
-                        <div className="label new">New</div>
-                        <ul className="product__hover">
-                            <li><img href="img/3.jpg" className="image-popup"/><span className="arrow_expand"></span></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
+                    <div className="col-lg-3 col-md-4 col-sm-6 mix women">
+                      <div className="product__item">
+                        <div
+                          className="product__item__pic set-bg"
+                          style={{ backgroundImage: "/img/3.jpg" }}
+                          data-setbg="/img/3.jpg"
+                        >
+                          <div className="label new">New</div>
+                          <ul className="product__hover">
+                            <li>
+                              <img href="img/3.jpg" className="image-popup" />
+                              <span className="arrow_expand"></span>
+                            </li>
+                            <li>
+                              <a href="#">
+                                <span className="icon_heart_alt"></span>
+                              </a>
+                            </li>
+                            <li>
+                              <a href="#">
+                                <span className="icon_bag_alt"></span>
+                              </a>
+                            </li>
+                          </ul>
                         </div>
-                        <div className="product__price">Rp. 170.000</div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix women">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" style={{backgroundImage:"/img/3.jpg"}} data-setbg="/img/3.jpg">
-                        <div className="label new">New</div>
-                        <ul className="product__hover">
-                            <li><img href="img/3.jpg" className="image-popup"/><span className="arrow_expand"></span></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
+                        <div className="product__item__text">
+                          <h6>
+                            <a href="#">Baju Tari</a>
+                          </h6>
+                          <div className="rating">
                             <i className="fa fa-star"></i>
                             <i className="fa fa-star"></i>
                             <i className="fa fa-star"></i>
                             <i className="fa fa-star"></i>
                             <i className="fa fa-star"></i>
+                          </div>
+                          <div className="product__price">Rp. 170.000</div>
                         </div>
-                        <div className="product__price">Rp. 170.000</div>
+                      </div>
                     </div>
+                  </div>
                 </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix women">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" style={{backgroundImage:"/img/3.jpg"}} data-setbg="/img/3.jpg">
-                        <div className="label new">New</div>
-                        <ul className="product__hover">
-                            <li><img href="img/3.jpg" className="image-popup"/><span className="arrow_expand"></span></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                        </div>
-                        <div className="product__price">Rp. 170.000</div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix women">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" style={{backgroundImage:"/img/3.jpg"}} data-setbg="/img/3.jpg">
-                        <div className="label new">New</div>
-                        <ul className="product__hover">
-                            <li><img href="img/3.jpg" className="image-popup"/><span className="arrow_expand"></span></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                        </div>
-                        <div className="product__price">Rp. 170.000</div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix women">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" style={{backgroundImage:"/img/3.jpg"}} data-setbg="/img/3.jpg">
-                        <div className="label new">New</div>
-                        <ul className="product__hover">
-                            <li><img href="img/3.jpg" className="image-popup"/><span className="arrow_expand"></span></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                        </div>
-                        <div className="product__price">Rp. 170.000</div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix women">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" style={{backgroundImage:"/img/3.jpg"}} data-setbg="/img/3.jpg">
-                        <div className="label new">New</div>
-                        <ul className="product__hover">
-                            <li><img href="img/3.jpg" className="image-popup"/><span className="arrow_expand"></span></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                        </div>
-                        <div className="product__price">Rp. 170.000</div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix women">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" style={{backgroundImage:"/img/3.jpg"}} data-setbg="/img/3.jpg">
-                        <div className="label new">New</div>
-                        <ul className="product__hover">
-                            <li><img href="img/3.jpg" className="image-popup"/><span className="arrow_expand"></span></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                        </div>
-                        <div className="product__price">Rp. 170.000</div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix women">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" style={{backgroundImage:"/img/3.jpg"}} data-setbg="/img/3.jpg">
-                        <div className="label new">New</div>
-                        <ul className="product__hover">
-                            <li><img href="img/3.jpg" className="image-popup"/><span className="arrow_expand"></span></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                        </div>
-                        <div className="product__price">Rp. 170.000</div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix men">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" data-setbg="/img/3.jpg">
-                        <ul className="product__hover">
-                            <li><a href="img/product/product-2.jpg" className="image-popup"><span className="arrow_expand"></span></a></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                        </div>
-                        <div className="product__price">Rp. 150.000</div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix accessories">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
-                        <div className="label stockout">out of stock</div>
-                        <ul className="product__hover">
-                            <li><a href="img/product/product-3.jpg" className="image-popup"><span className="arrow_expand"></span></a></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                        </div>
-                        <div className="product__price">Rp. 80.000</div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix cosmetic">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" data-setbg="img/product/product-4.jpg">
-                        <ul className="product__hover">
-                            <li><a href="img/product/product-4.jpg" className="image-popup"><span className="arrow_expand"></span></a></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                        </div>
-                        <div className="product__price">Rp. 100.000</div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix kid">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" data-setbg="img/product/product-5.jpg">
-                        <ul className="product__hover">
-                            <li><a href="img/product/product-5.jpg" className="image-popup"><span className="arrow_expand"></span></a></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                        </div>
-                        <div className="product__price">Rp. 150.000</div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix women men kid accessories cosmetic">
-                <div className="product__item sale">
-                    <div className="product__item__pic set-bg" data-setbg="img/product/product-6.jpg">
-                        <div className="label sale">Sale</div>
-                        <ul className="product__hover">
-                            <li><a href="img/product/product-6.jpg" className="image-popup"><span className="arrow_expand"></span></a></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                        </div>
-                        <div className="product__price">Rp. 120.000<span>Rp. 150.000</span></div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix women men kid accessories cosmetic">
-                <div className="product__item">
-                    <div className="product__item__pic set-bg" data-setbg="img/product/product-7.jpg">
-                        <ul className="product__hover">
-                            <li><a href="img/product/product-7.jpg" className="image-popup"><span className="arrow_expand"></span></a></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                        </div>
-                        <div className="product__price">Rp. 90.000</div>
-                    </div>
-                </div>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-6 mix women men kid accessories cosmetic">
-                <div className="product__item sale">
-                    <div className="product__item__pic set-bg" data-setbg="img/product/product-8.jpg">
-                        <div className="label">Sale</div>
-                        <ul className="product__hover">
-                            <li><a href="img/product/product-8.jpg" className="image-popup"><span className="arrow_expand"></span></a></li>
-                            <li><a href="#"><span className="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span className="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div className="product__item__text">
-                        <h6><a href="#">Baju Tari</a></h6>
-                        <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                        </div>
-                        <div className="product__price">Rp. 125.000 <span>Rp. 180.000</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+              </section>
             </div>
           </div>
         </section>
