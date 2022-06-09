@@ -8,11 +8,12 @@ import ModalDetailHistories from "components/Modals/ModalDetailHistories";
 import ModalDeleteHistories from "components/Modals//ModalDeleteHistories";
 import Pagination from "components/Pagination/Pagination";
 
-const CardHistory = ({ data, color }) => {
-  const [showDetailModal, setShowDetailModal] = useState(false);
+const CardHistories = ({ data, color }) => {
+  const [showDetailHistoriesModal, setShowDetailHistoriesModal] =
+    useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const setParentDetailModal = (state) => {
-    setShowDetailModal(state);
+    setShowDetailHistoriesModal(state);
   };
   const setParentDeleteModal = (state) => {
     setShowDeleteModal(state);
@@ -118,29 +119,29 @@ const CardHistory = ({ data, color }) => {
             <tbody>
               <tr>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  {data.datetime}
+                  1
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {data.total_price}
+                  {data.nama_pemesan}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  {data.nomer_telepon}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  Rp.{data.total_price}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   {data.deadline}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {data.note}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {data.id_status}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   <i className="fas fa-circle text-emerald-500 mr-2"></i>{" "}
-                  {data.nama_pemesan}
+                  {data.id_status}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
                   <div className="flex flex-row flex-nowrap  gap-4">
                     <button
                       onClick={() => {
-                        setShowDetailModal(true);
+                        setShowDetailHistoriesModal(data);
                       }}
                     >
                       <i className="fa-solid fa-circle-info fa-md"></i>
@@ -153,7 +154,7 @@ const CardHistory = ({ data, color }) => {
           <Pagination />
         </div>
       </div>
-      {showDetailModal ? (
+      {showDetailHistoriesModal ? (
         <ModalDetailHistories setParentDetailModal={setParentDetailModal} />
       ) : null}
       {showDeleteModal ? (
@@ -163,12 +164,12 @@ const CardHistory = ({ data, color }) => {
   );
 };
 
-CardHistory.defaultProps = {
+CardHistories.defaultProps = {
   color: "light",
 };
 
-CardHistory.propTypes = {
+CardHistories.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };
 
-export default CardHistory;
+export default CardHistories;

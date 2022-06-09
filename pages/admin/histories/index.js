@@ -24,6 +24,15 @@ const histories = () => {
       console.log(err);
       setData([]);
     }
+
+    const setParentDetailHistoriesModal = (state) => {
+      setShowDetailHistoriesModal(state);
+    };
+
+    const sendDetailHistoriesModalData = (data) => {
+      setShowDetailHistoriesModal(data);
+      setParentDetailHistoriesModal(true);
+    };
   };
 
   return (
