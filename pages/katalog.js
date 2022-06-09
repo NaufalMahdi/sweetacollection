@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
-import CardProduct from "components/Cards/CardProduct";
+import CardKatalog from "components/Cards/CardKatalog";
 // components
 
 import Navbar from "components/Navbars/AuthNavbar.js";
@@ -132,12 +132,14 @@ export default function Landing() {
                     {data.length > 0 ? (
                       data.map((val) => (
                         <div className="mx-2" key={val.id}>
-                          <CardProduct
+                          <CardKatalog
                             data={val}
                             sendEditModalData={sendEditModalData}
                             sendDeleteModalData={sendDeleteModalData}
                           />
+                          
                         </div>
+                        
                       ))
                     ) : (
                       <div className="mt-4 w-full text-center justify-center items-center">
@@ -148,84 +150,7 @@ export default function Landing() {
 
                   <div className="row property__gallery grid grid-cols-7 gap-10">
                     <div className="col-lg-3 col-md-4 col-sm-6 mix women">
-                      <div className="product__item">
-                        <div
-                          className="product__item__pic set-bg"
-                          style={{ backgroundImage: "/img/3.jpg" }}
-                          data-setbg="/img/3.jpg"
-                        >
-                          <div className="label new">New</div>
-                          <ul className="product__hover">
-                            <li>
-                              <img href="img/3.jpg" className="image-popup" />
-                              <span className="arrow_expand"></span>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <span className="icon_heart_alt"></span>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <span className="icon_bag_alt"></span>
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="product__item__text">
-                          <h6>
-                            <a href="#">Baju Tari</a>
-                          </h6>
-                          <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                          </div>
-                          <div className="product__price">Rp. 170.000</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-3 col-md-4 col-sm-6 mix women">
-                      <div className="product__item">
-                        <div
-                          className="product__item__pic set-bg"
-                          style={{ backgroundImage: "/img/3.jpg" }}
-                          data-setbg="/img/3.jpg"
-                        >
-                          <div className="label new">New</div>
-                          <ul className="product__hover">
-                            <li>
-                              <img href="img/3.jpg" className="image-popup" />
-                              <span className="arrow_expand"></span>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <span className="icon_heart_alt"></span>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <span className="icon_bag_alt"></span>
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="product__item__text">
-                          <h6>
-                            <a href="#">Baju Tari</a>
-                          </h6>
-                          <div className="rating">
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                            <i className="fa fa-star"></i>
-                          </div>
-                          <div className="product__price">Rp. 170.000</div>
-                        </div>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -259,12 +184,10 @@ export default function Landing() {
             <div className="flex flex-wrap text-center justify-center">
               <div className="w-full lg:w-6/12 px-4">
                 <h2 className="text-4xl font-semibold text-white">
-                  Build something
+                  Terima Kasih Sudah Menjadi Pelanggan Setia Kami
                 </h2>
                 <p className="text-lg leading-relaxed mt-4 mb-4 text-blueGray-400">
-                  Put the potentially record low maximum sea ice extent tihs
-                  year down to low ice. According to the National Oceanic and
-                  Atmospheric Administration, Ted, Scambos.
+                  Kami Senantiasa Menunggu Kehadiran Anda Kembali
                 </p>
               </div>
             </div>

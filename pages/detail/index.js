@@ -13,7 +13,7 @@ const Product3 = () => {
           <img
             className="w-full"
             alt="foto tampak depan"
-            src="https://i.ibb.co/QMdWfzX/component-image-one.png"
+            src="img/3.jpg"
           />
         </div>
         <div className="md:hidden">
