@@ -15,7 +15,7 @@ const histories = () => {
   const getData = async () => {
     try {
       await axios
-        .get("http://localhost:3000/api/admin/product/getAllHistories", {})
+        .get("http://localhost:3000/api/admin/histories/getAllHistories", {})
         .then((res) => {
           setData(res.data.data);
           console.log(res.data.data);

@@ -61,8 +61,8 @@ model rental_statuses {
 }
 
 model rentals {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  datetime      DateTime @db.Date
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  datetime      String
   deadline      String
   id_status     Int
   nama_pemesan  String

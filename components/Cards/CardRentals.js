@@ -2,31 +2,26 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { useRouter } from 'next/router';
+
 // components
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
-import ModalDetailRentals from "components/Modals/ModalDetailHistories";
-import Pagination from "components/Pagination/Pagination";
-export default function CardHistories({ color }) {
-  const [showDetailModal, setShowDetailModal] = useState(false);
+import ModalDetailRentals from "components/Modals/ModalDetailRentals";
+// import Pagination from "components/Pagination/Pagination";
+
+const CardRentals = ({ data, color }) => {
+  const [showDetailRentalsModal, setShowDetailRentalsModal] =
+    useState(false);
+  const router = useRouter();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const setParentDetailModal = (state) => {
-    setShowDetailModal(state);
-  };
-  const setParentDeleteModal = (state) => {
-    setShowDeleteModal(state);
-  };
-  const router = useRouter();
-
-   
+    setShowDetailRentalsModal(state);
   
-  
-
+  };
   return (
     <>
-   <div className="w-full flex flex-row-reverse mb-3">
-        <button
-          className="bg-blueGray-500 text-white active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+     <button
+          className="bg-blueGray-500 text-white active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 mb-6"
           type="button"
           onClick={() => {
             router.push("/admin/rentals/create");
@@ -39,8 +34,7 @@ export default function CardHistories({ color }) {
             </div>
           </div>
         </button>
-      </div>
-      <div></div>
+        
       <div
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
@@ -56,7 +50,7 @@ export default function CardHistories({ color }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Data Penyewaan
+                Penyewaan
               </h3>
             </div>
           </div>
@@ -104,37 +98,7 @@ export default function CardHistories({ color }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Barang Pesanan
-                </th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
-                  }
-                >
-                  Keterangan
-                </th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
-                  }
-                >
                   Total Harga
-                </th>
-                <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
-                  }
-                >
-                  Tanggal Di Pesan
                 </th>
                 <th
                   className={
@@ -168,136 +132,48 @@ export default function CardHistories({ color }) {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  1
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Fian
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  0869420
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Baju Tari
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  Mahkota , Slendang
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Rp.1.000.000
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  11 Mei 2022
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  15 Mei 2022
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i className="fas fa-circle text-emerald-500 mr-2"></i>{" "}
-                  SELESAI
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
-                  <div className="flex flex-row flex-nowrap  gap-4">
-                    <button
-                      onClick={() => {
-                        setShowDetailModal(true);
-                      }}
-                    >
-                      <i class="fa-solid fa-pen-to-square text-blueGray-600"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  2
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Dayat
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  0869420
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Baju Tari
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  Mahkota , Slendang
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Rp.1.000.000
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  11 Mei 2022
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  15 Mei 2022
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i className="fas fa-circle text-red-600 mr-2"></i> DIBATALKAN
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
-                  <div className="flex flex-row flex-nowrap  gap-4">
-                    <button
-                      onClick={() => {
-                        setShowDetailModal(true);
-                      }}
-                    >
-                      <i class="fa-solid fa-pen-to-square text-blueGray-600"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  3
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Naufal
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  0869420
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Baju Tari
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  Mahkota , Slendang
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Rp.1.000.000
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  11 Mei 2022
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  15 Mei 2022
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i className="fas fa-circle text-blue-400 mr-2"></i> SEDANG
-                  DISEWA
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
-                  <div className="flex flex-row flex-nowrap  gap-4">
-                    <button
-                      onClick={() => {
-                        setShowDetailModal(true);
-                      }}
-                    >
-                      <i class="fa-solid fa-pen-to-square text-blueGray-600"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
+              {data.length > 0
+                ? data.map((val, index) => (
+                    <tr key={val.id}>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                        {++index}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {val.nama_pemesan}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {val.nomer_telepon}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        Rp.{val.total_price}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {val.deadline}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        <i className="fas fa-circle text-emerald-500 mr-2"></i>{" "}
+                        {val.status}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
+                        <div className="flex flex-row flex-nowrap  gap-4">
+                          <button
+                            onClick={() => {
+                              setShowDetailRentalsModal(val);
+                            }}
+                          >
+                            <i className="fa-solid fa-circle-info fa-md"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                : null}
             </tbody>
           </table>
-          <Pagination />
+          {/* <Pagination /> */}
         </div>
       </div>
-      {showDetailModal ? (
+      {showDetailRentalsModal ? (
         <ModalDetailRentals setParentDetailModal={setParentDetailModal} />
       ) : null}
       {showDeleteModal ? (
@@ -305,12 +181,14 @@ export default function CardHistories({ color }) {
       ) : null}
     </>
   );
-}
+};
 
-CardHistories.defaultProps = {
+CardRentals.defaultProps = {
   color: "light",
 };
 
-CardHistories.propTypes = {
+CardRentals.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };
+
+export default CardRentals;
