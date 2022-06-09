@@ -31,32 +31,32 @@ model product_categories {
 
 model products {
   id               String @id @default(auto()) @map("_id") @db.ObjectId
-  available_stock  BigInt
+  available_stock  Int
   color            String
   description      String
   image            String
-  price            BigInt
+  price            Int
   product_category String
   product_name     String
   size             String
-  total_stock      BigInt
+  total_stock      Int
 }
 
 model rental_details {
   id           String @id @default(auto()) @map("_id") @db.ObjectId
-  amount       BigInt
+  amount       Int
   color        String
   id_rental    String
   image        String
   note         String
-  price        BigInt
+  price        Int
   product_name String
   size         String
 }
 
 model rental_statuses {
   id        String @id @default(auto()) @map("_id") @db.ObjectId
-  id_status BigInt
+  id_status Int
   status    String
 }
 
@@ -64,9 +64,9 @@ model rentals {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   datetime      DateTime @db.Date
   deadline      String
-  id_status     BigInt
+  id_status     Int
   nama_pemesan  String
-  nomer_telepon BigInt
+  nomer_telepon Int
   note          String
-  total_price   BigInt
+  total_price   Int
 }
