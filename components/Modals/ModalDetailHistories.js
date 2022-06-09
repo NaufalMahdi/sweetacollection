@@ -86,7 +86,7 @@ const ModalDetailHistories = ({
                           Status Pesanan
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          <i className="fas fa-circle text-emerald-500 mr-1"></i>{" "}
+                          <i className={`fas fa-circle ${data.warna} mr-2`}></i>{" "}
                           {data.status}
                         </td>
                       </tr>

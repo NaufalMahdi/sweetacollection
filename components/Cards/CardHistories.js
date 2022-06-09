@@ -14,12 +14,14 @@ const CardHistories = ({ data, color }) => {
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [activeData, setActiveData] = useState([]);
+
   const setParentDetailHistoriesModal = (state) => {
     setShowDetailHistoriesModal(state);
   };
   const setParentDeleteModal = (state) => {
     setShowDeleteModal(state);
   };
+
   return (
     <>
       <div
@@ -138,7 +140,7 @@ const CardHistories = ({ data, color }) => {
                         {val.deadline}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        <i className="fas fa-circle text-emerald-500 mr-2"></i>{" "}
+                        <i className={`fas fa-circle ${val.warna} mr-2`}></i>{" "}
                         {val.status}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
