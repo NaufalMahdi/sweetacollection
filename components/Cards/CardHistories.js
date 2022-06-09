@@ -117,41 +117,45 @@ const CardHistories = ({ data, color }) => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                  1
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {data.nama_pemesan}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {data.nomer_telepon}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  Rp.{data.total_price}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {data.deadline}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i className="fas fa-circle text-emerald-500 mr-2"></i>{" "}
-                  {data.id_status}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
-                  <div className="flex flex-row flex-nowrap  gap-4">
-                    <button
-                      onClick={() => {
-                        setShowDetailHistoriesModal(data);
-                      }}
-                    >
-                      <i className="fa-solid fa-circle-info fa-md"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
+              {data.length > 0
+                ? data.map((val, index) => (
+                    <tr key={val.id}>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                        {++index}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {val.nama_pemesan}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {val.nomer_telepon}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        Rp.{val.total_price}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {val.deadline}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        <i className="fas fa-circle text-emerald-500 mr-2"></i>{" "}
+                        {val.status}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
+                        <div className="flex flex-row flex-nowrap  gap-4">
+                          <button
+                            onClick={() => {
+                              setShowDetailHistoriesModal(val);
+                            }}
+                          >
+                            <i className="fa-solid fa-circle-info fa-md"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                : null}
             </tbody>
           </table>
-          <Pagination />
+          {/* <Pagination /> */}
         </div>
       </div>
       {showDetailHistoriesModal ? (

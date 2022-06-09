@@ -40,11 +40,9 @@ const histories = () => {
       <div className="relative bg-transparent pt-20 mx-5">
         <div className="mt-10 h-screen">
           {data.length > 0 ? (
-            data.map((val) => (
-              <div className="w-full mb-12 px-4" key={val.id}>
-                <CardHistories data={val} />
-              </div>
-            ))
+            <div className="w-full mb-12 px-4">
+              <CardHistories data={data} />
+            </div>
           ) : (
             <div className="mt-4 w-full text-center justify-center items-center">
               Data tidak ditemukan
