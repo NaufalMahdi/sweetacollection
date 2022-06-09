@@ -34,17 +34,17 @@ function CardCreateRentals() {
       nomerTelepon.length > 0
     ) {
       console.log("submitted");
-      setDisableBtn(true);
+
       try {
         await axios
           .post("http://localhost:3000/api/admin/rentals/createRentals", {
-            product: {
+            rental: {
               datetime: dateTime,
               deadline: deadLine,
               note: note,
               nama_pemesan: namaPemesan,
               total_price: parseInt(totalPrice),
-              nomer_pemesan: parseInt(nomerTelepon),
+              nomer_telepon: parseInt(nomerTelepon),
               id_status: parseInt(rentalStatusid),
             },
           })

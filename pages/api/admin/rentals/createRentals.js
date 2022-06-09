@@ -13,8 +13,8 @@ const handler = async (req, res) => {
         deadline: rental.deadline,
         note: rental.note,
         nama_pemesan: rental.nama_pemesan,
-        nomer_pemesan: rental.nomer_pemesan,
-        id_status: 1,
+        nomer_telepon: rental.nomer_telepon,
+        id_status: rental.id_status,
       },
     });
     if (create) {
