@@ -11,8 +11,10 @@ import Pagination from "components/Pagination/Pagination";
 const CardHistories = ({ data, color }) => {
   const [showDetailHistoriesModal, setShowDetailHistoriesModal] =
     useState(false);
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const setParentDetailModal = (state) => {
+  const [activeData, setActiveData] = useState([]);
+  const setParentDetailHistoriesModal = (state) => {
     setShowDetailHistoriesModal(state);
   };
   const setParentDeleteModal = (state) => {
@@ -143,7 +145,8 @@ const CardHistories = ({ data, color }) => {
                         <div className="flex flex-row flex-nowrap  gap-4">
                           <button
                             onClick={() => {
-                              setShowDetailHistoriesModal(val);
+                              setActiveData(val);
+                              setShowDetailHistoriesModal(true);
                             }}
                           >
                             <i className="fa-solid fa-circle-info fa-md"></i>
@@ -159,7 +162,10 @@ const CardHistories = ({ data, color }) => {
         </div>
       </div>
       {showDetailHistoriesModal ? (
-        <ModalDetailHistories setParentDetailModal={setParentDetailModal} />
+        <ModalDetailHistories
+          setParentDetailHistoriesModal={setParentDetailHistoriesModal}
+          data={activeData}
+        />
       ) : null}
       {showDeleteModal ? (
         <ModalDeleteHistories setParentDeleteModal={setParentDeleteModal} />

@@ -4,30 +4,13 @@ import axios from "axios";
 import Alert from "components/Alerts/Alert";
 
 const ModalDetailHistories = ({
-  setParentDetailModal,
-  sendDataToParent,
   data,
+  setParentDetailHistoriesModal,
+  sendDataToParent,
 }) => {
-  const [histories, setHistories] = useState(data);
-
-  console.log(data);
-
-  // useEffect(() => {
-  //   console.log(data);
-  //   const getHistories = async () => {
-  //     await axios
-  //       .get("http://localhost:3000/api/admin/histories/getAllHistories", {})
-  //       .then((res) => {
-  //         setHistories(res.data.rentals);
-  //         for (let i = 0; i < res.data.rentals; i++) {
-  //           if (data.rentals_category == res.data.rentals[i].id) {
-  //             setHistoriesCategory(res.data.rentals[i].category_name);
-  //           }
-  //         }
-  //       });
-  //   };
-  //   getHistories();
-  // }, []);
+  const [categoryName, setCategoryName] = useState(data.category_name);
+  const [description, setDescription] = useState(data.description);
+  const [saveLoading, setSaveLoading] = useState(false);
 
   return (
     <>
@@ -41,7 +24,7 @@ const ModalDetailHistories = ({
               <button
                 className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                 onClick={() => {
-                  setParentDetailModal(false);
+                  setParentDetailHistoriesModal(false);
                 }}
               >
                 <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
@@ -49,25 +32,6 @@ const ModalDetailHistories = ({
                 </span>
               </button>
             </div>
-            {/*body*/}
-            {/* <div className="relative p-6 flex-auto">
-              <div className="grid grid-cols-1 my-1">
-                <div className="grid grid-cols-1 mb-3">
-                  <span>Nama Produk</span>
-                  <a className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150">
-                    {" "}
-                    awokawok
-                  </a>
-                </div>
-                <div className="grid grid-cols-1 mb-3">
-                  <span>Deskripsi</span>
-                  <textarea
-                    className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150 focus:ring-0 focus:border-x-transparent focus:border-t-transparent"
-                    rows="10"
-                  ></textarea>
-                </div>
-              </div>
-            </div> */}
             <div
               className={
                 "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded overflow-y-auto"
@@ -82,7 +46,7 @@ const ModalDetailHistories = ({
                           Nama Pemesan
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          {/* {histories.nama_pemesan} */}
+                          {data.nama_pemesan}
                         </td>
                       </tr>
                       <tr>
@@ -90,7 +54,7 @@ const ModalDetailHistories = ({
                           Nomor telepon
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          {/* {data.nomer_telepon} */}
+                          {data.nomer_telepon}
                         </td>
                       </tr>
                       <tr>
@@ -98,7 +62,7 @@ const ModalDetailHistories = ({
                           Catatan
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          {/* {data.note} */}
+                          {data.note}
                         </td>
                       </tr>
                       <tr>
@@ -106,7 +70,7 @@ const ModalDetailHistories = ({
                           Total Harga
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          {/* Rp.{data.total_price} */}
+                          Rp.{data.total_price}
                         </td>
                       </tr>
                       <tr>
@@ -114,7 +78,7 @@ const ModalDetailHistories = ({
                           Deadline
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          15 Mei 2022
+                          {data.deadline}
                         </td>
                       </tr>
                       <tr>
@@ -123,7 +87,7 @@ const ModalDetailHistories = ({
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
                           <i className="fas fa-circle text-emerald-500 mr-1"></i>{" "}
-                          SELESAI
+                          {data.status}
                         </td>
                       </tr>
                     </table>
@@ -234,7 +198,7 @@ const ModalDetailHistories = ({
               <button
                 className="text-blueGray-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 onClick={() => {
-                  setParentDetailModal(false);
+                  setParentDetailHistoriesModal(false);
                 }}
               >
                 Close
