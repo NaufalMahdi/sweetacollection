@@ -8,36 +8,26 @@ const ModalDetailHistories = ({
   sendDataToParent,
   data,
 }) => {
-  const [histories, setHistories] = useState([]);
+  const [histories, setHistories] = useState(data);
 
-  useEffect(() => {
-    const getHistories = async () => {
-      await axios(
-        "http://localhost:3000/api/admin/histories/getAllHistories",
-        {}
-      ).then((res) => {
-        setHistories(res.data.rentals);
-        for (let i = 0; i < res.data.rentals; i++) {
-          if (data.rentals_category == res.data.rentals[i].id) {
-            setHistoriesCategory(res.data.rentals[i].category_name);
-          }
-        }
-      });
-    };
-    getHistories();
-  }, []);
-  // console.log(datanote);
-  // const [rentalId, setRentalId] = useState(data.rentals);
+  console.log(data);
 
-  // const [namaPemesan, setNamaPemesan] = useState(data.nama_pemesan);
-
-  // const [historiesName, sethistoriesName] = useState(data.histories_name);
-  // const [description, setDescription] = useState(data.description);
-  // const [color, setColor] = useState(data.color);
-  // const [size, setSize] = useState(data.size);
-  // const [price, setPrice] = useState(data.price.toString());
-  // const [totalStock, setTotalStock] = useState(data.total_stock.toString());
-  // const [disableBtn, setDisableBtn] = useState(false);
+  // useEffect(() => {
+  //   console.log(data);
+  //   const getHistories = async () => {
+  //     await axios
+  //       .get("http://localhost:3000/api/admin/histories/getAllHistories", {})
+  //       .then((res) => {
+  //         setHistories(res.data.rentals);
+  //         for (let i = 0; i < res.data.rentals; i++) {
+  //           if (data.rentals_category == res.data.rentals[i].id) {
+  //             setHistoriesCategory(res.data.rentals[i].category_name);
+  //           }
+  //         }
+  //       });
+  //   };
+  //   getHistories();
+  // }, []);
 
   return (
     <>
@@ -92,7 +82,7 @@ const ModalDetailHistories = ({
                           Nama Pemesan
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          {/* {data.nama_pemesan} */}
+                          {/* {histories.nama_pemesan} */}
                         </td>
                       </tr>
                       <tr>
