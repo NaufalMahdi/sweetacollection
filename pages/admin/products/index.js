@@ -30,6 +30,7 @@ const products = () => {
         .get("http://localhost:3000/api/admin/product/getAllProducts", {})
         .then((res) => {
           setData(res.data.data);
+          console.log(res.data.data);
         });
     } catch (err) {
       console.log(err);
