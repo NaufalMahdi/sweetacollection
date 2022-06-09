@@ -15,6 +15,14 @@ model accounts {
   password   String
 }
 
+model logs {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  account_id String
+  action     String
+  datetime   DateTime @db.Date
+  object     String
+}
+
 model product_categories {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   category_name String
@@ -23,48 +31,42 @@ model product_categories {
 
 model products {
   id               String @id @default(auto()) @map("_id") @db.ObjectId
-  product_name     String
-  product_category String
-  description      String
-  price            Int
+  available_stock  BigInt
   color            String
-  size             String
+  description      String
   image            String
-  total_stock      Int
-  available_stock  Int
-}
-
-model rental_statuses {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  id_status Int
-  status    String
-}
-
-model rentals {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  datetime    DateTime @default(now())
-  total_price Int
-  deadline    String
-  note        String
-  id_status   Int
+  price            BigInt
+  product_category String
+  product_name     String
+  size             String
+  total_stock      BigInt
 }
 
 model rental_details {
   id           String @id @default(auto()) @map("_id") @db.ObjectId
-  id_rental    String
-  product_name String
+  amount       BigInt
   color        String
-  size         String
-  price        Int
-  amount       Int
+  id_rental    String
   image        String
   note         String
+  price        BigInt
+  product_name String
+  size         String
 }
 
-model logs {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  account_id String
-  action     String
-  object     String
-  datetime   DateTime @default(now())
+model rental_statuses {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  id_status BigInt
+  status    String
+}
+
+model rentals {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  datetime      DateTime @db.Date
+  deadline      String
+  id_status     BigInt
+  nama_pemesan  String
+  nomer_telepon BigInt
+  note          String
+  total_price   BigInt
 }
