@@ -16,7 +16,7 @@ const CardProduct = ({ data, sendEditModalData, sendDeleteModalData }) => {
 
             </a>
           </Link></p>
-      <p className="mt-1 text-lg font-medium text-gray-900">{data.price}</p>
+      <p className="mt-0 pb-8 text-lg font-medium text-green-500">{data.price}</p>
     </div>
     </>
   );

@@ -53,7 +53,7 @@ const IndexDropdown = () => {
             Dashboard
           </a>
         </Link>
-        <Link href="/admin/settings">
+        {/* <Link href="/admin/settings">
           <a
             href="#pablo"
             className={
@@ -62,8 +62,8 @@ const IndexDropdown = () => {
           >
             Settings
           </a>
-        </Link>
-        <Link href="/admin/tables">
+        </Link> */}
+        {/* <Link href="/admin/tables">
           <a
             href="#pablo"
             className={
@@ -72,8 +72,8 @@ const IndexDropdown = () => {
           >
             Tables
           </a>
-        </Link>
-        <Link href="/admin/maps">
+        </Link> */}
+        {/* <Link href="/admin/maps">
           <a
             href="#pablo"
             className={
@@ -82,7 +82,7 @@ const IndexDropdown = () => {
           >
             Maps
           </a>
-        </Link>
+        </Link> */}
         <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
         <span
           className={
