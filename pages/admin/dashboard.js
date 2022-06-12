@@ -1,4 +1,7 @@
 import React from "react";
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 
 // components
 
@@ -14,6 +17,23 @@ import CardStats from "components/Cards/CardStats.js";
 import Admin from "layouts/Admin.js";
 
 export default function Dashboard() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = async () => {
+    try {
+      await axios
+        .get("http://localhost:3000/api/admin/dashboard/getRentalsStatus", {})
+        .then((res) => {
+          setData(res.data);
+          console.log(res.data);
+        });
+    } catch (err) {
+      setData([]);
+      console.log(err);
+    }
+  };
   return (
     <>
       <div className="relative md:pt-32 pb-32 pt-12">
@@ -23,50 +43,50 @@ export default function Dashboard() {
             <div className="flex flex-wrap">
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle="TRAFFIC"
-                  statTitle="350,897"
-                  statArrow="up"
-                  statPercent="3.48"
+                  statSubtitle="JUMLAH PESANAN DIPINJAM"
+                  statTitle={data.dipinjam}
+                  statArrow=""
+                  statPercent=""
                   statPercentColor="text-emerald-500"
-                  statDescripiron="Since last month"
-                  statIconName="far fa-chart-bar"
-                  statIconColor="bg-red-500"
+                  statDescripiron=""
+                  statIconName="fa-solid fa-truck-ramp-box"
+                  statIconColor="bg-blue-500"
                 />
               </div>
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle="NEW USERS"
-                  statTitle="2,356"
-                  statArrow="down"
-                  statPercent="3.48"
+                  statSubtitle="JUMLAH PESANAN SELESAI"
+                  statTitle={data.selesai}
+                  statArrow=""
+                  statPercent=""
                   statPercentColor="text-red-500"
-                  statDescripiron="Since last week"
-                  statIconName="fas fa-chart-pie"
-                  statIconColor="bg-orange-500"
+                  statDescripiron=""
+                  statIconName="fa-solid fa-check"
+                  statIconColor="bg-green-500"
                 />
               </div>
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle="SALES"
-                  statTitle="924"
-                  statArrow="down"
-                  statPercent="1.10"
+                  statSubtitle="JUMLAH PESANAN TELAT"
+                  statTitle={data.telat}
+                  statArrow=""
+                  statPercent=""
                   statPercentColor="text-orange-500"
-                  statDescripiron="Since yesterday"
-                  statIconName="fas fa-users"
-                  statIconColor="bg-pink-500"
+                  statDescripiron=""
+                  statIconName="fa-solid fa-clock"
+                  statIconColor="bg-gray-500"
                 />
               </div>
               <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle="PERFORMANCE"
-                  statTitle="49,65%"
-                  statArrow="up"
-                  statPercent="12"
+                  statSubtitle="JUMLAH PESANAN HILANG"
+                  statTitle={data.hilang}
+                  statArrow=""
+                  statPercent=""
                   statPercentColor="text-emerald-500"
-                  statDescripiron="Since last month"
-                  statIconName="fas fa-percent"
-                  statIconColor="bg-lightBlue-500"
+                  statDescripiron=""
+                  statIconName="fas fa-xmark"
+                  statIconColor="bg-red-500"
                 />
               </div>
             </div>
@@ -76,18 +96,16 @@ export default function Dashboard() {
 
       <div className="flex flex-wrap">
         <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-          <CardLineChart />
+          {/* <CardLineChart /> */}
         </div>
-        <div className="w-full xl:w-4/12 px-4">
-          <CardBarChart />
-        </div>
+        <div className="w-full xl:w-4/12 px-4">{/* <CardBarChart /> */}</div>
       </div>
       <div className="flex flex-wrap mt-4">
         <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-          <CardPageVisits />
+          {/* <CardPageVisits /> */}
         </div>
         <div className="w-full xl:w-4/12 px-4">
-          <CardSocialTraffic />
+          {/* <CardSocialTraffic /> */}
         </div>
       </div>
     </>
