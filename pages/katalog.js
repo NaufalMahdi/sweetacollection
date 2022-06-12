@@ -111,11 +111,11 @@ export default function Landing() {
                   <div className="row flex justify-between mb-24">
                     <div className="col-lg-4 col-md-4">
                       <div className="section-title">
-                        <h4>Rekomendasi</h4>
+                        <h4>List Baju Tari</h4>
                       </div>
                     </div>
                     <div className="col-lg-8 col-md-8">
-                      <ul className="filter__controls flex gap-8">
+                      {/* <ul className="filter__controls flex gap-8">
                         <li className="active" data-filter="*">
                           All
                         </li>
@@ -124,7 +124,7 @@ export default function Landing() {
                         <li data-filter=".kid">Kid’s</li>
                         <li data-filter=".accessories">Accessories</li>
                         <li data-filter=".cosmetic">Cosmetics</li>
-                      </ul>
+                      </ul> */}
                     </div>
                   </div>
 
