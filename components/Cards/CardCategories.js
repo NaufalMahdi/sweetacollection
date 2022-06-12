@@ -56,6 +56,7 @@ export default function CardCategories({ color }) {
       .get("http://localhost:3000/api/admin/product/getAllCategories", {})
       .then((res) => {
         setAllData(res.data.categories);
+        console.log(res.data);
       });
   };
 

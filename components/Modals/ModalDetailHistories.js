@@ -8,6 +8,26 @@ const ModalDetailHistories = ({
   setParentDetailHistoriesModal,
   sendDataToParent,
 }) => {
+  const [dataRentalDetails, setData] = useState([]);
+  useEffect(() => {
+    getDataRentalDetails();
+  }, []);
+  const getDataRentalDetails = async () => {
+    try {
+      await axios
+        .post("http://localhost:3000/api/admin/histories/getRentalDetails", {
+          id: data.id,
+        })
+        .then((res) => {
+          setData(res.data.dataRentalDetails);
+          console.log(res.data);
+        });
+    } catch (err) {
+      console.log(err);
+      setData([]);
+    }
+  };
+
   const [categoryName, setCategoryName] = useState(data.category_name);
   const [description, setDescription] = useState(data.description);
   const [saveLoading, setSaveLoading] = useState(false);
@@ -162,33 +182,37 @@ const ModalDetailHistories = ({
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                        1
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Baju Renang
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                        Pink
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        S
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        2
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Rp.500.000
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        <img
-                          src="https://i.ibb.co/QMdWfzX/component-image-one.png"
-                          className="h-20 w-20 bg-white rounded-full border object-none object-scale-down"
-                          alt="..."
-                        ></img>{" "}
-                      </td>
-                    </tr>
+                    {dataRentalDetails.length > 0
+                      ? dataRentalDetails.map((val, index) => (
+                          <tr>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                              {++index}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              {val.product_name}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                              {val.color}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              {val.size}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              {val.amount}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              Rp.{val.price}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              <img
+                                src={"/img/products/sample.jpg"}
+                                className="h-20 w-20 bg-white rounded-full border object-none object-scale-down"
+                                alt={data.product_name}
+                              ></img>{" "}
+                            </td>
+                          </tr>
+                        ))
+                      : null}
                   </tbody>
                 </table>
               </div>

@@ -17,7 +17,8 @@ export default function Index() {
                 Sweeta Collection
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
-              Sweeta Collection adalah usaha yang berkecimpung di bidang tata rias, wisuda, tari, karnaval dan tempat persewaan kostum.{" "}
+                Sweeta Collection adalah usaha yang berkecimpung di bidang tata
+                rias, wisuda, tari, karnaval dan tempat persewaan kostum.{" "}
                 <a
                   href="https://tailwindcss.com/?ref=creativetim"
                   className="text-blueGray-600"
@@ -37,11 +38,11 @@ export default function Index() {
                 >
                   {/* Pesan Sekarang */}
                 </a>
-              <Link href="http://localhost:3000/landing">                
-              <a className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg"
-                >
-                  Pesan Sekarang
-                </a></Link>
+                <Link href="http://localhost:3000/landing">
+                  <a className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg">
+                    Pesan Sekarang
+                  </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -182,8 +183,8 @@ export default function Index() {
                 Banyak Pilihan
               </h3>
               <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
-                Pada Sweeta Collection terdapat banyak pilihan kostum tari
-                dan juga tata rias 
+                Pada Sweeta Collection terdapat banyak pilihan kostum tari dan
+                juga tata rias
               </p>
               <div className="block pb-6">
                 <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
@@ -201,12 +202,9 @@ export default function Index() {
                 <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
                   Tata Rias
                 </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                </span>
+                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"></span>
+                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"></span>
+                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2"></span>
               </div>
               <a
                 href="https://www.creative-tim.com/learning-lab/tailwind/nextjs/alerts/notus?ref=nnjs-index"
@@ -415,12 +413,8 @@ export default function Index() {
                 <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
                   <i className="fas fa-file-alt text-xl"></i>
                 </div>
-                <h3 className="text-3xl font-semibold">
-                  Profile Owner
-                </h3>
-                <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
-                  
-                </p>
+                <h3 className="text-3xl font-semibold">Profile Owner</h3>
+                <p className="mt-4 text-lg leading-relaxed text-blueGray-500"></p>
                 <ul className="list-none mt-6">
                   <li className="py-2">
                     <div className="flex items-center">
@@ -486,8 +480,8 @@ export default function Index() {
           <div className="w-full md:w-6/12 px-12 md:px-4">
             <h2 className="font-semibold text-4xl">Tentang Kami</h2>
             <p className="text-lg leading-relaxed mt-4 mb-4 text-blueGray-500">
-            Sweeta Collection adalah usaha yang berkecimpung di bidang 
-            tata rias, wisuda, tari, karnaval dan tempat persewaan kostum.
+              Sweeta Collection adalah usaha yang berkecimpung di bidang tata
+              rias, wisuda, tari, karnaval dan tempat persewaan kostum.
             </p>
           </div>
         </div>
