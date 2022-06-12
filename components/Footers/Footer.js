@@ -60,7 +60,7 @@ export default function Footer() {
             <div className="w-full lg:w-6/12 px-4">
               <div className="flex flex-wrap items-top mb-6">
                 <div className="w-full lg:w-4/12 px-4 ml-auto">
-                  <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">
+                  {/* <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">
                     Useful Links
                   </span>
                   <ul className="list-unstyled">
@@ -136,6 +136,7 @@ export default function Footer() {
                       </a>
                     </li>
                   </ul>
+                </div> */}
                 </div>
               </div>
             </div>
