@@ -18,6 +18,8 @@ import Admin from "layouts/Admin.js";
 
 export default function Dashboard() {
   const [data, setData] = useState([]);
+  const [dataRentals, setDataRentals] = useState([]);
+  const [dataRentals2, setDataRentals2] = useState([]);
   useEffect(() => {
     getData();
   }, []);
@@ -27,6 +29,8 @@ export default function Dashboard() {
         .get("http://localhost:3000/api/admin/dashboard/getRentalsStatus", {})
         .then((res) => {
           setData(res.data);
+          setDataRentals(res.data.dataRentals);
+          setDataRentals2(res.data.dataRentals2);
           console.log(res.data);
         });
     } catch (err) {
@@ -34,6 +38,7 @@ export default function Dashboard() {
       console.log(err);
     }
   };
+
   return (
     <>
       <div className="relative md:pt-32 pb-32 pt-12">
@@ -101,11 +106,11 @@ export default function Dashboard() {
         <div className="w-full xl:w-4/12 px-4">{/* <CardBarChart /> */}</div>
       </div>
       <div className="flex flex-wrap mt-4">
-        <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-          <CardPageVisits />
+        <div className="w-full xl:w-6/12 mb-12 xl:mb-0 px-4">
+          <CardPageVisits dataRentals={dataRentals} />
         </div>
-        <div className="w-full xl:w-4/12 px-4">
-          <CardSocialTraffic />
+        <div className="w-full xl:w-6/12 px-4">
+          <CardSocialTraffic dataRentals2={dataRentals2} />
         </div>
       </div>
     </>

@@ -81,10 +81,26 @@ const ModalDetailHistories = ({
                       </tr>
                       <tr>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border">
-                          Catatan
+                          Alamat Pemesan
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
                           {data.note}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border">
+                          Tanggal Pemesanan
+                        </td>
+                        <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
+                          {data.datetime}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border">
+                          Tanggal Pengembalian
+                        </td>
+                        <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
+                          {data.deadline}
                         </td>
                       </tr>
                       <tr>
@@ -93,14 +109,6 @@ const ModalDetailHistories = ({
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
                           Rp.{HitungTotalHarga}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border">
-                          Deadline
-                        </td>
-                        <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          {data.deadline}
                         </td>
                       </tr>
                       <tr>
