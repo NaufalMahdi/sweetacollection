@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 // components
 
@@ -10,31 +10,37 @@ import ModalDetailRentals from "components/Modals/ModalDetailRentals";
 // import Pagination from "components/Pagination/Pagination";
 
 const CardRentals = ({ data, color }) => {
-  const [showDetailRentalsModal, setShowDetailRentalsModal] =
-    useState(false);
   const router = useRouter();
+
+  const [showDetailRentalsModal, setShowDetailRentalsModal] = useState(false);
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const setParentDetailModal = (state) => {
+  const [activeData, setActiveData] = useState([]);
+
+  const setParentDetailRentalsModal = (state) => {
     setShowDetailRentalsModal(state);
-  
+  };
+
+  const setParentDeleteRentalsModal = (state) => {
+    setShowDeleteModal(state);
   };
   return (
     <>
-     <button
-          className="bg-blueGray-500 text-white active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 mb-6"
-          type="button"
-          onClick={() => {
-            router.push("/admin/rentals/create");
-          }}
-        >
-          <div className="flex flex-nowrap justify-between">
-            <div className="mx-auto my-auto">
-              <i className="fa-solid fa-circle-plus"></i>
-              <span> Buat</span>
-            </div>
+      <button
+        className="bg-blueGray-500 text-white active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 mb-6"
+        type="button"
+        onClick={() => {
+          router.push("/admin/rentals/create");
+        }}
+      >
+        <div className="flex flex-nowrap justify-between">
+          <div className="mx-auto my-auto">
+            <i className="fa-solid fa-circle-plus"></i>
+            <span> Buat</span>
           </div>
-        </button>
-        
+        </div>
+      </button>
+
       <div
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
@@ -98,7 +104,7 @@ const CardRentals = ({ data, color }) => {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Total Harga
+                  Alamat Pemesan
                 </th>
                 <th
                   className={
@@ -108,8 +114,29 @@ const CardRentals = ({ data, color }) => {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Deadline
+                  Tanggal Pemesanan
                 </th>
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
+                  }
+                >
+                  Tanggal Pengembalian
+                </th>
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
+                  }
+                >
+                  Total Harga
+                </th>
+
                 <th
                   className={
                     "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -145,23 +172,32 @@ const CardRentals = ({ data, color }) => {
                         {val.nomer_telepon}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Rp.{val.total_price}
+                        {val.note}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {val.datetime}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         {val.deadline}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        <i className="fas fa-circle text-emerald-500 mr-2"></i>{" "}
+                        Rp.{val.total_price}
+                      </td>
+
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        <i className={`fas fa-circle ${val.warna} mr-2`}></i>{" "}
                         {val.status}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p- text-right">
                         <div className="flex flex-row flex-nowrap  gap-4">
                           <button
                             onClick={() => {
+                              setActiveData(val);
                               setShowDetailRentalsModal(val);
                             }}
                           >
-                            <i className="fa-solid fa-circle-info fa-md"></i>
+                            <a className="">Lihat Detail</a>
+                            <i className="ml-2 fa-solid fa-circle-info fa-md"></i>
                           </button>
                         </div>
                       </td>
@@ -174,10 +210,15 @@ const CardRentals = ({ data, color }) => {
         </div>
       </div>
       {showDetailRentalsModal ? (
-        <ModalDetailRentals setParentDetailModal={setParentDetailModal} />
+        <ModalDetailRentals
+          setParentDetailRentalsModal={setParentDetailRentalsModal}
+          data={activeData}
+        />
       ) : null}
       {showDeleteModal ? (
-        <ModalDeleteRentals setParentDeleteModal={setParentDeleteModal} />
+        <ModalDeleteRentals
+          setParentDeleteRentalsModal={setParentDeleteRentalsModal}
+        />
       ) : null}
     </>
   );

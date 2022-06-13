@@ -1,6 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const ModalDetailRentals = ({ setParentDetailModal, sendDataToParent }) => {
+const ModalDetailRentals = ({
+  data,
+  setParentDetailRentalsModal,
+  sendDataToParent,
+}) => {
+  const [dataRentalDetails, setData] = useState([]);
+  useEffect(() => {
+    getDataRentalDetails();
+  }, []);
+  const getDataRentalDetails = async () => {
+    try {
+      await axios
+        .post("http://localhost:3000/api/admin/rentals/getRentalDetails", {
+          id: data.id,
+        })
+        .then((res) => {
+          setData(res.data.dataRentalDetails);
+          console.log(res.data);
+        });
+    } catch (err) {
+      console.log(err);
+      setData([]);
+    }
+  };
   return (
     <>
       <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none">
@@ -13,7 +37,7 @@ const ModalDetailRentals = ({ setParentDetailModal, sendDataToParent }) => {
               <button
                 className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                 onClick={() => {
-                  setParentDetailModal(false);
+                  setParentDetailRentalsModal(false);
                 }}
               >
                 <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
@@ -54,7 +78,7 @@ const ModalDetailRentals = ({ setParentDetailModal, sendDataToParent }) => {
                           Nama Pemesan
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          cuk
+                          {data.nama_pemesan}
                         </td>
                       </tr>
                       <tr>
@@ -62,15 +86,31 @@ const ModalDetailRentals = ({ setParentDetailModal, sendDataToParent }) => {
                           Nomor telepon
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          0813123123
+                          {data.nomer_telepon}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border">
-                          Catatan
+                          Alamat Pemesan
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          UWunt
+                          {data.note}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border">
+                          Tanggal Pemesanan
+                        </td>
+                        <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
+                          {data.datetime}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border">
+                          Tanggal Pengembalian
+                        </td>
+                        <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
+                          {data.deadline}
                         </td>
                       </tr>
                       <tr>
@@ -78,15 +118,7 @@ const ModalDetailRentals = ({ setParentDetailModal, sendDataToParent }) => {
                           Total Harga
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          Rp.1.000.000
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border">
-                          Deadline
-                        </td>
-                        <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          15 Mei 2022
+                          Rp.{data.total_price}
                         </td>
                       </tr>
                       <tr>
@@ -94,8 +126,8 @@ const ModalDetailRentals = ({ setParentDetailModal, sendDataToParent }) => {
                           Status Pesanan
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          <i className="fas fa-circle text-emerald-500 mr-1"></i>{" "}
-                          SELESAI
+                          <i className={`fas fa-circle ${data.warna} mr-2`}></i>{" "}
+                          {data.status}
                         </td>
                       </tr>
                     </table>
@@ -170,114 +202,37 @@ const ModalDetailRentals = ({ setParentDetailModal, sendDataToParent }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                        1
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Baju Renang
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                        Pink
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        S
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        2
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Rp.500.000
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        <img
-                          src="https://i.ibb.co/QMdWfzX/component-image-one.png"
-                          className="h-20 w-20 bg-white rounded-full border object-none object-scale-down"
-                          alt="..."
-                        ></img>{" "}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                        1
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Baju Renang
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                        Pink
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        S
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        2
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Rp.500.000
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        <img
-                          src="https://i.ibb.co/QMdWfzX/component-image-one.png"
-                          className="h-20 w-20 bg-white rounded-full border object-none object-scale-down"
-                          alt="..."
-                        ></img>{" "}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                        1
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Baju Renang
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                        Pink
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        S
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        2
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Rp.500.000
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        <img
-                          src="https://i.ibb.co/QMdWfzX/component-image-one.png"
-                          className="h-20 w-20 bg-white rounded-full border object-none object-scale-down"
-                          alt="..."
-                        ></img>{" "}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                        1
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Baju Renang
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
-                        Pink
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        S
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        2
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Rp.500.000
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        <img
-                          src="https://i.ibb.co/QMdWfzX/component-image-one.png"
-                          className="h-20 w-20 bg-white rounded-full border object-none object-scale-down"
-                          alt="..."
-                        ></img>{" "}
-                      </td>
-                    </tr>
+                    {dataRentalDetails.length > 0
+                      ? dataRentalDetails.map((val, index) => (
+                          <tr>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                              {++index}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              {val.product_name}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                              {val.color}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              {val.size}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              {val.amount}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              Rp.{val.price}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              <img
+                                src={"/img/products/sample.jpg"}
+                                className="h-20 w-20 bg-white rounded-full border object-none object-scale-down"
+                                alt={data.product_name}
+                              ></img>{" "}
+                            </td>
+                          </tr>
+                        ))
+                      : null}
                   </tbody>
                 </table>
               </div>
@@ -287,7 +242,7 @@ const ModalDetailRentals = ({ setParentDetailModal, sendDataToParent }) => {
               <button
                 className="text-blueGray-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 onClick={() => {
-                  setParentDetailModal(false);
+                  setParentDetailRentalsModal(false);
                 }}
               >
                 Close
