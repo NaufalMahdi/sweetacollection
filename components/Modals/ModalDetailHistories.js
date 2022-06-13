@@ -8,6 +8,7 @@ const ModalDetailHistories = ({
   setParentDetailHistoriesModal,
   sendDataToParent,
 }) => {
+  const [HitungTotalHarga, setHitungTotalHarga] = useState(0);
   const [dataRentalDetails, setData] = useState([]);
   useEffect(() => {
     getDataRentalDetails();
@@ -20,6 +21,7 @@ const ModalDetailHistories = ({
         })
         .then((res) => {
           setData(res.data.dataRentalDetails);
+          setHitungTotalHarga(res.data.HitungTotalHarga);
           console.log(res.data);
         });
     } catch (err) {
@@ -90,7 +92,7 @@ const ModalDetailHistories = ({
                           Total Harga
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          Rp.{data.total_price}
+                          Rp.{HitungTotalHarga}
                         </td>
                       </tr>
                       <tr>

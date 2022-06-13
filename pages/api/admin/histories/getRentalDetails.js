@@ -9,9 +9,16 @@ const handler = async (req, res) => {
       },
     });
 
+    let HitungTotalHarga = 0;
+    for (let i = 0; i < rental_details.length; i++) {
+      HitungTotalHarga =
+        HitungTotalHarga + rental_details[i].price * rental_details[i].amount;
+    }
+
     res.status(200).json({
       msg: "success",
       dataRentalDetails: rental_details,
+      HitungTotalHarga: HitungTotalHarga,
     });
   } catch (err) {
     res.status(500).json({ msg: err });
