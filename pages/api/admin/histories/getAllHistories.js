@@ -6,7 +6,7 @@ const handler = async (req, res) => {
 
     let rentals = await db.rentals.findMany({
       orderBy: {
-        id: "desc",
+        id_status: "asc",
       },
     });
 

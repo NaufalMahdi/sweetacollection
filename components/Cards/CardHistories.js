@@ -87,7 +87,7 @@ const CardHistories = ({ data, color }) => {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Total Harga
+                  Alamat Pemesan
                 </th>
                 <th
                   className={
@@ -97,7 +97,27 @@ const CardHistories = ({ data, color }) => {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Deadline
+                  Tanggal pemesanan
+                </th>
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
+                  }
+                >
+                  Tanggal pengembalian
+                </th>
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
+                  }
+                >
+                  Total Harga
                 </th>
                 <th
                   className={
@@ -134,10 +154,16 @@ const CardHistories = ({ data, color }) => {
                         {val.nomer_telepon}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Rp.{val.total_price}
+                        {val.note}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {val.datetime}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         {val.deadline}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        Rp.{val.total_price}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                         <i className={`fas fa-circle ${val.warna} mr-2`}></i>{" "}
@@ -151,7 +177,8 @@ const CardHistories = ({ data, color }) => {
                               setShowDetailHistoriesModal(true);
                             }}
                           >
-                            <i className="fa-solid fa-circle-info fa-md"></i>
+                            <a className="">Lihat Detail</a>
+                            <i className="ml-2 fa-solid fa-circle-info fa-md"></i>
                           </button>
                         </div>
                       </td>

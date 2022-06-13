@@ -7,11 +7,9 @@ import { useEffect } from "react";
 
 const histories = () => {
   const [data, setData] = useState([]);
-
   useEffect(() => {
     getData();
   }, []);
-
   const getData = async () => {
     try {
       await axios
