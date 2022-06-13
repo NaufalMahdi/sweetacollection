@@ -73,7 +73,7 @@ const ModalDetailHistories = ({
                       </tr>
                       <tr>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border">
-                          Nomor telepon
+                          Nomor Telepon
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
                           {data.nomer_telepon}

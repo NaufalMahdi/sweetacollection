@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-function CardCreateRentals() {
+function CardCreateRentals(color) {
   const [rentalStatus, setRentalStatus] = useState([]);
   const [rentalStatusid, setRentalStatusid] = useState("");
   const [dateTime, setDateTime] = useState("");
@@ -84,7 +84,7 @@ function CardCreateRentals() {
             >
               <div className="flex flex-nowrap justify-between">
                 <div className="mx-auto my-auto">
-                  <i className="fa-solid fa-circle-plus"></i>
+                  <i className="fa-solid fa-arrow-left mr-1"></i>
                   <span> kembali</span>
                 </div>
               </div>
@@ -101,7 +101,7 @@ function CardCreateRentals() {
                 ></input>
               </div>
               <div className="grid grid-cols-1 mb-3">
-                <span>Nomer Telepon</span>
+                <span>Nomor Telepon</span>
                 <input
                   onChange={(e) => {
                     setNomerTelepon(e.target.value);
@@ -111,7 +111,7 @@ function CardCreateRentals() {
                 ></input>
               </div>
               <div className="grid grid-cols-1 mb-3">
-                <span>Catatan</span>
+                <span>Alamat Pemesan</span>
                 <textarea
                   className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150 focus:ring-0 focus:border-x-transparent focus:border-t-transparent"
                   rows="10"
@@ -120,6 +120,28 @@ function CardCreateRentals() {
                   }}
                   defaultValue={""}
                 ></textarea>
+              </div>
+              <div className="grid grid-cols-1 mb-3">
+                <span>Tanggal Pemesanan</span>
+                <input
+                  type="date"
+                  onChange={(e) => {
+                    setDateTime(e.target.value);
+                  }}
+                  defaultValue={""}
+                  className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
+                ></input>
+              </div>
+              <div className="grid grid-cols-1 mb-3">
+                <span>Tanggal Pengembalian</span>
+                <input
+                  type="date"
+                  onChange={(e) => {
+                    setDeadLine(e.target.value);
+                  }}
+                  defaultValue={""}
+                  className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
+                ></input>
               </div>
               <div className="grid grid-cols-1 mb-3">
                 <span>Total Harga</span>
@@ -131,28 +153,7 @@ function CardCreateRentals() {
                   className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
                 ></input>
               </div>
-              <div className="grid grid-cols-1 mb-3">
-                <span>Datetime</span>
-                <input
-                  type="date"
-                  onChange={(e) => {
-                    setDateTime(e.target.value);
-                  }}
-                  defaultValue={""}
-                  className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
-                ></input>
-              </div>
-              <div className="grid grid-cols-1 mb-3">
-                <span>Deadline</span>
-                <input
-                  type="date"
-                  onChange={(e) => {
-                    setDeadLine(e.target.value);
-                  }}
-                  defaultValue={""}
-                  className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
-                ></input>
-              </div>
+
               <div className="grid grid-cols-1 mb-3">
                 <span>Status Pesanan</span>
                 <select
@@ -170,6 +171,102 @@ function CardCreateRentals() {
                   ))}
                 </select>
               </div>
+              {/* <div className="block w-full mt-12">
+                <h3 className="text-3xl font-semibold mb-3">
+                  Daftar produk yang dipesan
+                </h3>
+                <table className="items-center w-full bg-transparent border-collapse">
+                  <thead>
+                    <tr>
+                      <th
+                        className={
+                          "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left "
+                        }
+                      >
+                        No
+                      </th>
+                      <th
+                        className={
+                          "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left "
+                        }
+                      >
+                        Nama Barang
+                      </th>
+                      <th
+                        className={
+                          "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left "
+                        }
+                      >
+                        Warna
+                      </th>
+                      <th
+                        className={
+                          "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left "
+                        }
+                      >
+                        Ukuran
+                      </th>
+                      <th
+                        className={
+                          "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left "
+                        }
+                      >
+                        Jumlah
+                      </th>
+
+                      <th
+                        className={
+                          "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left "
+                        }
+                      >
+                        Sub-total harga
+                      </th>
+
+                      <th
+                        className={
+                          "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left "
+                        }
+                      >
+                        Foto Barang
+                      </th>
+                      <th
+                        className={
+                          "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left "
+                        }
+                      ></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                        1
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        nama produk
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
+                        warna
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        ukuran
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        jumlah
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        Rp. harga
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        <img
+                          src={"/img/products/sample.jpg"}
+                          className="h-20 w-20 bg-white rounded-full border object-none object-scale-down"
+                          alt=""
+                        ></img>{" "}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div> */}
               <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                 <button
                   className="text-white bg-blueGray-500 active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

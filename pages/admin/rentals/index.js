@@ -45,7 +45,7 @@ const histories = () => {
             </div>
           ) : (
             <div className="mt-4 w-full text-center justify-center items-center">
-              Data tidak ditemukan
+              Loading..
             </div>
           )}
         </div>

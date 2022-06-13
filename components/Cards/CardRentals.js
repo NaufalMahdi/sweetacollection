@@ -1,29 +1,60 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 // components
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 import ModalDetailRentals from "components/Modals/ModalDetailRentals";
+import ModalDeleteRentals from "components/Modals//ModalDeleteRentals";
+import Alert from "components/Alerts/Alert";
 // import Pagination from "components/Pagination/Pagination";
 
 const CardRentals = ({ data, color }) => {
+  const [showAlert, setShowAlert] = useState(false);
+  const [alert, setAlert] = useState({
+    type: "success",
+    msg_capitalize: "test",
+    msg: "test",
+  });
   const router = useRouter();
 
   const [showDetailRentalsModal, setShowDetailRentalsModal] = useState(false);
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [activeData, setActiveData] = useState([]);
+  const [data, setAllData] = useState([]);
+  const setParentShowAlert = (state) => {
+    setShowAlert(state);
+  };
 
   const setParentDetailRentalsModal = (state) => {
     setShowDetailRentalsModal(state);
   };
 
-  const setParentDeleteRentalsModal = (state) => {
+  const setParentDeleteRentalsModal = (state, status, alert) => {
     setShowDeleteModal(state);
+    if (status) {
+      refreshData();
+      setAlert(alert);
+      setShowAlert(alert);
+    }
   };
+
+  const refreshData = async () => {
+    await axios
+      .get("http://localhost:3000/api/admin/rentals/getAllRentals", {})
+      .then((res) => {
+        setAllData(res.data.data);
+        console.log(res.data.data);
+      });
+  };
+
+  useEffect(() => {
+    refreshData();
+  }, []);
   return (
     <>
       <button
@@ -35,12 +66,21 @@ const CardRentals = ({ data, color }) => {
       >
         <div className="flex flex-nowrap justify-between">
           <div className="mx-auto my-auto">
-            <i className="fa-solid fa-circle-plus"></i>
+            <i className="fa-solid fa-circle-plus mr-1"></i>
             <span> Buat</span>
           </div>
         </div>
       </button>
-
+      <div>
+        {showAlert && (
+          <Alert
+            type={alert.type}
+            msg_capitalize={alert.msg_capitalize}
+            msg={alert.msg}
+            setParentShowAlert={setParentShowAlert}
+          />
+        )}
+      </div>
       <div
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
@@ -196,8 +236,15 @@ const CardRentals = ({ data, color }) => {
                               setShowDetailRentalsModal(val);
                             }}
                           >
-                            <a className="">Lihat Detail</a>
-                            <i className="ml-2 fa-solid fa-circle-info fa-md"></i>
+                            <i className="fa-solid fa-pen-to-square fa-md"></i>
+                          </button>
+                          <button
+                            onClick={() => {
+                              setActiveData(val);
+                              setParentDeleteRentalsModal(true);
+                            }}
+                          >
+                            <i className="fa-solid fa-trash-can text-red-600"></i>
                           </button>
                         </div>
                       </td>
@@ -218,6 +265,7 @@ const CardRentals = ({ data, color }) => {
       {showDeleteModal ? (
         <ModalDeleteRentals
           setParentDeleteRentalsModal={setParentDeleteRentalsModal}
+          data={activeData}
         />
       ) : null}
     </>
