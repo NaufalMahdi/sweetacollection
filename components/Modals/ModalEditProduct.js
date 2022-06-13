@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Alert from "components/Alerts/Alert";
+import FormData from "form-data";
 const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
   const [editMode, setEditMode] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -9,6 +10,7 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
   const [productCategoryId, setProductCategoryId] = useState(
     data.product_category
   );
+  const [image, setImage] = useState("");
   const [productName, setProductName] = useState(data.product_name);
   const [description, setDescription] = useState(data.description);
   const [color, setColor] = useState(data.color);
@@ -24,10 +26,7 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
   const [alertMsg, setAlertMsg] = useState("Data berhasil di update.");
   useEffect(() => {
     const getCategories = async () => {
-      await axios(
-        "http://localhost:3000/api/admin/product/getAllCategories",
-        {}
-      ).then((res) => {
+      await axios.get("/api/admin/product/getAllCategories", {}).then((res) => {
         setCategories(res.data.categories);
         for (let i = 0; i < res.data.categories.length; i++) {
           if (data.product_category == res.data.categories[i].id) {
@@ -53,21 +52,26 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
     ) {
       setDisableBtn(true);
       try {
+        let formData = new FormData();
+        formData.append("id", data.id);
+        formData.append("product_name", productName);
+        formData.append("product_category", productCategoryId);
+        formData.append("description", description);
+        formData.append("color", color);
+        formData.append("size", size);
+        formData.append("price", price);
+        formData.append("total_stock", totalStock);
+        if (image) {
+          formData.append("image", image);
+        }
         await axios
-          .post("http://localhost:3000/api/admin/product/updateProduct", {
-            product: {
-              id: data.id,
-              product_name: productName,
-              product_category: productCategoryId,
-              description: description,
-              color: color,
-              size: size,
-              price: parseInt(price),
-              total_stock: parseInt(totalStock),
+          .post("/api/admin/product/updateProduct", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
             },
           })
           .then((res) => {
-            // console.log(res.data);
+            console.log(res.data);
             if (res.status === 200) {
               setParentEditModal(false);
 
@@ -141,6 +145,7 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
                 e.preventDefault();
                 submit();
               }}
+              encType="multipart/form-data"
             >
               {editMode ? (
                 <div className="relative p-6 flex-auto max-h-[42rem] overflow-y-scroll">
@@ -233,10 +238,17 @@ const ModalEditProduct = ({ setParentEditModal, sendDataToParent, data }) => {
                         type="number"
                       ></input>
                     </div>
-                    {/* <div className="grid grid-cols-1 mb-3 mt-3">
+                    <div className="grid grid-cols-1 mb-3 mt-3">
                       <span className="font-semibold">Gambar Produk</span>
-                      <input type="file" className="mt-2"></input>
-                    </div> */}
+                      <input
+                        type="file"
+                        className="mt-2"
+                        accept=".png, .jpeg, .jpg"
+                        onChange={(e) => {
+                          setImage(e.target.files[0]);
+                        }}
+                      ></input>
+                    </div>
                   </div>
                 </div>
               ) : (

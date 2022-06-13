@@ -24,10 +24,7 @@ const ModalCreateProduct = ({ setParentCreateModal, sendDataToParent }) => {
   const [alertMsg, setAlertMsg] = useState("Data berhasil di update.");
   useEffect(() => {
     const getCategories = async () => {
-      await axios(
-        "http://localhost:3000/api/admin/product/getAllCategories",
-        {}
-      ).then((res) => {
+      await axios("/api/admin/product/getAllCategories", {}).then((res) => {
         setCategories(res.data.categories);
       });
     };
@@ -56,7 +53,7 @@ const ModalCreateProduct = ({ setParentCreateModal, sendDataToParent }) => {
         formData.append("product_category", productCategoryId);
         formData.append("description", description);
         formData.append("color", color);
-        formData.append("size", parseInt(size));
+        formData.append("size", size);
         formData.append("price", parseInt(price));
         formData.append("total_stock", parseInt(totalStock));
         await axios
