@@ -1,25 +1,47 @@
+import React, { useState } from "react";
 import axios from "axios";
-import { useSession } from "next-auth/react";
-const Test = ({ a }) => {
-  const { data: session, status } = useSession();
-  console.log(a);
-  console.log(status);
-  return <>{a}</>;
-};
+import FormData from "form-data";
+import { useRouter } from "next/router";
+const test = (props) => {
+  const [file, setFile] = useState("");
+  let formData = new FormData();
 
-const getStaticProps = async () => {
-  let data = "a";
-  // const res = await axios
-  //   .get("http://localhost:3000/api/admin/getUsers")
-  //   .then((res) => {
-  //     data = res.data.accounts;
-  //   });
-  return {
-    props: {
-      a: data,
-    },
+  const submit = async () => {
+    console.log(file ? "ok" : "ga");
+    console.log(file);
+    // formData.append("image", file);
+
+    // await axios
+    //   .post("/api/demo", formData, {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res.data);
+    //   });
   };
+  return (
+    <>
+      <form
+        action=""
+        method="post"
+        onSubmit={(e) => {
+          e.preventDefault();
+          submit();
+        }}
+        encType="multipart/form-data"
+      >
+        <input
+          type={"file"}
+          onChange={(e) => {
+            setFile(e.target.files[0]);
+            console.log(e.target.files[0]);
+          }}
+        ></input>
+        <button type="submit">submit</button>
+      </form>
+    </>
+  );
 };
-export { getStaticProps };
-
-export default Test;
+export default test;

@@ -57,6 +57,7 @@ const ModalCreateCategory = ({ setParentCreateModal, sendDataToParent }) => {
                     className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
                     onChange={(e) => {
                       setCategoryName(e.target.value);
+                      console.log(e.target.value);
                     }}
                     defaultValue=""
                   ></input>
