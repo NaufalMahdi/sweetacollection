@@ -15,6 +15,16 @@ const handler = async (req, res) => {
         HitungTotalHarga + rental_details[i].price * rental_details[i].amount;
     }
 
+    //update total price
+    const updateTotalHarga = await db.rentals.update({
+      data: {
+        total_price: HitungTotalHarga,
+      },
+      where: {
+        id: id,
+      },
+    });
+
     res.status(200).json({
       msg: "success",
       dataRentalDetails: rental_details,
