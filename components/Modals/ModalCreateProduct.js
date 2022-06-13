@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Alert from "components/Alerts/Alert";
+import FormData from "form-data";
 
 const ModalCreateProduct = ({ setParentCreateModal, sendDataToParent }) => {
   const [categories, setCategories] = useState([]);
@@ -13,6 +14,7 @@ const ModalCreateProduct = ({ setParentCreateModal, sendDataToParent }) => {
   const [size, setSize] = useState("");
   const [price, setPrice] = useState("");
   const [totalStock, setTotalStock] = useState("");
+  const [image, setImage] = useState("");
   const [disableBtn, setDisableBtn] = useState(false);
 
   // Alert
@@ -42,25 +44,28 @@ const ModalCreateProduct = ({ setParentCreateModal, sendDataToParent }) => {
       color.trim() !== "" &&
       size.trim() !== "" &&
       price.length > 0 &&
-      totalStock.length > 0
+      totalStock.length > 0 &&
+      image
     ) {
       console.log("submitted");
       setDisableBtn(true);
       try {
+        let formData = new FormData();
+        formData.append("image", image);
+        formData.append("product_name", productName);
+        formData.append("product_category", productCategoryId);
+        formData.append("description", description);
+        formData.append("color", color);
+        formData.append("size", parseInt(size));
+        formData.append("price", parseInt(price));
+        formData.append("total_stock", parseInt(totalStock));
         await axios
-          .post("http://localhost:3000/api/admin/product/createProduct", {
-            product: {
-              product_name: productName,
-              product_category: productCategoryId,
-              description: description,
-              color: color,
-              size: size,
-              price: parseInt(price),
-              total_stock: parseInt(totalStock),
+          .post("/api/admin/product/createProduct", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
             },
           })
           .then((res) => {
-            // console.log(res.data);
             if (res.status === 200) {
               setParentCreateModal(false);
 
@@ -124,6 +129,7 @@ const ModalCreateProduct = ({ setParentCreateModal, sendDataToParent }) => {
                 e.preventDefault();
                 submit();
               }}
+              encType="multipart/form-data"
             >
               <div className="relative p-6 flex-auto max-h-[42rem] overflow-y-scroll">
                 {showAlert && (
@@ -215,10 +221,18 @@ const ModalCreateProduct = ({ setParentCreateModal, sendDataToParent }) => {
                       className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
                     ></input>
                   </div>
-                  {/* <div className="grid grid-cols-1 mb-3 mt-3">
+                  <div className="grid grid-cols-1 mb-3 mt-3">
                     <span>Gambar Produk</span>
-                    <input type="file" className="mt-2"></input>
-                  </div> */}
+                    <input
+                      type="file"
+                      className="mt-2"
+                      accept=".png, .jpg, .jpeg"
+                      onChange={(e) => {
+                        setImage(e.target.files[0]);
+                        console.log(Object.entries(e.target.files[0]).length);
+                      }}
+                    ></input>
+                  </div>
                 </div>
               </div>
               {/*footer*/}
