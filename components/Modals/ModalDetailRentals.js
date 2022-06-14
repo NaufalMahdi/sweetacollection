@@ -6,9 +6,31 @@ const ModalDetailRentals = ({
   setParentDetailRentalsModal,
   sendDataToParent,
 }) => {
+  const [namaPemesan, setNamaPemesan] = useState(data.nama_pemesan);
+  const [nomerTelepon, setNomerTelepon] = useState(data.nomer_telepon);
+  const [note, setNote] = useState(data.note);
+  const [dateTime, setDateTime] = useState(data.dateTime);
+  const [deadline, setDeadline] = useState(data.deadline);
+  const [totalPrice, setTotalPrice] = useState(data.total_price);
+  const [rentalStatusid, setRentalStatusid] = useState(data.id_status);
+  const [rentalStatus, setRentalStatus] = useState([]);
+
+  const [saveLoading, setSaveLoading] = useState(false);
+
   const [dataRentalDetails, setData] = useState([]);
   useEffect(() => {
     getDataRentalDetails();
+
+    const getRentalStatus = async () => {
+      await axios(
+        "http://localhost:3000/api/admin/rentals/getAllRentalsStatus2",
+        {}
+      ).then((res) => {
+        setRentalStatus(res.data.dataStatus);
+        console.log(res.data.dataStatus);
+      });
+    };
+    getRentalStatus();
   }, []);
   const getDataRentalDetails = async () => {
     try {
@@ -18,12 +40,46 @@ const ModalDetailRentals = ({
         })
         .then((res) => {
           setData(res.data.dataRentalDetails);
-          console.log(res.data);
+          console.log(res.data.dataRentalDetails);
         });
     } catch (err) {
       console.log(err);
       setData([]);
     }
+  };
+
+  const updateData = async () => {
+    setSaveLoading(true);
+    await axios
+      .post("/api/admin/rentals/updateRentals", {
+        rental: {
+          id: data.id,
+          nama_pemesan: namaPemesan,
+          nomer_telepon: parseInt(nomerTelepon),
+          note: note,
+          datetime: dateTime,
+          deadline: deadline,
+          total_price: parseInt(totalPrice),
+          id_status: parseInt(rentalStatusid),
+        },
+      })
+      .then((res) => {
+        if (res.status == 200) {
+          setParentDetailRentalsModal(false, true, {
+            type: "success",
+            msg_capitalize: "Berhasil!",
+            msg: "Data berhasil diubah.",
+          });
+        } else {
+          setParentDetailRentalsModal(false, false, {
+            type: "error",
+            msg_capitalize: "Gagal!",
+            msg: "Data gagal diubah.",
+          });
+        }
+        // console.log(res.data);
+        setSaveLoading(false);
+      });
   };
   return (
     <>
@@ -78,7 +134,11 @@ const ModalDetailRentals = ({
                           Nama Pemesan
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          {data.nama_pemesan}
+                          <input
+                            className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
+                            defaultValue={data.nama_pemesan}
+                            onChange={(e) => setNamaPemesan(e.target.value)}
+                          ></input>
                         </td>
                       </tr>
                       <tr>
@@ -86,7 +146,11 @@ const ModalDetailRentals = ({
                           Nomor Telepon
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          {data.nomer_telepon}
+                          <input
+                            className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
+                            defaultValue={data.nomer_telepon}
+                            onChange={(e) => setNomerTelepon(e.target.value)}
+                          ></input>
                         </td>
                       </tr>
                       <tr>
@@ -94,7 +158,12 @@ const ModalDetailRentals = ({
                           Alamat Pemesan
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          {data.note}
+                          <textarea
+                            className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150 focus:ring-0 focus:border-x-transparent focus:border-t-transparent"
+                            defaultValue={data.note}
+                            onChange={(e) => setNote(e.target.value)}
+                            rows="10"
+                          ></textarea>
                         </td>
                       </tr>
                       <tr>
@@ -102,7 +171,14 @@ const ModalDetailRentals = ({
                           Tanggal Pemesanan
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          {data.datetime}
+                          <input
+                            type="date"
+                            onChange={(e) => {
+                              setDateTime(e.target.value);
+                            }}
+                            defaultValue={data.datetime}
+                            className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
+                          ></input>
                         </td>
                       </tr>
                       <tr>
@@ -110,7 +186,14 @@ const ModalDetailRentals = ({
                           Tanggal Pengembalian
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          {data.deadline}
+                          <input
+                            type="date"
+                            onChange={(e) => {
+                              setDeadline(e.target.value);
+                            }}
+                            defaultValue={data.deadline}
+                            className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
+                          ></input>
                         </td>
                       </tr>
                       <tr>
@@ -118,7 +201,12 @@ const ModalDetailRentals = ({
                           Total Harga
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          Rp.{data.total_price}
+                          Rp.
+                          <input
+                            className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
+                            defaultValue={data.total_price}
+                            onChange={(e) => setTotalPrice(e.target.value)}
+                          ></input>
                         </td>
                       </tr>
                       <tr>
@@ -126,8 +214,20 @@ const ModalDetailRentals = ({
                           Status Pesanan
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          <i className={`fas fa-circle ${data.warna} mr-2`}></i>{" "}
-                          {data.status}
+                          <select
+                            onChange={(e) => {
+                              setRentalStatusid(e.target.value);
+                            }}
+                            defaultValue={""}
+                            className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150 focus:ring-0 focus:border-x-transparent focus:border-t-transparent"
+                          >
+                            <option value={""}>-- Pilih Salah Satu --</option>
+                            {rentalStatus.map((val) => (
+                              <option key={val.id} value={val.id_status}>
+                                {val.status}
+                              </option>
+                            ))}
+                          </select>
                         </td>
                       </tr>
                     </table>
@@ -242,10 +342,20 @@ const ModalDetailRentals = ({
               <button
                 className="text-blueGray-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 onClick={() => {
-                  setParentDetailRentalsModal(false);
+                  setParentDetailRentalsModal(false, false, {});
                 }}
               >
                 Close
+              </button>
+              <button
+                className="text-white bg-blueGray-500 active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+                disabled={saveLoading}
+                onClick={() => {
+                  updateData();
+                }}
+              >
+                {saveLoading ? "Tunggu Sebentar" : "Simpan"}
               </button>
             </div>
           </div>

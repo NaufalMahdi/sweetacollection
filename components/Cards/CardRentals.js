@@ -22,16 +22,13 @@ const CardRentals = ({ data, color }) => {
   const router = useRouter();
 
   const [showDetailRentalsModal, setShowDetailRentalsModal] = useState(false);
+  // const [showEditModal, setShowEditModal] = useState(false);
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [activeData, setActiveData] = useState([]);
   const [data, setAllData] = useState([]);
   const setParentShowAlert = (state) => {
     setShowAlert(state);
-  };
-
-  const setParentDetailRentalsModal = (state) => {
-    setShowDetailRentalsModal(state);
   };
 
   const setParentDeleteRentalsModal = (state, status, alert) => {
@@ -50,6 +47,15 @@ const CardRentals = ({ data, color }) => {
         setAllData(res.data.data);
         console.log(res.data.data);
       });
+  };
+
+  const setParentDetailRentalsModal = (state, status, alert) => {
+    setShowDetailRentalsModal(state);
+    if (status) {
+      refreshData();
+      setAlert(alert);
+      setShowAlert(true);
+    }
   };
 
   useEffect(() => {
