@@ -64,11 +64,11 @@ apiRoute.post(async (req, res) => {
           id: id,
         },
       });
-      fs.unlink("public/img/products/" + getData.image, (err) => {
-        if (err) {
-          console.log("Failed to delete image");
-        }
-      });
+      // fs.unlink("public/img/products/" + getData.image, (err) => {
+      //   if (err) {
+      //     console.log("Failed to delete image");
+      //   }
+      // });
 
       const update = await db.products.update({
         where: {

@@ -16,7 +16,7 @@ const ModalDetailHistories = ({
   const getDataRentalDetails = async () => {
     try {
       await axios
-        .post("http://localhost:3000/api/admin/histories/getRentalDetails", {
+        .post("/api/admin/histories/getRentalDetails", {
           id: data.id,
         })
         .then((res) => {
@@ -167,7 +167,6 @@ const ModalDetailHistories = ({
                       >
                         Jumlah
                       </th>
-
                       <th
                         className={
                           "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left "
@@ -175,7 +174,13 @@ const ModalDetailHistories = ({
                       >
                         Sub-total harga
                       </th>
-
+                      <th
+                        className={
+                          "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left "
+                        }
+                      >
+                        Catatan
+                      </th>
                       <th
                         className={
                           "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left "
@@ -183,7 +188,6 @@ const ModalDetailHistories = ({
                       >
                         Foto Barang
                       </th>
-
                       <th
                         className={
                           "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left "
@@ -212,6 +216,9 @@ const ModalDetailHistories = ({
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                               Rp.{val.price}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              {val.note}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                               <img

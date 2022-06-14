@@ -38,7 +38,7 @@ export default function Index() {
                 >
                   {/* Pesan Sekarang */}
                 </a>
-                <Link href="http://localhost:3000/landing">
+                <Link href="/landing">
                   <a className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg">
                     Pesan Sekarang
                   </a>

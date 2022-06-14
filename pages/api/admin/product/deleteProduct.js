@@ -9,9 +9,9 @@ const handler = async (req, res) => {
       id: id,
     },
   });
-  fs.unlink("public/img/products/" + getData.image, (err) => {
-    if (err) console.log("Delete file error");
-  });
+  // fs.unlink("public/img/products/" + getData.image, (err) => {
+  //   if (err) console.log("Delete file error");
+  // });
   const del = await db.products.delete({
     where: {
       id: id,

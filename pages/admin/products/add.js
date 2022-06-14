@@ -117,11 +117,9 @@ const products = ({ data }) => {
 
 const getStaticProps = async () => {
   let data;
-  await axios
-    .get("http://localhost:3000/api/admin/product/getAllProducts", {})
-    .then((res) => {
-      data = res.data.data;
-    });
+  await axios.get("/api/admin/product/getAllProducts", {}).then((res) => {
+    data = res.data.data;
+  });
   return {
     props: {
       data: data,

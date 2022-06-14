@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
+
+//component
+import ModalCreateRentalDetail from "components/Modals/ModalCreateRentalDetail";
 
 const ModalDetailRentals = ({
   data,
   setParentDetailRentalsModal,
   sendDataToParent,
 }) => {
+  const router = useRouter();
+
   const [namaPemesan, setNamaPemesan] = useState(data.nama_pemesan);
   const [nomerTelepon, setNomerTelepon] = useState(data.nomer_telepon);
   const [note, setNote] = useState(data.note);
@@ -18,6 +24,16 @@ const ModalDetailRentals = ({
   const [saveLoading, setSaveLoading] = useState(false);
 
   const [dataRentalDetails, setData] = useState([]);
+
+  const setParentCreateRentalDetail = (state, status, alert) => {
+    setShowCreateRentalModal(state);
+    if (status) {
+      getDataRentalDetails();
+      setParentDetailRentalsModal(alert);
+      // setShowAlert(true);
+    }
+  };
+
   useEffect(() => {
     getDataRentalDetails();
 
@@ -27,11 +43,12 @@ const ModalDetailRentals = ({
         {}
       ).then((res) => {
         setRentalStatus(res.data.dataStatus);
-        console.log(res.data.dataStatus);
+        // console.log(res.data.dataStatus);
       });
     };
     getRentalStatus();
   }, []);
+
   const getDataRentalDetails = async () => {
     try {
       await axios
@@ -40,7 +57,7 @@ const ModalDetailRentals = ({
         })
         .then((res) => {
           setData(res.data.dataRentalDetails);
-          console.log(res.data.dataRentalDetails);
+          // console.log(res.data.dataRentalDetails);
         });
     } catch (err) {
       console.log(err);
@@ -81,6 +98,10 @@ const ModalDetailRentals = ({
         setSaveLoading(false);
       });
   };
+
+  const [activeDataRental, setActiveDataRental] = useState([]);
+  const [showCreateRentalModal, setShowCreateRentalModal] = useState(false);
+
   return (
     <>
       <div className="justify-center items-center flex fixed inset-0 z-50 outline-none focus:outline-none">
@@ -101,25 +122,6 @@ const ModalDetailRentals = ({
                 </span>
               </button>
             </div>
-            {/*body*/}
-            {/* <div className="relative p-6 flex-auto">
-              <div className="grid grid-cols-1 my-1">
-                <div className="grid grid-cols-1 mb-3">
-                  <span>Nama Produk</span>
-                  <a className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150">
-                    {" "}
-                    awokawok
-                  </a>
-                </div>
-                <div className="grid grid-cols-1 mb-3">
-                  <span>Deskripsi</span>
-                  <textarea
-                    className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150 focus:ring-0 focus:border-x-transparent focus:border-t-transparent"
-                    rows="10"
-                  ></textarea>
-                </div>
-              </div>
-            </div> */}
             <div
               className={
                 "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded overflow-y-auto"
@@ -231,9 +233,20 @@ const ModalDetailRentals = ({
                         </td>
                       </tr>
                     </table>
-                    <h3 className={"font-semibold text-lg mt-4"}>
-                      Daftar Pesanan
-                    </h3>
+                    <hr className="mb-6 mt-12 border-t-4 " />
+                    <h3 className={"font-semibold text-lg"}>Daftar Pesanan</h3>
+                    <div className="text-right">
+                      <button
+                        className="bg-blueGray-500 text-white active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150 mb-6 "
+                        type="button"
+                        onClick={() => {
+                          setActiveDataRental(data);
+                          setShowCreateRentalModal(data);
+                        }}
+                      >
+                        <span> Tambah Pesanan</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -285,6 +298,13 @@ const ModalDetailRentals = ({
                       >
                         Sub-total harga
                       </th>
+                      <th
+                        className={
+                          "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left "
+                        }
+                      >
+                        Catatan
+                      </th>
 
                       <th
                         className={
@@ -324,8 +344,11 @@ const ModalDetailRentals = ({
                               Rp.{val.price}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              {val.note}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                               <img
-                                src={"/img/products/sample.jpg"}
+                                src={"/img/products/" + val.image}
                                 className="h-20 w-20 bg-white rounded-full border object-none object-scale-down"
                                 alt={data.product_name}
                               ></img>{" "}
@@ -362,6 +385,12 @@ const ModalDetailRentals = ({
         </div>
       </div>
       <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+      {showCreateRentalModal ? (
+        <ModalCreateRentalDetail
+          setParentCreateRentalDetail={setParentCreateRentalDetail}
+          data={activeDataRental}
+        />
+      ) : null}
     </>
   );
 };

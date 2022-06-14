@@ -26,12 +26,10 @@ const products = () => {
   }, []);
   const getData = async () => {
     try {
-      await axios
-        .get("http://localhost:3000/api/admin/product/getAllProducts", {})
-        .then((res) => {
-          setData(res.data.data);
-          console.log(res.data.data);
-        });
+      await axios.get("/api/admin/product/getAllProducts", {}).then((res) => {
+        setData(res.data.data);
+        console.log(res.data.data);
+      });
     } catch (err) {
       console.log(err);
       setData([]);

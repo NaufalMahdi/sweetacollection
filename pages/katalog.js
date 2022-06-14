@@ -18,11 +18,9 @@ export default function Landing() {
 
   const getData = async () => {
     try {
-      await axios
-        .get("http://localhost:3000/api/admin/product/getAllProducts", {})
-        .then((res) => {
-          setData(res.data.data);
-        });
+      await axios.get("/api/admin/product/getAllProducts", {}).then((res) => {
+        setData(res.data.data);
+      });
     } catch (err) {
       console.log(err);
       setData([]);
@@ -137,9 +135,7 @@ export default function Landing() {
                             sendEditModalData={sendEditModalData}
                             sendDeleteModalData={sendDeleteModalData}
                           />
-                          
                         </div>
-                        
                       ))
                     ) : (
                       <div className="mt-4 w-full text-center justify-center items-center">
@@ -149,9 +145,7 @@ export default function Landing() {
                   </div>
 
                   <div className="row property__gallery grid grid-cols-7 gap-10">
-                    <div className="col-lg-3 col-md-4 col-sm-6 mix women">
-                      
-                    </div>
+                    <div className="col-lg-3 col-md-4 col-sm-6 mix women"></div>
                   </div>
                 </div>
               </section>

@@ -8,7 +8,9 @@ import axios from "axios";
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 import ModalDetailRentals from "components/Modals/ModalDetailRentals";
-import ModalDeleteRentals from "components/Modals//ModalDeleteRentals";
+import ModalDeleteRentals from "components/Modals/ModalDeleteRentals";
+import ModalCreateRentals from "components/Modals/ModalCreateRentalDetail";
+
 import Alert from "components/Alerts/Alert";
 // import Pagination from "components/Pagination/Pagination";
 
@@ -21,12 +23,10 @@ const CardRentals = ({ data, color }) => {
   });
   const router = useRouter();
 
-  const [showDetailRentalsModal, setShowDetailRentalsModal] = useState(false);
-  // const [showEditModal, setShowEditModal] = useState(false);
-
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [activeData, setActiveData] = useState([]);
-  const [data, setAllData] = useState([]);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+
+  const [allData, setAllData] = useState([]);
   const setParentShowAlert = (state) => {
     setShowAlert(state);
   };
@@ -39,6 +39,14 @@ const CardRentals = ({ data, color }) => {
       setShowAlert(alert);
     }
   };
+  const setParentCreateRentalsModal = (state, status, alert) => {
+    setShowCreateModal(state);
+    if (status) {
+      refreshData();
+      setAlert(alert);
+      setShowAlert(true);
+    }
+  };
 
   const refreshData = async () => {
     await axios
@@ -49,6 +57,12 @@ const CardRentals = ({ data, color }) => {
       });
   };
 
+  useEffect(() => {
+    refreshData();
+  }, []);
+
+  const [activeData, setActiveData] = useState([]);
+  const [showDetailRentalsModal, setShowDetailRentalsModal] = useState(false);
   const setParentDetailRentalsModal = (state, status, alert) => {
     setShowDetailRentalsModal(state);
     if (status) {
@@ -58,9 +72,6 @@ const CardRentals = ({ data, color }) => {
     }
   };
 
-  useEffect(() => {
-    refreshData();
-  }, []);
   return (
     <>
       <button
@@ -205,8 +216,8 @@ const CardRentals = ({ data, color }) => {
               </tr>
             </thead>
             <tbody>
-              {data.length > 0
-                ? data.map((val, index) => (
+              {allData.length > 0
+                ? allData.map((val, index) => (
                     <tr key={val.id}>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-wrap p-4">
                         {++index}
@@ -272,6 +283,11 @@ const CardRentals = ({ data, color }) => {
         <ModalDeleteRentals
           setParentDeleteRentalsModal={setParentDeleteRentalsModal}
           data={activeData}
+        />
+      ) : null}
+      {showCreateModal ? (
+        <ModalCreateRentals
+          setParentCreateModal={setParentCreateRentalsModal}
         />
       ) : null}
     </>

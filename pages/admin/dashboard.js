@@ -26,7 +26,7 @@ export default function Dashboard() {
   const getData = async () => {
     try {
       await axios
-        .get("http://localhost:3000/api/admin/dashboard/getRentalsStatus", {})
+        .get("/api/admin/dashboard/getRentalsStatus", {})
         .then((res) => {
           setData(res.data);
           setDataRentals(res.data.dataRentals);

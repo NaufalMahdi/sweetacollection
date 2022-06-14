@@ -12,7 +12,7 @@ const detail = () => {
   const getData = async () => {
     let a;
     await axios
-      .get("http://localhost:3000/api/admin/product/getProductById", {
+      .get("/api/admin/product/getProductById", {
         id: id,
       })
       .then((res) => {
