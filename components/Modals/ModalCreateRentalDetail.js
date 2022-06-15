@@ -5,6 +5,7 @@ const ModalCreateRentalDetail = ({
   data,
   setParentCreateRentalDetail,
   sendDataToParent,
+  updateData,
 }) => {
   const [dataProducts, setDataProducts] = useState([]);
   const [productsId, setProductsId] = useState("");
@@ -31,7 +32,6 @@ const ModalCreateRentalDetail = ({
     // console.log(typeof note);
 
     // console.log(dataProducts);
-
     await axios
       .post("/api/admin/rentals/createRentalDetail", {
         id_rental: data.id,
@@ -40,7 +40,7 @@ const ModalCreateRentalDetail = ({
         note: note,
       })
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
 
         if (res.status == 200) {
           setParentCreateRentalDetail(false, true, {
@@ -101,7 +101,7 @@ const ModalCreateRentalDetail = ({
                   </select>
                 </div>
                 <div className="grid grid-cols-1 mb-3">
-                  <span>Amount</span>
+                  <span>Masukkan Jumlah Produk</span>
                   <input
                     type={"number"}
                     className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 //component
 import ModalCreateRentalDetail from "components/Modals/ModalCreateRentalDetail";
+import ModalDeleteRentalDetail from "components/Modals/ModalDeleteRentalDetail";
 
 const ModalDetailRentals = ({
   data,
@@ -25,18 +26,37 @@ const ModalDetailRentals = ({
 
   const [dataRentalDetails, setData] = useState([]);
 
-  const setParentCreateRentalDetail = (state, status, alert) => {
+  const [activeDataRental, setActiveDataRental] = useState([]);
+  const [showCreateRentalModal, setShowCreateRentalModal] = useState(false);
+  const [showDeleteRentalDetail, setShowDeleteRentalDetail] = useState(false);
+
+  //Modal Create Rental Detail
+  const setParentCreateRentalDetail = (state, status, rentalDetail, alert) => {
     setShowCreateRentalModal(state);
     if (status) {
       getDataRentalDetails();
-      setParentDetailRentalsModal(alert);
+      setParentDetailRentalsModal(true, true, {});
+
+      // setParentDetailRentalsModal(alert);
       // setShowAlert(true);
+      // if (rentalDetail) {
+      //   setParentDetailRentalsModal(false, true, {});
+      // }
+    }
+  };
+
+  //Modal Delete Rental Detail
+  const setParentDeleteRentalDetail = (state, status, alert) => {
+    setShowDeleteRentalDetail(state);
+    if (status) {
+      getDataRentalDetails();
+      // setAlert(alert);
+      // setShowAlert(alert);
     }
   };
 
   useEffect(() => {
     getDataRentalDetails();
-
     const getRentalStatus = async () => {
       await axios(
         "http://localhost:3000/api/admin/rentals/getAllRentalsStatus2",
@@ -66,41 +86,49 @@ const ModalDetailRentals = ({
   };
 
   const updateData = async () => {
-    setSaveLoading(true);
-    await axios
-      .post("/api/admin/rentals/updateRentals", {
-        rental: {
-          id: data.id,
-          nama_pemesan: namaPemesan,
-          nomer_telepon: parseInt(nomerTelepon),
-          note: note,
-          datetime: dateTime,
-          deadline: deadline,
-          total_price: parseInt(totalPrice),
-          id_status: parseInt(rentalStatusid),
-        },
-      })
-      .then((res) => {
-        if (res.status == 200) {
-          setParentDetailRentalsModal(false, true, {
-            type: "success",
-            msg_capitalize: "Berhasil!",
-            msg: "Data berhasil diubah.",
-          });
-        } else {
-          setParentDetailRentalsModal(false, false, {
-            type: "error",
-            msg_capitalize: "Gagal!",
-            msg: "Data gagal diubah.",
-          });
-        }
-        // console.log(res.data);
-        setSaveLoading(false);
-      });
+    if (
+      namaPemesan.trim() !== "" &&
+      // nomerTelepon.length > 0 &&
+      note.trim() !== "" &&
+      // dateTime.trim() !== "" &&
+      // deadLine.trim() !== "" &&
+      rentalStatusid.length > 0
+    ) {
+      setSaveLoading(true);
+      await axios
+        .post("/api/admin/rentals/updateRentals", {
+          rental: {
+            id: data.id,
+            nama_pemesan: namaPemesan,
+            nomer_telepon: parseInt(nomerTelepon),
+            note: note,
+            datetime: dateTime,
+            deadline: deadline,
+            total_price: parseInt(totalPrice),
+            id_status: parseInt(rentalStatusid),
+          },
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            setParentDetailRentalsModal(false, true, {
+              type: "success",
+              msg_capitalize: "Berhasil!",
+              msg: "Data berhasil diubah.",
+            });
+          } else {
+            setParentDetailRentalsModal(false, false, {
+              type: "error",
+              msg_capitalize: "Gagal!",
+              msg: "Data gagal diubah.",
+            });
+          }
+          // console.log(res.data);
+          setSaveLoading(false);
+        });
+    } else {
+      console.log("err");
+    }
   };
-
-  const [activeDataRental, setActiveDataRental] = useState([]);
-  const [showCreateRentalModal, setShowCreateRentalModal] = useState(false);
 
   return (
     <>
@@ -203,12 +231,12 @@ const ModalDetailRentals = ({
                           Total Harga
                         </td>
                         <td className="px-6 align-middle text-xs whitespace-nowrap p-4 border font-semibold">
-                          Rp.
-                          <input
+                          Rp.{data.total_price}
+                          {/* <a
                             className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
                             defaultValue={data.total_price}
                             onChange={(e) => setTotalPrice(e.target.value)}
-                          ></input>
+                          ></a> */}
                         </td>
                       </tr>
                       <tr>
@@ -353,6 +381,16 @@ const ModalDetailRentals = ({
                                 alt={data.product_name}
                               ></img>{" "}
                             </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              <button
+                                onClick={() => {
+                                  setActiveDataRental(val);
+                                  setParentDeleteRentalDetail(true);
+                                }}
+                              >
+                                <i className="fa-solid fa-trash-can text-red-600"></i>
+                              </button>
+                            </td>
                           </tr>
                         ))
                       : null}
@@ -365,10 +403,10 @@ const ModalDetailRentals = ({
               <button
                 className="text-blueGray-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 onClick={() => {
-                  setParentDetailRentalsModal(false, false, {});
+                  setParentDetailRentalsModal(false, true, {});
                 }}
               >
-                Close
+                Kembali
               </button>
               <button
                 className="text-white bg-blueGray-500 active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -388,6 +426,12 @@ const ModalDetailRentals = ({
       {showCreateRentalModal ? (
         <ModalCreateRentalDetail
           setParentCreateRentalDetail={setParentCreateRentalDetail}
+          data={activeDataRental}
+        />
+      ) : null}
+      {showDeleteRentalDetail ? (
+        <ModalDeleteRentalDetail
+          setParentDeleteRentalDetail={setParentDeleteRentalDetail}
           data={activeDataRental}
         />
       ) : null}

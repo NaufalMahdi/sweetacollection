@@ -37,15 +37,9 @@ const histories = () => {
     <>
       <div className="relative bg-transparent pt-20 mx-5">
         <div className="mt-10 h-screen">
-          {data.length > 0 ? (
-            <div className="w-full mb-12 px-4">
-              <CardRentals data={data} />
-            </div>
-          ) : (
-            <div className="mt-4 w-full text-center justify-center items-center">
-              Loading..
-            </div>
-          )}
+          <div className="w-full mb-12 px-4">
+            <CardRentals data={data} />
+          </div>
         </div>
       </div>
     </>

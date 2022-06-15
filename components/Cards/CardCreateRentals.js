@@ -23,13 +23,14 @@ function CardCreateRentals(color) {
     };
     getRentalStatus();
   }, []);
+
   const submit = async () => {
     if (
       dateTime.trim() !== "" &&
       deadLine.trim() !== "" &&
       note.trim() !== "" &&
       namaPemesan.trim() !== "" &&
-      totalPrice.length > 0 &&
+      // totalPrice.length > 0 &&
       rentalStatusid.length > 0 &&
       nomerTelepon.length > 0
     ) {
@@ -43,7 +44,8 @@ function CardCreateRentals(color) {
               deadline: deadLine,
               note: note,
               nama_pemesan: namaPemesan,
-              total_price: parseInt(totalPrice),
+              total_price: 0,
+              // total_price: parseInt(totalPrice),
               nomer_telepon: parseInt(nomerTelepon),
               id_status: parseInt(rentalStatusid),
             },
@@ -103,6 +105,7 @@ function CardCreateRentals(color) {
               <div className="grid grid-cols-1 mb-3">
                 <span>Nomor Telepon</span>
                 <input
+                  type={"number"}
                   onChange={(e) => {
                     setNomerTelepon(e.target.value);
                   }}
@@ -143,7 +146,7 @@ function CardCreateRentals(color) {
                   className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
                 ></input>
               </div>
-              <div className="grid grid-cols-1 mb-3">
+              {/* <div className="grid grid-cols-1 mb-3">
                 <span>Total Harga</span>
                 <input
                   onChange={(e) => {
@@ -152,7 +155,7 @@ function CardCreateRentals(color) {
                   defaultValue={""}
                   className="w-full mt-1 p-2 outline-none border-b-2 border-blueGray-100 transition focus:border-blueGray-500 focus:delay-150"
                 ></input>
-              </div>
+              </div> */}
 
               <div className="grid grid-cols-1 mb-3">
                 <span>Status Pesanan</span>

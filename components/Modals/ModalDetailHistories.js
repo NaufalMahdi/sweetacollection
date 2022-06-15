@@ -222,7 +222,7 @@ const ModalDetailHistories = ({
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                               <img
-                                src={"/img/products/sample.jpg"}
+                                src={"/img/products/" + val.image}
                                 className="h-20 w-20 bg-white rounded-full border object-none object-scale-down"
                                 alt={data.product_name}
                               ></img>{" "}

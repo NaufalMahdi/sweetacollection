@@ -27,8 +27,32 @@ const handler = async (req, res) => {
         note: note,
       },
     });
+
+    //total harga
+    const rental_details = await db.rental_details.findMany({
+      where: {
+        id_rental: id_rental,
+      },
+    });
+
+    let HitungTotalHarga = 0;
+    for (let i = 0; i < rental_details.length; i++) {
+      HitungTotalHarga =
+        HitungTotalHarga + rental_details[i].price * rental_details[i].amount;
+    }
+
+    const updateTotalHarga = await db.rentals.update({
+      data: {
+        total_price: HitungTotalHarga,
+      },
+      where: {
+        id: id_rental,
+      },
+    });
+
+    //res
     if (createDataRentalDetail) {
-      res.status(200).json({ msg: "success" });
+      res.status(200).json({ msg: "success", TotalHarga: HitungTotalHarga });
     } else {
       res.status(500).json({ msg: "error" });
     }

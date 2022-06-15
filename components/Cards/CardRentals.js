@@ -15,16 +15,22 @@ import Alert from "components/Alerts/Alert";
 // import Pagination from "components/Pagination/Pagination";
 
 const CardRentals = ({ data, color }) => {
+  const router = useRouter();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [activeData, setActiveData] = useState([]);
+  const [showDetailRentalsModal, setShowDetailRentalsModal] = useState(false);
+
+  useEffect(() => {
+    refreshData();
+  }, []);
+
   const [alert, setAlert] = useState({
     type: "success",
     msg_capitalize: "test",
     msg: "test",
   });
-  const router = useRouter();
-
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showCreateModal, setShowCreateModal] = useState(false);
 
   const [allData, setAllData] = useState([]);
   const setParentShowAlert = (state) => {
@@ -57,18 +63,12 @@ const CardRentals = ({ data, color }) => {
       });
   };
 
-  useEffect(() => {
-    refreshData();
-  }, []);
-
-  const [activeData, setActiveData] = useState([]);
-  const [showDetailRentalsModal, setShowDetailRentalsModal] = useState(false);
   const setParentDetailRentalsModal = (state, status, alert) => {
     setShowDetailRentalsModal(state);
     if (status) {
       refreshData();
-      setAlert(alert);
-      setShowAlert(true);
+      // setAlert(alert);
+      // setShowAlert(true);
     }
   };
 
