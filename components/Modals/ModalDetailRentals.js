@@ -58,10 +58,7 @@ const ModalDetailRentals = ({
   useEffect(() => {
     getDataRentalDetails();
     const getRentalStatus = async () => {
-      await axios(
-        "http://localhost:3000/api/admin/rentals/getAllRentalsStatus2",
-        {}
-      ).then((res) => {
+      await axios("/api/admin/rentals/getAllRentalsStatus2", {}).then((res) => {
         setRentalStatus(res.data.dataStatus);
         // console.log(res.data.dataStatus);
       });
@@ -72,7 +69,7 @@ const ModalDetailRentals = ({
   const getDataRentalDetails = async () => {
     try {
       await axios
-        .post("http://localhost:3000/api/admin/rentals/getRentalDetails", {
+        .post("/api/admin/rentals/getRentalDetails", {
           id: data.id,
         })
         .then((res) => {

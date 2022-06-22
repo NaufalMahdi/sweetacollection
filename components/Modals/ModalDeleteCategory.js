@@ -7,7 +7,7 @@ const ModalDeleteCategory = ({ setParentDeleteModal, data }) => {
     setDeleteLoading(true);
     try {
       await axios
-        .post("http://localhost:3000/api/admin/product/deleteCategory", {
+        .post("/api/admin/product/deleteCategory", {
           id: data.id,
         })
         .then((res) => {

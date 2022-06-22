@@ -11,7 +11,7 @@ const ModalDeleteProduct = ({
     setDeleteLoading(true);
     try {
       await axios
-        .post("http://localhost:3000/api/admin/product/deleteProduct", {
+        .post("/api/admin/product/deleteProduct", {
           id: data.id,
         })
         .then((res) => {

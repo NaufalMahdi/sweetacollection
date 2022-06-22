@@ -7,7 +7,7 @@ const ModalCreateCategory = ({ setParentCreateModal, sendDataToParent }) => {
   const createData = async () => {
     setSubmitLoading(true);
     await axios
-      .post("http://localhost:3000/api/admin/product/createCategory", {
+      .post("/api/admin/product/createCategory", {
         category_name: categoryName,
         description: description,
       })

@@ -9,7 +9,7 @@ const ModalEditCategory = ({ data, setParentEditModal, sendDataToParent }) => {
   const updateData = async () => {
     setSaveLoading(true);
     await axios
-      .post("http://localhost:3000/api/admin/product/updateCategory", {
+      .post("/api/admin/product/updateCategory", {
         id: data.id,
         category_name: categoryName,
         description: description,

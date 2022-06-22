@@ -7,7 +7,7 @@ const ModalDeleteRentals = ({ setParentDeleteRentalsModal, data }) => {
     setDeleteLoading(true);
     try {
       await axios
-        .post("http://localhost:3000/api/admin/rentals/deleteRental", {
+        .post("/api/admin/rentals/deleteRental", {
           id: data.id,
         })
         .then((res) => {

@@ -55,12 +55,10 @@ const CardRentals = ({ data, color }) => {
   };
 
   const refreshData = async () => {
-    await axios
-      .get("http://localhost:3000/api/admin/rentals/getAllRentals", {})
-      .then((res) => {
-        setAllData(res.data.data);
-        console.log(res.data.data);
-      });
+    await axios.get("/api/admin/rentals/getAllRentals", {}).then((res) => {
+      setAllData(res.data.data);
+      console.log(res.data.data);
+    });
   };
 
   const setParentDetailRentalsModal = (state, status, alert) => {

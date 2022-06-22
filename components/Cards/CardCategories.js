@@ -52,12 +52,10 @@ export default function CardCategories({ color }) {
   };
 
   const refreshData = async () => {
-    await axios
-      .get("http://localhost:3000/api/admin/product/getAllCategories", {})
-      .then((res) => {
-        setAllData(res.data.categories);
-        console.log(res.data);
-      });
+    await axios.get("/api/admin/product/getAllCategories", {}).then((res) => {
+      setAllData(res.data.categories);
+      console.log(res.data);
+    });
   };
 
   useEffect(() => {

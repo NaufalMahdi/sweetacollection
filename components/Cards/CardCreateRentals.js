@@ -14,10 +14,7 @@ function CardCreateRentals(color) {
 
   useEffect(() => {
     const getRentalStatus = async () => {
-      await axios(
-        "http://localhost:3000/api/admin/rentals/getAllRentalsStatus",
-        {}
-      ).then((res) => {
+      await axios("/api/admin/rentals/getAllRentalsStatus", {}).then((res) => {
         setRentalStatus(res.data.data);
       });
     };
@@ -38,7 +35,7 @@ function CardCreateRentals(color) {
 
       try {
         await axios
-          .post("http://localhost:3000/api/admin/rentals/createRentals", {
+          .post("/api/admin/rentals/createRentals", {
             rental: {
               datetime: dateTime,
               deadline: deadLine,

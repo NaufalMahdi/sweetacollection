@@ -13,12 +13,10 @@ const ModalCreateRentalDetail = ({
   const [note, setNote] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
   const getDataProducts = async () => {
-    await axios
-      .get("http://localhost:3000/api/admin/rentals/getDataProducts", {})
-      .then((res) => {
-        setDataProducts(res.data.dataProducts);
-        // console.log(res.data.dataProducts);
-      });
+    await axios.get("/api/admin/rentals/getDataProducts", {}).then((res) => {
+      setDataProducts(res.data.dataProducts);
+      // console.log(res.data.dataProducts);
+    });
   };
   useEffect(() => {
     getDataProducts();
