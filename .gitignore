@@ -30,7 +30,4 @@ yarn-error.log*
 
 # vercel
 .vercel
-pages/admin/histories/index.js
-pages/admin/rentals/index.js
-pages/api/admin/histories/getAllHistories.js
-pages/api/admin/rentals/getAllRentals.js
+
