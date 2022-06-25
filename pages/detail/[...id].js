@@ -59,7 +59,7 @@ const Product3 = () => {
 							lg:leading-6
 							leading-7
 							text-gray-800
-							mt-2
+							mt-2 
 						"
             >
               {data.product_name}
@@ -111,7 +111,7 @@ const Product3 = () => {
             </div>
           </div>
           <Link
-            href={`https://api.whatsapp.com/send?phone=6281357672112&text=Permisi%20apakah%20produk%20dengan%20id%0A*${data.id}*%20yang%20bernama%20*${data.product_name}*%20masih%20tersedia%3F`}
+            href={`https://api.whatsapp.com/send?phone=6281357672112&text=Permisi%2C%20saya%20pilih%20%3A%20*${data.product_name}*%20%7C%20Kategori%20*${data.product_category.category_name}*%20%7C%20%0AWarna%20*${data.color}*%20%7C%20%0AUkuran%20*${data.size}*`}
           >
             <button
               className="
