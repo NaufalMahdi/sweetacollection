@@ -1,10 +1,35 @@
 import IndexNavbar from "../../components/Navbars/IndexNavbar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
+import Link from "next/link";
 
 const Product3 = () => {
+  const router = useRouter();
+  const [id, setId] = useState(router.query.id);
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
+  const [data, setData] = useState({ product_category: { category_name: "" } });
 
+  useEffect(() => {
+    const getDetailProduct = async () => {
+      try {
+        await axios
+          .post("/api/admin/product/getProductById", {
+            id: id[0],
+          })
+          .then((res) => {
+            setData(res.data.data);
+          });
+      } catch (err) {
+        console.log(err);
+        setData({});
+      }
+    };
+    getDetailProduct();
+  }, []);
+  console.log(data);
+  // console.log(id);
   return (
     <>
       <IndexNavbar fixed />
@@ -13,14 +38,14 @@ const Product3 = () => {
           <img
             className="w-full"
             alt="foto tampak depan"
-            src="img/3.jpg"
+            src={"/img/products/" + data.image}
           />
         </div>
         <div className="md:hidden">
           <img
             className="w-full"
-            alt="img of a girl posing"
-            src="https://i.ibb.co/QMdWfzX/component-image-one.png"
+            alt={data.image}
+            src={"/img/products/" + data.image}
           />
         </div>
         <div className="xl:w-2/5 md:w-1/2 lg:ml-8 md:ml-6 md:mt-0 mt-6">
@@ -37,28 +62,32 @@ const Product3 = () => {
 							mt-2
 						"
             >
-              (Nama Baju atau pakaian yang dipilih)
+              {data.product_name}
             </h1>
           </div>
 
           <div className="py-4 border-b border-gray-200 flex items-center justify-between">
             <p className="text-base leading-4 text-gray-800">Kategori</p>
             <div className="flex items-center justify-center">
-              <p className="text-sm leading-none text-gray-600">Baju Bali</p>
+              <p className="text-sm leading-none text-gray-600">
+                {data.product_category.category_name}
+              </p>
             </div>
           </div>
 
           <div className="py-4 border-b border-gray-200 flex items-center justify-between">
             <p className="text-base leading-4 text-gray-800">Warna</p>
             <div className="flex items-center justify-center">
-              <p className="text-sm leading-none text-gray-600">Merah</p>
+              <p className="text-sm leading-none text-gray-600">{data.color}</p>
             </div>
           </div>
 
           <div className="py-4 border-b border-gray-200 flex items-center justify-between">
             <p className="text-base leading-4 text-gray-800">Ukuran</p>
             <div className="flex items-center justify-center">
-              <p className="text-sm leading-none text-gray-600 mr-3">XL</p>
+              <p className="text-sm leading-none text-gray-600 mr-3">
+                {data.size}
+              </p>
             </div>
           </div>
 
@@ -67,7 +96,9 @@ const Product3 = () => {
               Stok yang tersedia
             </p>
             <div className="flex items-center justify-center">
-              <p className="text-sm leading-none text-gray-600 mr-3">100</p>
+              <p className="text-sm leading-none text-gray-600 mr-3">
+                {data.total_stock}
+              </p>
             </div>
           </div>
 
@@ -75,12 +106,15 @@ const Product3 = () => {
             <p className="text-base leading-4 text-gray-800">Harga Sewa</p>
             <div className="flex items-center justify-center">
               <p className="text-sm leading-none text-gray-600 mr-3">
-                Rp.100.000
+                Rp.{data.price}
               </p>
             </div>
           </div>
-          <button
-            className="
+          <Link
+            href={`https://api.whatsapp.com/send?phone=6281357672112&text=Permisi%20apakah%20produk%20dengan%20id%0A*${data.id}*%20yang%20bernama%20*${data.product_name}*%20masih%20tersedia%3F`}
+          >
+            <button
+              className="
 						focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800
 						text-base
 						items-center
@@ -92,18 +126,17 @@ const Product3 = () => {
 						py-4
 						hover:bg-[#128C7E]
 					"
-          >
-            <i className="fa-brands fa-whatsapp mr-1 fa-lg"></i>
-            Hubungi Penyewa
-          </button>
+            >
+              <i className="fa-brands fa-whatsapp mr-1 fa-lg"></i>
+              Hubungi Penyewa
+            </button>
+          </Link>
+
           <div>
             <p className="xl:pr-48 text-base lg:leading-tight leading-normal text-gray-600 mt-7">
-              DESKRIPSI PRODUK It is a long established fact that a reader will
-              be distracted by thereadable content of a page when looking at its
-              layout. The point of usingLorem Ipsum is that it has a
-              more-or-less normal distribution of letters.
+              {data.description}
             </p>
-            <p className="text-base leading-4 mt-7 text-gray-600">
+            {/* <p className="text-base leading-4 mt-7 text-gray-600">
               Product Code: 8BN321AF2IF0NYA
             </p>
             <p className="text-base leading-4 mt-4 text-gray-600">
@@ -117,7 +150,7 @@ const Product3 = () => {
             </p>
             <p className="md:w-96 text-base leading-normal text-gray-600 mt-4">
               Composition: 100% calf leather, inside: 100% lamb leather
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
