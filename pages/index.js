@@ -105,13 +105,13 @@ export default function Landing() {
               </div>
             </div>
             <div className="w-full md:w-4/8 px-12 mr-auto ml-auto">
-              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-blueGray-700">
+              <div className="relative flex flex-col min-w-0 break-words  w-full mb-6 shadow-lg rounded-lg bg-white">
                 <img
                   alt="..."
                   src="https://pintarnesia.teknoinside.cyou/2020/04/tari-legong.jpg"
                   className="w-full align-middle rounded-t-lg"
                 />
-                <blockquote className="relative p-8 mb-4">
+                <blockquote className="relative p-8 mb-4 bg-white">
                   <svg
                     preserveAspectRatio="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +120,7 @@ export default function Landing() {
                   >
                     <polygon
                       points="-30,95 583,95 583,65"
-                      className="text-blueGray-700 fill-current"
+                      className="text-white fill-current"
                     ></polygon>
                   </svg>
 
